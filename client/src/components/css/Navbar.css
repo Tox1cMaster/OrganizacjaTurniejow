@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #1E2022;
-    padding: 15px 50px;
+    background: rgba(0,0,0,0.1);
+    padding: 10px 20px;
   }
   
   .left{
@@ -26,26 +26,20 @@
     padding: 0 20px;
     position: relative;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: 15px;
     font-weight: 600;
     color: #F5F5F5;
   }
   
-  .nav:after{
-    content: "";
-    position: absolute;
-    background-color: orange;
-    height: 3px;
-    width: 0;
-    left: 0;
-    bottom: -10px;
-    transition: 0.3s;
-  }
-  
   .nav:hover{
-    color: green;
+    color: orange;
   }
   
   .nav:hover:after{
     width: 100%;
+  }
+
+  img{
+    height: 40px;
+    margin-top: 2px;
   }

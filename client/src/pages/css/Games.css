@@ -1,0 +1,7 @@
+.containter{
+    display: flex;
+    gap: 60px;
+    margin-left: 20px;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
