@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('pictureprofile', 255)->nullable();
+            $table->string('SteamID', 255)->nullable();
+            $table->dateTime('LastActive');
             $table->rememberToken();
             $table->timestamps();
         });
