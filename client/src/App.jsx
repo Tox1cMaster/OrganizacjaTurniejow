@@ -7,8 +7,11 @@ import { Games } from "./pages/Games";
 import { Tournaments } from "./pages/Tournaments";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { CreateTournament } from './pages/CreateTournament';
 
 import { Route, Routes } from 'react-router-dom';
+import ProtectedRoutes from './ProtectedRoutes';
+import { Account } from './pages/Account';
 
 function App() {
   return (
@@ -20,6 +23,10 @@ function App() {
         <Route path="/tournaments" element={<Tournaments />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoutes/>}>
+          <Route path="/createTournament" element={<CreateTournament />} />
+          <Route path="/account" element={<Account />} />
+        </Route>
       </Routes>
     </div>
   )
