@@ -15,7 +15,7 @@ export const Navbar = () => {
                 </ul>
                 <ul className='right'>
                     <li><Link className="nav" to="/account">Moje konto</Link></li>
-                    <li><Link className="nav" to="/register">Zarejestruj się</Link></li>
+                    <li><Link className="nav" to="/register">Wyloguj się</Link></li>
                 </ul>
             </div>
         </nav>
