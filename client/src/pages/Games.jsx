@@ -26,82 +26,30 @@ const gamesData = [
 
 export const Games = () => {
   const imageSize = {
-    height: '150px',
+    margin: '0',
+    height: '200px',
   };
 
   const cardStyle = {
-    width: '30rem',
+    width: '25rem',
   };
   return (
-    <Row xs={1} md={3} className="g-4">
-    {gamesData.map((game, index) => (
-      <Col key={index}>
-        <Card style={cardStyle}>
-          <Card.Img variant="top" src={csgo} style={imageSize} />
-          <Card.Body>
-            <Card.Title>{game.title}</Card.Title>
-            <Card.Text>{game.description}</Card.Text>
-            <Button variant="dark">{game.buttonText}</Button>
-          </Card.Body>
-        </Card>
-      </Col>
-    ))}
-  </Row>
+    <div className="my-container">
+      <h1>Popularne gry</h1>
+    <Row xs={1} md={3} className="g-4 me-0 ps-0 ms-5 ps-5 mt-4">
+      {gamesData.map((game, index) => (
+        <Col key={index}>
+          <Card bg="secondary" style={cardStyle}>
+            <Card.Img variant="top" src={csgo} style={imageSize} />
+            <Card.Body>
+              <Card.Title>{game.title}</Card.Title>
+              <Card.Text>{game.description}</Card.Text>
+              <Button variant="dark">{game.buttonText}</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+    </div>
   )
 }
-
-      /* /* <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={csgo} style={imageSize}/>
-        <Card.Body>
-          <Card.Title>League of Legends</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="dark">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={csgo} style={imageSize}/>
-        <Card.Body>
-          <Card.Title>EA FC 24</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="dark">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={csgo} style={imageSize}/>
-        <Card.Body>
-          <Card.Title>World of Warcraft</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="dark">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={csgo} style={imageSize}/>
-        <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="dark">Go somewhere</Button>
-        </Card.Body>
-      </Card>
-      <Card style={{ width: '20rem' }}>
-        <Card.Img variant="top" src={csgo} style={imageSize}/>
-        <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-          <Button variant="dark">Go somewhere</Button>
-        </Card.Body>
-      </Card>  */

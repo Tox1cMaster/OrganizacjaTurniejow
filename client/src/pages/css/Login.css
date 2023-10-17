@@ -1,3 +1,8 @@
+body {
+    height: 100vh;
+    background-color: #52616B;
+}
+
 .container{
     display: flex;
     flex-direction: column;
