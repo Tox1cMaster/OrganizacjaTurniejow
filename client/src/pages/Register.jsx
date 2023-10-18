@@ -82,7 +82,7 @@ export const Register = () => {
     try {
       const usernameResponse = await http.get(`/check-username?username=${form.name}`);
       if (usernameResponse.data.exists) {
-        setError('Nazwa użytkownika jest już zajęta.');
+        toast.error("Nazwa użytkownika jest zajęta");
         return;
       }
   

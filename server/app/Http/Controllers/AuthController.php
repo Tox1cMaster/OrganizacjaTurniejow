@@ -19,6 +19,12 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login','register', 'checkUsername']]);
     }
 
+    public function users()
+    {
+        $users = User::all();
+        return response()->json($users);
+    }
+
     /**
      * Get a JWT via given credentials.
      *
@@ -35,11 +41,23 @@ class AuthController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        $credentials = request(['name','email', 'password']);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+        ]);
+
+        $credentials = $request->only('name', 'email', 'password');
         $credentials['password'] = bcrypt($credentials['password']);
-        User::create($credentials);
+        try {
+            User::create($credentials);
+        } catch (\Exception $e) {
+            throw ValidationException::withMessages([
+                'email' => 'Podany adres e-mail jest już zajęty.',
+            ]);
+        }
 
         return response()->json('success');
     }
