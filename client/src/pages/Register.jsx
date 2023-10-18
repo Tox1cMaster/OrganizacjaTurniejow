@@ -2,6 +2,7 @@ import React from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import AuthUser from '../components/AuthUser';
 
 
 import "./css/Register.css"
@@ -24,10 +25,10 @@ const ErrorMessage = ({ text }) => {
 }
 
 const validate = form => {
-  if(!form.userName){
+  if(!form.name){
     return toast.error("Nazwa użytkownika jest wymagana");
   }
-  else if(form.userName.length < 3) {
+  else if(form.name.length < 3) {
     return toast.error("Login jest za krótki");
   }
 
@@ -54,9 +55,10 @@ const validate = form => {
 
 export const Register = () => {
   const navigate = useNavigate();
+  const { http, setToken } = AuthUser();
   const [error, setError] = React.useState(null);
   const [form, setForm] = React.useState({
-    userName: '',
+    name: '',
     email: '',
     password: '',
     passwordRep: ''
@@ -68,17 +70,32 @@ export const Register = () => {
       [e.target.name]: e.target.value
     })
   }
-
-  const handleSubmit = async(e) => {
-    e.preventDefault()
-    const errorMsg = validate(form)
-    if(errorMsg){
-      setError(errorMsg)
-      console.log('blad')
-      return
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errorMsg = validate(form);
+  
+    if (errorMsg) {
+      setError(errorMsg);
+      return;
     }
-    console.log('form submitted', form)
-  }
+  
+    try {
+      const usernameResponse = await http.get(`/check-username?username=${form.name}`);
+      if (usernameResponse.data.exists) {
+        setError('Nazwa użytkownika jest już zajęta.');
+        return;
+      }
+  
+      const registerResponse = await http.post('/register', form);
+      navigate('/login');
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.email) {
+        setError(error.response.data.email[0]);
+      } else {
+        setError('Wystąpił błąd rejestracji.');
+      }
+    }
+  };
 
   const divStyle = {
     background: 'grey',
@@ -93,7 +110,7 @@ export const Register = () => {
       </div>
       <div className="inputs">
         <div className="input">
-          <input type="text" name="userName" onChange={updateField} placeholder="Podaj login" />
+          <input type="text" name="name" onChange={updateField} placeholder="Podaj login" />
         </div>
         <div className="input">
           <input type="email" name="email" onChange={updateField} placeholder='Podaj swój email'/>

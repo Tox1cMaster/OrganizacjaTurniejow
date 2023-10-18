@@ -1,14 +1,10 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom';
-
-const useAuth = () => {
-    const user = {loogedIn: false}
-    return user && user.loogedIn;
-}
+import AuthUser from './components/AuthUser';
 
 const ProtectedRoutes = () => {
-    const isAuth = useAuth();
-  return (isAuth ? <Outlet /> : <Navigate to="/" />
+  const {getToken} = AuthUser();
+  return (getToken() ? <Outlet /> : <Navigate to="/" />
   )
 }
 

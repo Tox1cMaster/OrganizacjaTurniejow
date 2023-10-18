@@ -1,10 +1,17 @@
 import React from "react";
-import "./css/NavbarAuth.css";
+import "./css/Navbar.css";
 import logo from "../assets/logo.png";
+import AuthUser from './AuthUser';
 
 import {Link} from "react-router-dom";
 
-export const Navbar = () => {
+export const NavbarAuth = () => {
+    const {logout, token} = AuthUser();
+    const logoutUser = () => {
+        if(token != undefined){
+            logout();
+        }
+    }
     return(
         <nav>
             <div className='nav_bar'>
@@ -15,7 +22,7 @@ export const Navbar = () => {
                 </ul>
                 <ul className='right'>
                     <li><Link className="nav" to="/account">Moje konto</Link></li>
-                    <li><Link className="nav" to="/register">Wyloguj się</Link></li>
+                    <li><div className="nav" onClick={logoutUser}>Wyloguj się</div></li>
                 </ul>
             </div>
         </nav>

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('pictureprofile', 255)->nullable();
             $table->string('SteamID', 255)->nullable();
-            $table->dateTime('LastActive');
+            $table->dateTime('LastActive')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
