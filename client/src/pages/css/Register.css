@@ -1,9 +1,13 @@
+body {
+    height: 100vh;
+    background-color: #52616B;
+}
+
 .container{
     display: flex;
     flex-direction: column;
     margin: auto;
     margin-top: 50px;
-    background-color: #fff;
     padding-bottom: 30px;
     background: transparent;
 }
