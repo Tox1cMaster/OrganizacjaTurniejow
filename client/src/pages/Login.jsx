@@ -4,6 +4,7 @@ import React from 'react'
 import AuthUser from '../components/AuthUser';
 
 import "./css/Login.css"
+import { Link } from "react-router-dom";
 
 export const Login = () => {
 
@@ -38,22 +39,75 @@ const submitForm = () => {
 
   return (
     <div className="container">
-      <div className="header">
-        <div className="text">Zaloguj się</div>
-        <div className="underline"></div>
-      </div>
-      <div className="inputs">
-        <div className="input">
-          <input type="text" placeholder="E-Mail" onChange={e=>setEmail(e.target.value)} id="email"/>
+    <div class="shadow-2xl rounded style='background-color: #394f62;'">
+    <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zaloguj się</h2>
+    </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6">
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text">
+          E-Mail
+        </label>
+        <div className="mt-2">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
         </div>
-        <div className="input">
-          <input type="password" placeholder='Hasło' onChange={e => setPassword(e.target.value)} id="pwd"/>
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between">
+          <label htmlFor="password" className="block text-sm font-medium leading-6 text">
+            Hasło
+          </label>
+          <div className="text-sm">
+            <a href="#" className="font-semibold text-orange-600 hover:text-orange-500">
+              Zapomniałeś hasła?
+            </a>
+          </div>
+        </div>
+        <div className="mt-2">
+          <input
+            id="pwd"
+            name="password"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
         </div>
       </div>
-      <div className="submit-container">
-      <div className="submit" style={divStyle}>Zarejestruj się</div>
-        <button type="button" onClick={submitForm} className="submit" style={divStyle}>Zaloguj sie</button>
+
+      <div>
+        <button
+          type="submit"
+          onClick={submitForm}
+          className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+        >
+          Sign in
+        </button>
       </div>
+
+      <p className="mt-10 text-center text-sm text">
+        Not a member?{' '}
+        <Link to="/register" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
+          Zarejestruj się
+        </Link>
+      </p>
+    </form>
+    </div>
+    </div>
+    <br></br>
+    </div>
       <ToastContainer
       position="bottom-right"
       autoClose={5000}

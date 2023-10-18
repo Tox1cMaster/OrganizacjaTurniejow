@@ -24,14 +24,13 @@ Route::post('login', [AuthController::class,'login']);
 Route::post('register', [AuthController::class,'register']);
 
 Route::get('check-username', [AuthController::class, 'checkUsername']);
-
-Route::get('/tournaments/{id}', 'TournamentsController@show');
-Route::post('/tournaments', 'TournamentsController@store')->middleware('auth:api');
-Route::put('/tournaments/{id}', 'TournamentsController@update')->middleware('auth:api');
-Route::patch('/tournaments/{id}/status', 'TournamentsController@changeStatus')->middleware('auth:api');
-Route::delete('/tournaments/{id}', 'TournamentsController@destroy')->middleware('auth:api');
+Route::get('/tournaments/{id}', [TournamentsController::class, 'show']);
 
 Route::group(['middleware'=>'api'],function(){
+    Route::post('/tournaments', [TournamentsController::class,'store']);
+    Route::put('/tournaments/{id}', [TournamentsController::class, 'update']);
+    Route::delete('/tournaments/{id}', [TournamentsController::class, 'destroy']);
+    Route::patch('/tournaments/{id}/status', [TournamentsController::class, 'changeStatus']);
     Route::get('users', [AuthController::class, 'users']);
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', [AuthController::class,'refresh']);
