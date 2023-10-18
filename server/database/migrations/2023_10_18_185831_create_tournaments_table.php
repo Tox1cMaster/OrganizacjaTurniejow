@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tournaments', function (Blueprint $table) {
-            $table->primary('TournamentID');
+            $table->increments('TournamentID');
             $table->integer('id'); //relacja z Users i ID
             $table->integer('GameID'); //relacja z Games i gameid
             $table->integer('Privacy');
