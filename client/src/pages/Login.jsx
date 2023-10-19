@@ -39,13 +39,12 @@ const submitForm = () => {
 
   return (
     <div className="container">
-    <div class="shadow-2xl rounded style='background-color: #394f62;'">
-    <div class="flex min-h-full flex-col justify-center px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zaloguj się</h2>
+    <div className="shadow-2xl rounded style='background-color: #394f62;'">
+    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zaloguj się</h2>
     </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-6 text">
           E-Mail
@@ -76,7 +75,7 @@ const submitForm = () => {
         </div>
         <div className="mt-2">
           <input
-            id="pwd"
+            id="password"
             name="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -89,21 +88,19 @@ const submitForm = () => {
 
       <div>
         <button
-          type="submit"
           onClick={submitForm}
           className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
         >
-          Sign in
+          Zaloguj się
         </button>
       </div>
 
       <p className="mt-10 text-center text-sm text">
-        Not a member?{' '}
+        Nie masz konta? {' '}
         <Link to="/register" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
           Zarejestruj się
         </Link>
       </p>
-    </form>
     </div>
     </div>
     <br></br>
