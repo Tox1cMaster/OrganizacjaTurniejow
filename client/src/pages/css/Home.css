@@ -1,24 +1,27 @@
 .top-section {
-    height: 800px;
-    background-color: #52616B;
+    width: 100%;
+    background-image: url(../../assets/tlo.png); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
-    color: #F5F5F5;
+    color: #F6F6F6;
   }
-  
+
   .container {
     height: 450px;
   }
   
   .container > h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     margin-bottom: 30px;
   }
   
   .container > p {
-    font-size: 1.3rem;
+    font-size: 2rem;
   }
   
   .top-section-buttons {
@@ -36,7 +39,6 @@
     padding: 10px 30px 10px 30px;
     background-color: #F5F5F5;
   }
-  
   
   .login-button {
     margin-right: 30px;

@@ -9,10 +9,6 @@ export const Home = () => {
           <h1>Esports Challenger</h1>
           <p>Dołącz do milionów graczy na całym świecie</p>
           <p>Już dzisiaj stwórz własny turniej o którym marzysz</p>
-          <div className="top-section-buttons">
-            <Link className="login-button button" to="/">Zaloguj się</Link>
-            <Link className="register-button button" to="/">Zarejestruj się</Link>
-          </div>
         </div>
       </section>
   )

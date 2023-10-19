@@ -3,8 +3,6 @@ import {toast, ToastContainer} from 'react-toastify';
 import React from 'react'
 import AuthUser from '../components/AuthUser';
 import { useNavigate } from "react-router-dom";
-
-import "./css/Login.css"
 import { Link } from "react-router-dom";
 
 export const Login = () => {

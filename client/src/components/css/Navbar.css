@@ -1,8 +1,15 @@
+nav{
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
 .nav_bar{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(0,0,0,0.1);
+    background: #0F0F0F;
     padding: 10px 20px;
   }
   
@@ -42,4 +49,22 @@
   img{
     height: 40px;
     margin-top: 2px;
+  }
+
+  .right li ul{
+    display: none;
+    position: absolute;
+    background-color: #0F0F0F;
+    z-index: 1;
+    padding-top: 10px;
+  }
+  
+  .right li:hover ul{
+    display: block;
+  }
+
+  .dropdown li{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
   }
