@@ -34,8 +34,8 @@ export const Games = () => {
     width: '25rem',
   };
   return (
-    <div className="my-container">
-      <h1>Popularne gry</h1>
+    <>
+    <p class="h1 text-center mt-3 color">Popularne gry</p>
     <Row xs={1} md={3} className="g-4 me-0 ps-0 ms-5 ps-5 mt-4">
       {gamesData.map((game, index) => (
         <Col key={index}>
@@ -50,6 +50,6 @@ export const Games = () => {
         </Col>
       ))}
     </Row>
-    </div>
+    </>
   )
 }

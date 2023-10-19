@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AuthUser from '../components/AuthUser';
+
 
 
 import "./css/Register.css"
@@ -55,7 +56,7 @@ const validate = form => {
 
 export const Register = () => {
   const navigate = useNavigate();
-  const { http, setToken } = AuthUser();
+  const { http, setToken, getToken } = AuthUser();
   const [error, setError] = React.useState(null);
   const [form, setForm] = React.useState({
     name: '',
@@ -63,6 +64,12 @@ export const Register = () => {
     password: '',
     passwordRep: ''
   });
+
+  useEffect(()=> {
+    if (getToken()) {
+      navigate('/');
+    }
+  })
 
   const updateField = e => {
     setForm({
@@ -87,12 +94,13 @@ export const Register = () => {
       }
   
       const registerResponse = await http.post('/register', form);
+      toast.success("Pomyślnie zarejestrowano");
       navigate('/login');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {
         setError(error.response.data.email[0]);
       } else {
-        setError('Wystąpił błąd rejestracji.');
+        toast.error('Email jest już zajęty.');
       }
     }
   };
@@ -103,29 +111,112 @@ export const Register = () => {
   };
   return (
     <div className="container">
-      <div className="header">
-        <div className="text">Zarejestruj się</div>
-        {error && <ErrorMessage text={error} />}
-        <div className="underline"></div>
+    <div className="shadow-2xl rounded style='background-color: #394f62;'">
+    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zarejestruj się</h2>
+    </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium leading-6 text">
+          Nazwa użytkownika
+        </label>
+        <div className="mt-2">
+          <input
+            id="name"
+            name="name"
+            type="text"
+            onChange={updateField}
+            autoComplete="name"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
+        </div>
       </div>
-      <div className="inputs">
-        <div className="input">
-          <input type="text" name="name" onChange={updateField} placeholder="Podaj login" />
-        </div>
-        <div className="input">
-          <input type="email" name="email" onChange={updateField} placeholder='Podaj swój email'/>
-        </div>
-        <div className="input">
-          <input type="password" name="password" onChange={updateField} placeholder='Podaj hasło'/>
-        </div>
-        <div className="input">
-          <input type="password" name="passwordRep" onChange={updateField} placeholder='Powtórz hasło'/>
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text">
+          E-Mail
+        </label>
+        <div className="mt-2">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            onChange={updateField}
+            autoComplete="email"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
         </div>
       </div>
-      <div className="submit-container">
-      <div className="submit " style={divStyle}>Zaloguj się</div>
-      <div className="submit" onClick={handleSubmit}>Zarejestruj się</div>
+
+      <div>
+        <label htmlFor="password" className="block text-sm font-medium leading-6 text">
+          Hasło
+        </label>
+        <div className="mt-2">
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onChange={updateField}
+            autoComplete="current-password"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
+        </div>
       </div>
+
+      <div>
+        <div className="flex items-center justify-between">
+          <label htmlFor="passwordRep" className="block text-sm font-medium leading-6 text">
+            Powtórz hasło
+          </label>
+        </div>
+        <div className="mt-2">
+          <input
+            id="passwordRep"
+            name="passwordRep"
+            type="password"
+            onChange={updateField}
+            autoComplete="current-password"
+            required
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button
+          onClick={handleSubmit}
+          className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+        >
+          Zarejestruj się
+        </button>
+      </div>
+      <p className="mt-10 text-center text-sm text">
+        Masz już konto ? {' '}
+        <Link to="/login" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
+          Zaloguj się
+        </Link>
+      </p>
+    </div>
+    </div>
+    <br></br>
+    </div>
+    <ToastContainer
+      position="bottom-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      />
     </div>
   )
 }

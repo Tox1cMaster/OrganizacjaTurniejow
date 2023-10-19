@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {toast, ToastContainer} from 'react-toastify';
 import React from 'react'
 import AuthUser from '../components/AuthUser';
+import { useNavigate } from "react-router-dom";
 
 import "./css/Login.css"
 import { Link } from "react-router-dom";
 
 export const Login = () => {
 
-const {http,setToken} = AuthUser();
+const {http, setToken, getToken} = AuthUser();
 const [email,setEmail] = useState();
 const [password,setPassword] = useState();
+const navigate = useNavigate();
 
 const notifyloginok = () => {
   toast.success('Zalogowano pomyślnie!', { autoClose: 5000 });
@@ -20,8 +22,13 @@ const notifyloginerror = () => {
   toast.error('Niepoprawne dane logowania!', { autoClose: 5000 });
 };
 
+useEffect(()=> {
+  if (getToken()) {
+    navigate('/');
+  }
+})
+
 const submitForm = () => {
-  // api call
   http.post('/login', { email: email, password: password })
     .then((res) => {
       setToken(res.data.user, res.data.access_token);
