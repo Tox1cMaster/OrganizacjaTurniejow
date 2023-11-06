@@ -15,7 +15,9 @@ class Participant extends Model
     // Definicja relacji z modelem User
     public function user()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'UserID', 'id');
+    }
+    public function tournament() {
         return $this->belongsTo(Tournament::class, 'TournamentID');
     }
 }

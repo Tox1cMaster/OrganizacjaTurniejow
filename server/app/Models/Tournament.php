@@ -16,8 +16,12 @@ class Tournament extends Model
     // Definicja relacji z modelem User
     public function user()
     {
-        return $this->belongsTo('App\User', 'id');
-        return $this->hasMany('App\Games', 'GameID');
-        return $this->hasMany('App\Participant', 'TournamentID');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function game() {
+        return $this->hasMany(Game::class, 'GameID');
+    }
+    public function participant() {
+        return $this->hasMany(Participant::class, 'TournamentID');
     }
 }

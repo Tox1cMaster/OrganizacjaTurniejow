@@ -14,8 +14,8 @@ class Game extends Model
     protected $fillable = ['GameName'];
 
     // Definicja relacji z modelem User
-    public function user()
+    public function tournament()
     {
-        return $this->belongsTo('App\Tournaments', 'GameID');
+        return $this->belongsTo(Tournament::class, 'GameID');
     }
 }
