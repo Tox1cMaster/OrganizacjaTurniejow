@@ -14,3 +14,5 @@ composer update
 ```sh
 php artisan jwt:secret
 ```
+
+Jakies funkcje w react gdzie będą stosowane w wiecej niz 1 pliku proszę pisać w pliku /components/Functions.jsx
