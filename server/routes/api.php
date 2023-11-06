@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GamesController;
 use App\Http\Controllers\TournamentsController;
 
 /*
@@ -24,13 +25,16 @@ Route::post('login', [AuthController::class,'login']);
 Route::post('register', [AuthController::class,'register']);
 
 Route::get('check-username', [AuthController::class, 'checkUsername']);
-Route::get('/tournaments/{id}', [TournamentsController::class, 'show']);
+Route::get('tournaments', [TournamentsController::class, 'index']);
+Route::get('tournaments/{id}', [TournamentsController::class, 'show']);
 
 Route::group(['middleware'=>'api'],function(){
-    Route::post('/tournaments', [TournamentsController::class,'store']);
-    Route::put('/tournaments/{id}', [TournamentsController::class, 'update']);
-    Route::delete('/tournaments/{id}', [TournamentsController::class, 'destroy']);
-    Route::patch('/tournaments/{id}/status', [TournamentsController::class, 'changeStatus']);
+    Route::post('tournaments', [TournamentsController::class,'store']);
+    Route::put('tournaments/{id}', [TournamentsController::class, 'update']);
+    Route::delete('tournaments/{id}', [TournamentsController::class, 'destroy']);
+    Route::patch('tournaments/{id}/status', [TournamentsController::class, 'changeStatus']);
+    Route::post('games', [GamesController::class, 'store']);
+    Route::get('games', [GamesController::class, 'games']);
     Route::get('users', [AuthController::class, 'users']);
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', [AuthController::class,'refresh']);

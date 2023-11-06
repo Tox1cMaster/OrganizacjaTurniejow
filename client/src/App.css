@@ -5,6 +5,80 @@
   width: 100%; */
 }
 
+.box {
+  background-color: #0f0f0f;
+  color:#f5f5f5;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgb(255, 153, 0);
+  padding:20px;
+}
+
+.box h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+.box button {
+  background-color: rgb(255, 153, 0);
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.box form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.box input{
+  background-color: #fff;
+  color: #000;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.box select{
+  background-color: #fff;
+  color: #000;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.box li {
+  margin-top: 10px;
+  border-top: 1px solid #f5f5f5;
+}
+.box h3 {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  font-size: 20px;
+}
+
+
 /* .nav_bar{
   display: flex;
   align-items: center;

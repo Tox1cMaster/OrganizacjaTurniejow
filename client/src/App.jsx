@@ -6,12 +6,14 @@ import { NavbarAuth } from "./components/NavbarAuth";
 import { Home } from "./pages/Home";
 import { Games } from "./pages/Games";
 import { Tournaments } from "./pages/Tournaments";
+import { TournamentDetails } from './pages/TournamentDetails';
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { CreateTournament } from './pages/CreateTournament';
+import { CreateGame } from './pages/CreateGame';
 import AuthUser from './components/AuthUser';
 
-import { Route, Routes } from 'react-router-dom';
+import { Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
 import { Account } from './pages/Account';
 
@@ -25,10 +27,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/tournaments" element={<Tournaments />} />
+        <Route path="/tournament/:id" element={<TournamentDetails/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoutes/>}>
           <Route path="/createTournament" element={<CreateTournament />} />
+          <Route path="/createGame" element={<CreateGame />} />
           <Route path="/account" element={<Account />} />
         </Route>
       </Routes>

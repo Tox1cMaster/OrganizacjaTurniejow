@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('TournamentID');
-            $table->integer('id'); //relacja z Users i ID
+            $table->integer('user_id'); //relacja z Users i ID
+            $table->string('TournamentName',255);
             $table->integer('GameID'); //relacja z Games i gameid
-            $table->integer('Privacy');
-            $table->integer('TournamentFormat');
+            $table->string('Privacy', 50);
+            $table->string('TournamentFormat', 20);
             $table->integer('Status');
             $table->integer('Prizepool');
             $table->timestamps();

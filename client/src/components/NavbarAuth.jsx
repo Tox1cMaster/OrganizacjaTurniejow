@@ -24,7 +24,8 @@ export const NavbarAuth = () => {
                     <li><Link className="nav" to="/account">Moje konto</Link>
                         <ul className="dropdown">
                             <li><Link className="nav" to="/">Edytuj profil</Link></li>
-                            <li><Link className="nav" to="/">Stwórz turniej</Link></li>
+                            <li><Link className="nav" to="/createTournament">Stwórz turniej</Link></li>
+                            <li><Link className="nav" to="/createGame">Stwórz grę</Link></li>
                             <li><Link className="nav" to="/">Moje turnieje</Link></li>
                         </ul>
                     </li>
