@@ -18,5 +18,6 @@ class Tournament extends Model
     {
         return $this->belongsTo('App\User', 'id');
         return $this->hasMany('App\Games', 'GameID');
+        return $this->hasMany('App\Participant', 'TournamentID');
     }
 }

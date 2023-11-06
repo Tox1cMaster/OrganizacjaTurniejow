@@ -46,6 +46,7 @@ export default function AuthUser(){
         token,
         user,
         getToken,
+        getUser,
         http,
         logout
     }

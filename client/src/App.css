@@ -78,6 +78,19 @@
   font-size: 20px;
 }
 
+.participants {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+}
+
+.participants li {
+  margin-top: 5px;
+  border-top: none;
+}
+
 
 /* .nav_bar{
   display: flex;

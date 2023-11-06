@@ -64,6 +64,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function tournaments()
     {
-        return $this->hasMany('App\Tournament', 'user_id');
+        return $this->hasMany(Tournament::class, 'user_id');
+        return $this->hasMany(Paricipant::class, 'UserID');
     }
 }
