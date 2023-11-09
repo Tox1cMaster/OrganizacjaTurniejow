@@ -100,41 +100,62 @@ class TournamentsController extends Controller
 
     public function generateMatches($tournamentId)
     {
-
         $tournament = Tournament::findOrFail($tournamentId);
-        //Jeżeli status jest inny niż 0 nie wykonuj dalszych operacji  
         if($tournament->Status != 0) {
             return response()->json(['error' => 'Nie można wygenerować meczy dla turnieju, który nie jest w trakcie rejestracji'], 403);
         }
-        $participants = $tournament->participants()->get();
+        $participants = $tournament->participants()->get()->shuffle();
 
-        // Przemieszaj listę uczestników
-        $participants = $participants->shuffle();
+        $participantCount = $participants->count();
+        $nearestPowerOfTwo = pow(2, ceil(log($participantCount, 2)));
+        $matchesFirstRound = $nearestPowerOfTwo / 2;
+        $byesFirstRound = $nearestPowerOfTwo - $participantCount;
 
-        // Oblicz najbliższą potęgę 2 mniejszą lub równą liczbie uczestników
-        $nearestPowerOfTwo = pow(2, floor(log($participants->count(), 2)));
-
-        // Utwórz mecze dla najbliższej potęgi 2
         $matches = [];
-        for ($i = 0; $i < $nearestPowerOfTwo; $i += 2) {
+        $secondRoundParticipants = [];
+
+        // Tworzenie meczów dla pierwszej rundy
+        for ($i = 0; $i < $matchesFirstRound; $i++) {
             $match = new Matches();
             $match->TournamentID = $tournamentId;
-            $match->participant1_id = $participants[$i]->UserID;
             $match->round = 1;
-            $match->match_order = $i / 2 + 1; // Ustaw match_order
-            $match->prev_match_id = null; // Ustaw prev_match_id na null
-            $match->next_match_id = null; // Ustaw next_match_id na null
+            $match->match_order = $i + 1;
+
+            $match->participant1_id = $participants->shift()->UserID ?? null;
+            if ($byesFirstRound > 0) {
+                $secondRoundParticipants[] = $match->participant1_id;
+                $byesFirstRound--;
+            } else {
+                $match->participant2_id = $participants->isNotEmpty() ? $participants->shift()->UserID : null;
+                if ($match->participant2_id === null) {
+                    $secondRoundParticipants[] = $match->participant1_id;
+                }
+            }
             $match->save();
             $matches[] = $match;
         }
 
+        // Tworzenie meczów dla drugiej rundy
+        $secondRoundMatches = count($secondRoundParticipants) / 2;
+        for ($i = 0; $i < $secondRoundMatches; $i++) {
+            $match = new Matches();
+            $match->TournamentID = $tournamentId;
+            $match->round = 2;
+            $match->match_order = $i + 1;
+
+            $match->participant1_id = array_shift($secondRoundParticipants);
+            $match->participant2_id = array_shift($secondRoundParticipants);
+
             $match->save();
             $matches[] = $match;
         }
+
         // Zmień status turnieju na "w trakcie"
         $tournament->Status = '1';
         $tournament->save();
 
         return response()->json($matches, 200);
     }
+
+
 }

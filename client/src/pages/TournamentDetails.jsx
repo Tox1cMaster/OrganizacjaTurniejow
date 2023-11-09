@@ -40,6 +40,7 @@ export const TournamentDetails = () => {
       await axios.post(`http://localhost:8000/api/tournaments/${id}/generate`);
       fetchParticipants();
       fetchTournament();
+      fetchMatches();
     } catch (error) {
       console.error('Error deleting participant:', error);
     } 
@@ -104,7 +105,7 @@ export const TournamentDetails = () => {
         <h2>Mecze:</h2>
         <ul>
           {matches.map(match => (
-            <li key={match.match_order}>{match.match_order} - {match.participant1_nick} VS {match.participant2_nick}</li> 
+            <li key={match.round}>Runda:{match.round} Mecz:{match.match_order}- {match.participant1_nick} VS {match.participant2_nick}</li> 
           ))}
         </ul>
         </div>

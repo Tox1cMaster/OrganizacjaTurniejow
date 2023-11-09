@@ -28,13 +28,13 @@ class MatchesController extends Controller
         if ($match->participant1) {
             $match->participant1_nick = $match->participant1->name;
         } else {
-            $match->participant1_nick = 'Nieznany uczestnik';
+            $match->participant1_nick = 'BRAK';
         }
 
         if ($match->participant2) {
             $match->participant2_nick = $match->participant2->name;
         } else {
-            $match->participant2_nick = 'Nieznany uczestnik';
+            $match->participant2_nick = 'BRAK';
         }
 
         unset($match->participant1);
