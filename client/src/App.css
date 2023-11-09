@@ -30,8 +30,9 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  margin-top: 10px;
+  margin: 5px 5px;
   cursor: pointer;
+  
 }
 
 .box form{
@@ -76,6 +77,10 @@
   align-items: center;
   justify-content: left;
   font-size: 20px;
+}
+
+.box button.organizer {
+  background-color: rgb(87, 112, 255);
 }
 
 .participants {

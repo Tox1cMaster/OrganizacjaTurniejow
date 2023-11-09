@@ -21,7 +21,7 @@ class Tournament extends Model
     public function game() {
         return $this->hasMany(Game::class, 'GameID');
     }
-    public function participant() {
+    public function participants() {
         return $this->hasMany(Participant::class, 'TournamentID');
     }
 }

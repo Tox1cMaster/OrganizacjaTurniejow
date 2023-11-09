@@ -30,6 +30,7 @@ export const Tournaments = () => {
         {tournaments.map(tournament => (
           <li key={tournament.TournamentID}>
             <h3>{tournament.TournamentName}</h3>
+            <p>Organizator: {tournament.organizer}</p>
             <p>Gra: {getGameName(tournament.GameID)}</p>
             <p>Format: {tournament.TournamentFormat}</p>
             <p>Prywatność: {tournament.Privacy}</p>

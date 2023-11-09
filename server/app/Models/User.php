@@ -70,4 +70,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Participant::class, 'UserID', 'id');
     }
+    public function participant1()
+    {
+        return $this->hasMany(Matches::class, 'participant1_id', 'id');
+    }
+    public function participant2()
+    {
+        return $this->hasMany(Matches::class, 'participant2_id', 'id');
+    }
+
 }

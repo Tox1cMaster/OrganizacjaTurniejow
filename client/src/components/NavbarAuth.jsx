@@ -6,12 +6,13 @@ import AuthUser from './AuthUser';
 import {Link} from "react-router-dom";
 
 export const NavbarAuth = () => {
-    const {logout, token} = AuthUser();
+    const {logout, token, getUser} = AuthUser();
     const logoutUser = () => {
         if(token != undefined){
             logout();
         }
     }
+    const user = getUser();
     return(
         <nav>
             <div className='nav_bar'>
@@ -21,7 +22,7 @@ export const NavbarAuth = () => {
                     <li><Link className="nav" to="/games">Gry</Link></li>
                 </ul>
                 <ul className='right'>
-                    <li><Link className="nav" to="/account">Moje konto</Link>
+                    <li><Link className="nav" to="/account">Moje konto - {user.name}</Link>
                         <ul className="dropdown">
                             <li><Link className="nav" to="/">Edytuj profil</Link></li>
                             <li><Link className="nav" to="/createTournament">Stwórz turniej</Link></li>

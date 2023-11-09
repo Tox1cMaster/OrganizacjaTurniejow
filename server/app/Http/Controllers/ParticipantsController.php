@@ -27,28 +27,40 @@ class ParticipantsController extends Controller
     }
 
     
-        public function getParticipantsByTournament($id)
-        {
-            // Pobierz uczestników danego turnieju wraz z ich danymi użytkownika
-            $participants = Participant::where('TournamentID', $id)
-                                        ->with('user') // 'user' to nazwa relacji w modelu Participant
-                                        ->get();
+    public function getParticipantsByTournament($id)
+    {
+        // Pobierz uczestników danego turnieju wraz z ich danymi użytkownika
+        $participants = Participant::where('TournamentID', $id)
+                                    ->with('user') // 'user' to nazwa relacji w modelu Participant
+                                    ->get();
 
-            // Przetwórz uczestników, aby zawierali tylko potrzebne informacje
-            $participantsWithNicknames = $participants->map(function ($participant) {
-                // Sprawdź, czy relacja z użytkownikiem istnieje
-                if ($participant->user) {
-                    $participant->nickname = $participant->user->name; // Dodaj nick użytkownika do uczestnika
-                } else {
-                    $participant->nickname = 'Nieznany użytkownik'; // Alternatywna wartość, jeśli użytkownik nie istnieje
-                }
+        // Przetwórz uczestników, aby zawierali tylko potrzebne informacje
+        $participantsWithNicknames = $participants->map(function ($participant) {
+            // Sprawdź, czy relacja z użytkownikiem istnieje
+            if ($participant->user) {
+                $participant->nickname = $participant->user->name; // Dodaj nick użytkownika do uczestnika
+            } else {
+                $participant->nickname = 'Nieznany użytkownik'; // Alternatywna wartość, jeśli użytkownik nie istnieje
+            }
 
-                // Usuń niepotrzebne już pełne dane użytkownika z obiektu uczestnika
-                unset($participant->user);
+            // Usuń niepotrzebne już pełne dane użytkownika z obiektu uczestnika
+            unset($participant->user);
 
-                return $participant;
-            });
+            return $participant;
+        });
 
-            return response()->json($participantsWithNicknames);
+        return response()->json($participantsWithNicknames);
+    }
+
+    public function destroyByUser($userID)
+    {
+        $participant = Participant::where('UserID', $userID)->first();
+
+        if ($participant) {
+            $participant->delete();
+            return response()->json(null, 204);
         }
+
+        return response()->json(['error' => 'Uczestnik nie został znaleziony'], 404);
+    }
 }
