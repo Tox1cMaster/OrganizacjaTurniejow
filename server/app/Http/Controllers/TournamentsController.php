@@ -120,7 +120,6 @@ class TournamentsController extends Controller
             $match = new Matches();
             $match->TournamentID = $tournamentId;
             $match->participant1_id = $participants[$i]->UserID;
-            $match->participant2_id = $participants[$i + 1]->UserID;
             $match->round = 1;
             $match->match_order = $i / 2 + 1; // Ustaw match_order
             $match->prev_match_id = null; // Ustaw prev_match_id na null
@@ -129,21 +128,9 @@ class TournamentsController extends Controller
             $matches[] = $match;
         }
 
-        // Uczestnicy, którzy nie mają pary, automatycznie awansują do następnej rundy
-        for ($i = $nearestPowerOfTwo; $i < $participants->count(); $i++) {
-            $match = new Matches();
-            $match->TournamentID = $tournamentId;
-            $match->participant1_id = $participants[$i]->UserID;
-            $match->participant2_id = null;
-            $match->winner_id = $participants[$i]->UserID;
-            $match->round = 2;
-            $match->match_order = $i - $nearestPowerOfTwo + 1; // Ustaw match_order
-            $match->prev_match_id = null; // Ustaw prev_match_id na null
-            $match->next_match_id = null; // Ustaw next_match_id na null
             $match->save();
             $matches[] = $match;
         }
-
         // Zmień status turnieju na "w trakcie"
         $tournament->Status = '1';
         $tournament->save();
