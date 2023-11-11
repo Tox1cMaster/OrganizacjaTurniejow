@@ -33,7 +33,7 @@ function App() {
         <Route element={<ProtectedRoutes/>}>
           <Route path="/createTournament" element={<CreateTournament />} />
           <Route path="/createGame" element={<CreateGame />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account/*" element={<Account />} />
         </Route>
       </Routes>
     </div>
