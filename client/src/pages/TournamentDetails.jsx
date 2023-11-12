@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Functions from '../components/Functions';
-import { useParams } from 'react-router-dom'; // import useParams
+import { useParams, Link } from 'react-router-dom'; // import useParams
 import AuthUser from '../components/AuthUser';
 
 export const TournamentDetails = () => {
@@ -94,7 +94,7 @@ export const TournamentDetails = () => {
         <p>Pula nagród: {tournament.Prizepool}</p>
         <button onClick={fetchMatches}>Pokaż mecze</button>
         {isUserParticipant ? <button onClick={deleteParticipant(user.id)}>Zrezygnuj z udziału</button> : <button onClick={addParticipant}>Dołącz jako uczestnik</button>}
-        {isUserOrganizer ? <><button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button><button className='organizer'>Usuń</button><button className='organizer'>Edytuj</button></> : null}
+        {isUserOrganizer ? <><button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button><button className='organizer'>Usuń</button><Link to='/tournamentEdit' ><button className='organizer'>Edytuj</button></Link></> : null}
         <div className='participants'>
         <h2>Uczestnicy:</h2>
         <ul>

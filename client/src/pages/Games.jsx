@@ -14,7 +14,7 @@ const gamesData = [
   },
   {
     title: "League of Legends",
-    description: "Some quick example text for League of Legends.",
+    description: "Some quick.",
     buttonText: "Play League of Legends",
   },
   {
@@ -35,21 +35,23 @@ export const Games = () => {
   };
   return (
     <>
-    <p class="h1 text-center mt-3 color">Popularne gry</p>
-    <Row xs={1} md={3} className="g-4 me-0 ps-0 ms-5 ps-5 mt-4">
-      {gamesData.map((game, index) => (
-        <Col key={index}>
-          <Card bg="secondary" style={cardStyle}>
-            <Card.Img variant="top" src={csgo} style={imageSize} />
-            <Card.Body>
-              <Card.Title>{game.title}</Card.Title>
-              <Card.Text>{game.description}</Card.Text>
-              <Button variant="dark">{game.buttonText}</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <h1 className="text-center text-white text-3xl font-bold my-6">Popularne gry</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto max-w-6xl">
+        {gamesData.map((game, index) => (
+          <div key={index} className="max-w-sm bg-white rounded overflow-hidden shadow-lg">
+            <img className="w-full h-50 object-cover block m-0 p-0" src={csgo} alt="Game" />
+            <div className="px-6 py-4">
+              <div className="font-bold text-xl mb-2">{game.title}</div>
+              <p className="text-gray-700 text-base">{game.description}</p>
+            </div>
+            <div className="px-6 pt-2 pb-2">
+              <button className="bg-amber-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                {game.buttonText}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   )
 }

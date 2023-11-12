@@ -11,9 +11,10 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { CreateTournament } from './pages/CreateTournament';
 import { CreateGame } from './pages/CreateGame';
+import { TournamentEdit } from './pages/TournamentEdit';
 import AuthUser from './components/AuthUser';
 
-import { Router, Route, Routes } from 'react-router-dom';
+import { Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
 import { Account } from './pages/Account';
 
@@ -34,6 +35,8 @@ function App() {
           <Route path="/createTournament" element={<CreateTournament />} />
           <Route path="/createGame" element={<CreateGame />} />
           <Route path="/account/*" element={<Account />} />
+          <Route path="/account" element={<Navigate replace to="account/tournaments" />} />
+          <Route path="/tournamentEdit" element={<TournamentEdit />} />
         </Route>
       </Routes>
     </div>

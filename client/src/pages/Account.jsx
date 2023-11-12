@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import AuthUser from '../components/AuthUser';
 import '../app.css';
 import axios from 'axios';
@@ -240,7 +240,7 @@ export const Account = () => {
             <Link
               onClick={() => {
                 handleLinkClick('logout');
-                logoutUser(); // Zakładając, że logoutUser to Twoja funkcja wylogowująca
+                logoutUser();
               }}
               className={linkClass('logout')}
             >
@@ -251,7 +251,7 @@ export const Account = () => {
       </div>
 
       <div className="flex-1 pr-10 pt-0">
-        <Routes>
+      <Routes>
           <Route path="account/tournaments" element={<MyTournaments />} />
           <Route path="account/teams" element={<MyTeams />} />
           <Route path="account/edit" element={<EditProfile />} />
