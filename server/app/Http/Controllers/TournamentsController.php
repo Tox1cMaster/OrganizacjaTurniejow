@@ -18,21 +18,21 @@ class TournamentsController extends Controller
     }
 
     public function index()
-{
-    // Pobierz wszystkie turnieje, możesz także zaimplementować paginację lub sortowanie
-    $tournaments = Tournament::all();
-    $tournaments = $tournaments->map(function ($tournament) {
-        $tournament->organizer = $tournament->user->name;
-        unset($tournament->user);
-        return $tournament;
-    });
-    
-    // Jeśli chcesz, aby tylko zalogowany użytkownik widział swoje turnieje, użyj:
-    // $userId = auth('api')->id();
-    // $tournaments = Tournament::where('user_id', $userId)->get();
-    
-    return response()->json($tournaments);
-}
+    {
+        // Pobierz wszystkie turnieje, możesz także zaimplementować paginację lub sortowanie
+        $tournaments = Tournament::all();
+        $tournaments = $tournaments->map(function ($tournament) {
+            $tournament->organizer = $tournament->user->name;
+            unset($tournament->user);
+            return $tournament;
+        });
+        
+        // Jeśli chcesz, aby tylko zalogowany użytkownik widział swoje turnieje, użyj:
+        // $userId = auth('api')->id();
+        // $tournaments = Tournament::where('user_id', $userId)->get();
+        
+        return response()->json($tournaments);
+    }
 
     public function store(Request $request)
     {
@@ -107,12 +107,16 @@ class TournamentsController extends Controller
         $participants = $tournament->participants()->get()->shuffle();
 
         $participantCount = $participants->count();
-        $nearestPowerOfTwo = pow(2, ceil(log($participantCount, 2)));
+        $totalRounds = ceil(log($participantCount, 2));
+        $nearestPowerOfTwo = pow(2, $totalRounds);
         $matchesFirstRound = $nearestPowerOfTwo / 2;
         $byesFirstRound = $nearestPowerOfTwo - $participantCount;
 
         $matches = [];
         $secondRoundParticipants = [];
+        $firstRoundMatchIds = [];
+        $secondRoundMatchIds = [];
+        $matchesByRound = [1 => []]; // Puste mecze będą dodawane do tej tablicy
 
         // Tworzenie meczów dla pierwszej rundy
         for ($i = 0; $i < $matchesFirstRound; $i++) {
@@ -124,30 +128,66 @@ class TournamentsController extends Controller
             $match->participant1_id = $participants->shift()->UserID ?? null;
             if ($byesFirstRound > 0) {
                 $secondRoundParticipants[] = $match->participant1_id;
+                $match->winner_id = $match->participant1_id;
                 $byesFirstRound--;
             } else {
                 $match->participant2_id = $participants->isNotEmpty() ? $participants->shift()->UserID : null;
                 if ($match->participant2_id === null) {
                     $secondRoundParticipants[] = $match->participant1_id;
+                    $match->winner_id = $match->participant1_id;
                 }
             }
             $match->save();
+            $firstRoundMatchIds[] = $match->id;
             $matches[] = $match;
         }
 
         // Tworzenie meczów dla drugiej rundy
-        $secondRoundMatches = count($secondRoundParticipants) / 2;
+        $secondRoundMatches = $matchesFirstRound / 2;
         for ($i = 0; $i < $secondRoundMatches; $i++) {
             $match = new Matches();
             $match->TournamentID = $tournamentId;
             $match->round = 2;
             $match->match_order = $i + 1;
 
-            $match->participant1_id = array_shift($secondRoundParticipants);
-            $match->participant2_id = array_shift($secondRoundParticipants);
+            $match->participant1_id = !empty($secondRoundParticipants) ? array_shift($secondRoundParticipants) : null;
+            $match->participant2_id = !empty($secondRoundParticipants) ? array_shift($secondRoundParticipants) : null;        
 
             $match->save();
+            $secondRoundMatchIds[] = $match->id;
+            Matches::where('id', $firstRoundMatchIds[$i * 2])->update(['next_match_id' => $match->id]);
+            Matches::where('id', $firstRoundMatchIds[$i * 2 + 1])->update(['next_match_id' => $match->id]);
             $matches[] = $match;
+        }
+
+        for ($round = 3; $round <= $totalRounds; $round++) {
+            $matchesThisRound = pow(2, $totalRounds - $round);
+            $matchesByRound[$round] = [];
+    
+            for ($i = 0; $i < $matchesThisRound; $i++) {
+                $match = new Matches();
+                $match->TournamentID = $tournamentId;
+                $match->round = $round;
+                $match->match_order = $i + 1;
+                $match->save();
+    
+                $matchesByRound[$round][] = $match;
+                $matches[] = $match;
+
+                if ($round == 3) {
+                    Matches::where('id', $secondRoundMatchIds[$i * 2])->update(['next_match_id' => $match->id]);
+                    Matches::where('id', $secondRoundMatchIds[$i * 2 + 1])->update(['next_match_id' => $match->id]);
+                }
+    
+                // Ustawianie next_match_id dla meczów poprzedniej rundy
+                if ($round > 3) {
+                    $prevRound = $round - 1;
+                    $matchesByRound[$prevRound][$i * 2]->next_match_id = $match->id;
+                    $matchesByRound[$prevRound][$i * 2]->save();
+                    $matchesByRound[$prevRound][$i * 2 + 1]->next_match_id = $match->id;
+                    $matchesByRound[$prevRound][$i * 2 + 1]->save();
+                }
+            }
         }
 
         // Zmień status turnieju na "w trakcie"
