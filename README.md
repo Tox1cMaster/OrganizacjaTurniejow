@@ -9,12 +9,12 @@ toastify
 ```
 
 ## Pierwsze uruchomienie
-####Linux
+#### Linux
 ```sh
 apt-get install apache2 mysql-server php(i reszta) phpmyadmin 
 ```
 Wymagany PHP, Composer, npm(Najnowszy)
-####Server (Laravel)
+#### Server (Laravel)
 ```sh
 composer install
 ```
@@ -36,7 +36,7 @@ Migracja struktur bazy do MySQL
 php artisan serve
 ```
 Uruchomienie serwera
-####Klient (Vite/React.js)
+#### Klient (Vite/React.js)
 ```sh
 npm install
 ```
