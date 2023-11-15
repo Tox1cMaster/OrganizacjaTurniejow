@@ -12,7 +12,7 @@ export const CreateGame = () => {
         e.preventDefault();
         try {
             // Przy założeniu, że istnieje endpoint API '/api/games' do tworzenia gier
-            const response = await axios.post('http://localhost:8000/api/games', { GameName: gameName }, {
+            const response = await axios.post('/api/games', { GameName: gameName }, {
                 headers: {
                     'Content-Type': 'application/json',
                     // Dołącz token JWT, jeśli jest wymagane uwierzytelnienie

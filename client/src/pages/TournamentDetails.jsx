@@ -19,7 +19,7 @@ export const TournamentDetails = () => {
 
   const addParticipant = async () => {
     try {
-      await axios.post(`http://localhost:8000/api/participants`, {
+      await axios.post(`/api/participants`, {
         TournamentID: id,
         UserID: user.id // załóżmy, że user ma pole id
       });
@@ -31,7 +31,7 @@ export const TournamentDetails = () => {
 
   const deleteParticipant = (id) => async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/participants/${id}`);
+      await axios.delete(`/api/participants/${id}`);
       fetchParticipants();
     } catch (error) {
       console.error('Error deleting participant:', error);
@@ -40,7 +40,7 @@ export const TournamentDetails = () => {
 
   const generateMatches = (id) => async () => {
     try {
-      await axios.post(`http://localhost:8000/api/tournaments/${id}/generate`);
+      await axios.post(`/api/tournaments/${id}/generate`);
       fetchParticipants();
       fetchTournament();
       fetchMatches2();
@@ -51,7 +51,7 @@ export const TournamentDetails = () => {
 
   const fetchParticipants = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/tournaments/${id}/participants`);
+      const response = await axios.get(`/api/tournaments/${id}/participants`);
       setParticipants(response.data);
     } catch (error) {
       console.error('Error fetching participants:', error);
@@ -59,7 +59,7 @@ export const TournamentDetails = () => {
   };
   const fetchTournament = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/tournaments/${id}`); // używamy zmiennej id z useParams
+      const response = await axios.get(`/api/tournaments/${id}`); // używamy zmiennej id z useParams
       setTournament(response.data);
     } catch (error) {
       console.error('Error fetching tournament details:', error);
@@ -67,7 +67,7 @@ export const TournamentDetails = () => {
   };
   /*const fetchMatches = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/tournaments/${id}/matches`);
+      const response = await axios.get(`/api/tournaments/${id}/matches`);
       setMatches(response.data);
     } catch (error) {
       console.error('Error fetching matches details:', error);
@@ -76,7 +76,7 @@ export const TournamentDetails = () => {
   const fetchMatches2 = async () => {
     try {
       setLoadingMatches(true);
-      const response = await axios.get(`http://localhost:8000/api/tournaments/${id}/matches2`);
+      const response = await axios.get(`/api/tournaments/${id}/matches2`);
       setMatchesdata(response.data);
       setLoadingMatches(false);
     } catch (error) {

@@ -19,7 +19,7 @@ export const CreateTournament = () => {
         // Pobranie listy gier
         const fetchGames = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/games');
+                const response = await axios.get('/api/games');
                 setGames(response.data);
             } catch (error) {
                 console.error('Error fetching games:', error);
@@ -38,7 +38,7 @@ export const CreateTournament = () => {
         event.preventDefault();
         try {
             const token = getToken(); // Pobranie tokena JWT z sessionStorage
-            const response = await axios.post('http://localhost:8000/api/tournaments', formData, {
+            const response = await axios.post('/api/tournaments', formData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`

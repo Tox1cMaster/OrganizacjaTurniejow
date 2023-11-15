@@ -11,7 +11,7 @@ export const Tournaments = () => {
     // Funkcja do pobierania listy turniejów z API
     const fetchTournaments = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/tournaments'); // Załóżmy, że twój endpoint to '/api/tournaments'
+        const response = await axios.get('/api/tournaments'); // Załóżmy, że twój endpoint to '/api/tournaments'
         setTournaments(response.data); // Ustawienie stanu tournaments na dane otrzymane z API
       } catch (error) {
         console.error('Error fetching tournaments:', error);

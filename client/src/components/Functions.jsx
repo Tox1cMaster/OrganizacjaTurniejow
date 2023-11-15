@@ -19,7 +19,7 @@ export default function Functions(){
         // Pobieranie gier
         const fetchGames = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/games');
+            const response = await axios.get('/api/games');
             setGames(response.data); // Ustawienie stanu games na dane otrzymane z API
         } catch (error) {
             console.error('Error fetching games:', error);
@@ -29,7 +29,7 @@ export default function Functions(){
         // Pobieranie turniejów
         const fetchTournaments = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/tournaments');
+            const response = await axios.get('/api/tournaments');
             setTournaments(response.data);
         } catch (error) {
             console.error('Error fetching tournaments:', error);
