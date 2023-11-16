@@ -37,7 +37,7 @@ function App() {
           <Route path="/createTournament" element={<CreateTournament />} />
           <Route path="/createGame" element={<CreateGame />} />
           <Route path="/account/*" element={<Account />} />
-          <Route path="/account" element={<Navigate replace to="account/tournaments" />} />
+          <Route path="/account" element={<Navigate replace to="account/profile" />} />
           <Route path="/tournamentEdit" element={<TournamentEdit />} />
         </Route>
       </Routes>

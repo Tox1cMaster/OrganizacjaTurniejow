@@ -6,8 +6,6 @@ import AuthUser from '../components/AuthUser';
 
 
 
-import "./css/Register.css"
-
 const ErrorMessage = ({ text }) => {
   return (
     <ToastContainer

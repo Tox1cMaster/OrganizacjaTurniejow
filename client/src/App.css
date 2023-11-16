@@ -1,6 +1,7 @@
 .App {
-  height: 100vh;
-  /* background-color: #52616B; */
+  min-height: 100vh;
+  /* background-color: url(../../assets/tlo.png); */
+  background-color: #52616B; 
   /* height: 100vh;
   width: 100%; */
 }

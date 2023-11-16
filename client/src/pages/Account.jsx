@@ -4,6 +4,7 @@ import AuthUser from '../components/AuthUser';
 import '../app.css';
 import axios from 'axios';
 import Functions from '../components/Functions';
+import userAvater from '../assets/defaultavatar.png'
 
 const MyTournaments = () => {
     const { getGameName, getStatusName } = Functions();
@@ -78,7 +79,7 @@ const MyTeams = () => {
 
 const EditProfile = () => {
     return(
-        <div className="container">
+    <div className="container">
     <div className="style='background-color: #394f62;'">
     <div className="flex min-h-full flex-col justify-center px-6 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -184,6 +185,16 @@ const EditProfile = () => {
     );
 };
 
+const ProfileInfo = () =>{
+  return(
+    <div className="container">
+      <div className='flex '>
+      <h1 className='text-white text-5xl'>Twoje Turnieje</h1>
+      </div>
+    </div>
+  )
+}
+
 
 export const Account = () => {
     const {logout, token} = AuthUser();
@@ -207,7 +218,8 @@ export const Account = () => {
   return (
     <div className="flex min-h-screen bg-gray-800">
       <div className="bg-gray-500 p-5 w-65">
-        <h2 className="text-2xl text-white font-semibold mb-5">Panel Użytkownika</h2>
+      <img className='h-28 w-28 rounded-full ml-10 mb-3' src={userAvater} alt="123"/>
+        <h2 className="text-2xl text-white font-semibold mb-4">Panel Użytkownika</h2>
         <ul >
           <li className="mb-4">
             <Link
@@ -250,8 +262,9 @@ export const Account = () => {
         </ul>
       </div>
 
-      <div className="flex-1 pr-10 pt-0">
+      <div className="flex-1 pr-10 pt-0 overflow-auto">
       <Routes>
+          <Route path="account/profile" element={<ProfileInfo />} />
           <Route path="account/tournaments" element={<MyTournaments />} />
           <Route path="account/teams" element={<MyTeams />} />
           <Route path="account/edit" element={<EditProfile />} />
