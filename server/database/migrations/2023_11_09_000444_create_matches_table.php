@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
             $table->integer('TournamentID');
-            $table->integer('participant1_id');
+            $table->integer('participant1_id')->nullable();
             $table->integer('participant2_id')->nullable();
             $table->integer('winner_id')->nullable();
             $table->integer('round');
