@@ -45,7 +45,8 @@ Route::group(['middleware'=>'api'],function(){
     //Mecze
     Route::post('/tournaments/{id}/generate', [TournamentsController::class, 'generateMatches']);
     Route::get('/tournaments/{id}/matches', [MatchesController::class, 'getMatchesForTournament']);
-    Route::get('/tournaments/{id}/matches2', [MatchesController::class, 'getMatchesForTournament2']);
+    Route::get('/tournaments/{id}/matchesorg', [MatchesController::class, 'getMatchesforUpdate']);
+    Route::put('/updatematch/{id}', [MatchesController::class, 'updateScore']);
     //Gry
     Route::post('games', [GamesController::class, 'store']);
     Route::get('games', [GamesController::class, 'games']);

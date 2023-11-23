@@ -10,6 +10,7 @@ export const TournamentDetails = () => {
   const [participants, setParticipants] = useState([]);
   //const [matches, setMatches] = useState([]);
   const [matchesdata, setMatchesdata] = useState([]);
+  const [matchesdataorganizer, setMatchesdataorganizer] = useState([]); //
   const [tournament, setTournament] = useState(null);
   const [loadingMatches, setLoadingMatches] = useState(true);
   const { getUser } = AuthUser();
@@ -43,7 +44,7 @@ export const TournamentDetails = () => {
       await axios.post(`/api/tournaments/${id}/generate`);
       fetchParticipants();
       fetchTournament();
-      fetchMatches2();
+      fetchMatches();
     } catch (error) {
       console.error('Error deleting participant:', error);
     } 
@@ -65,18 +66,10 @@ export const TournamentDetails = () => {
       console.error('Error fetching tournament details:', error);
     }
   };
-  /*const fetchMatches = async () => {
-    try {
-      const response = await axios.get(`/api/tournaments/${id}/matches`);
-      setMatches(response.data);
-    } catch (error) {
-      console.error('Error fetching matches details:', error);
-    }
-  };*/
-  const fetchMatches2 = async () => {
+  const fetchMatches = async () => {
     try {
       setLoadingMatches(true);
-      const response = await axios.get(`/api/tournaments/${id}/matches2`);
+      const response = await axios.get(`/api/tournaments/${id}/matches`);
       setMatchesdata(response.data);
       setLoadingMatches(false);
     } catch (error) {
@@ -84,11 +77,31 @@ export const TournamentDetails = () => {
       setLoadingMatches(false); // Stop loading on error
     }
   };
+  const fetchMatchestoUpdate = async () => {
+    try {
+      const response = await axios.get(`/api/tournaments/${id}/matchesorg`);
+      setMatchesdataorganizer(response.data);
+    } catch (error) {
+      console.error('Error fetching matches details:', error);
+    }
+  }
+  const updateMatchScore = async (matchId, participant1Score, participant2Score) => {
+    try {
+      await axios.put(`/api/updatematch/${matchId}`, {
+        participant1_score: participant1Score,
+        participant2_score: participant2Score
+      });
+      fetchMatches(); // Odśwież listę meczów po aktualizacji
+    } catch (error) {
+      console.error('Error updating match score:', error);
+    }
+  };
 
   useEffect(() => {
     fetchTournament();
     fetchParticipants();
-    fetchMatches2();
+    fetchMatchestoUpdate();
+    fetchMatches();
   }, [id]); // aktualizujemy tablicę zależności, aby używała id
 
   if (!tournament || loadingMatches) {
@@ -127,6 +140,23 @@ export const TournamentDetails = () => {
           )}
         />
         )}
+        {isUserOrganizer ? <>
+        <h2>Zarządzaj meczami:</h2>
+          {matchesdataorganizer.map(match => (
+            <div key={match.id} className='matchlist'>
+            <p>{match.id} - {match.nick1} vs {match.nick2} - {match.winner_id}</p>
+            <div className='matchscore'>
+              <label>{match.nick1}</label>
+              <input type="number" placeholder="0" id={`score1-${match.id}`} />
+            </div>
+            <div className='matchscore'>
+              <label>{match.nick2}</label>
+              <input type="number" placeholder="0" id={`score2-${match.id}`} />
+            </div>
+            <button onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
+          </div>
+            ))}
+        </> : null}
         </div>
         </div>
     </div>

@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
             $table->integer('TournamentID');
-            $table->integer('participant1_id');
+            $table->integer('participant1_id')->nullable();
             $table->integer('participant2_id')->nullable();
+            $table->integer('participant1_score')->nullable(); 
+            $table->integer('participant2_score')->nullable();
             $table->integer('winner_id')->nullable();
             $table->integer('round');
-            $table->integer('match_order'); // kolejność meczów w danej rundzie (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+            $table->integer('match_order'); 
             $table->integer('prev_match_id')->nullable();
             $table->integer('next_match_id')->nullable();
             $table->timestamps();

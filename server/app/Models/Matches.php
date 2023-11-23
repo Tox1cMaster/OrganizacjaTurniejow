@@ -9,7 +9,7 @@ class Matches extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['TournamentID','participant1_id','participant2_id','winner_id','round', 'match_order', 'prev_match_id', 'next_match_id'];
+    protected $fillable = ['TournamentID','participant1_id','participant2_id', 'participant1_score', 'participant2_score','winner_id','round', 'match_order', 'prev_match_id', 'next_match_id'];
 
     public function tournament() {
         return $this->belongsTo(Tournament::class, 'TournamentID');

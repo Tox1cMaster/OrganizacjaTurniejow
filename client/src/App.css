@@ -1,7 +1,15 @@
+body {
+  height: 100vh;
+  background-image: url(/src/assets/tlo.png); 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .App {
   min-height: 100vh;
   /* background-color: url(../../assets/tlo.png); */
-  background-color: #000000; 
+  background-color: #52616B; 
   /* height: 100vh;
   width: 100%; */
 }
@@ -97,4 +105,80 @@
 .participants li {
   margin-top: 5px;
   border-top: none;
+}
+
+.top-section {
+  width: 100%;
+  background-image: url(../../assets/tlo.png); 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #F6F6F6;
+}
+
+.container {
+  height: 450px;
+}
+
+.container > h1 {
+  font-size: 5rem;
+  margin-bottom: 30px;
+}
+
+.container > p {
+  font-size: 2rem;
+}
+
+.top-section-buttons {
+  margin-top: 60px;
+}
+
+.top-section-buttons > a {
+  text-decoration: none;
+  color:#F99417;
+}
+
+.button {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px 30px 10px 30px;
+  background-color: #F5F5F5;
+}
+
+.login-button {
+  margin-right: 30px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  background: transparent;
+}
+
+.text{
+  color:#C9D6DF;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.matchlist {
+  display: flex;
+}
+
+.matchlist > p {
+  display: flex;
+  justify-content: center;
+  align-content: stretch;
+  flex-direction: column;
+}
+
+.matchscore {
+  padding: 0 10px;
 }

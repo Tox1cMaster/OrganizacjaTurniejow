@@ -18,35 +18,47 @@ class MatchesController extends Controller
         $match = Matches::findOrFail($id);
         return response()->json($match, 200);
     }
-    public function getMatchesForTournament($tournamentId)
+
+    public function updateScore($id, Request $request)
     {
-    $matches = Matches::where('TournamentID', $tournamentId)
-                      ->with('participant1', 'participant2')
-                      ->get();
-
-    $matchesWithNicknames = $matches->map(function ($match) {
-        if ($match->participant1) {
-            $match->participant1_nick = $match->participant1->name;
-        } else {
-            $match->participant1_nick = 'BRAK';
+        $match = Matches::findOrFail($id);
+        $p1score = $request->input('participant1_score');
+        $p2score = $request->input('participant2_score');
+        $nextMatchId = $match->next_match_id;
+        $matchorder = $match->match_order;
+        $winnerid = $p1score > $p2score ? $match->participant1_id : $match->participant2_id;
+        $match->participant1_score = $p1score;
+        $match->participant2_score = $p2score;
+        $match->winner_id = $winnerid;
+        $match->save();
+        $nextmatch = Matches::findOrFail($nextMatchId);
+        if($matchorder % 2 == 1){
+            $nextmatch->participant1_id = $winnerid;
         }
-
-        if ($match->participant2) {
-            $match->participant2_nick = $match->participant2->name;
-        } else {
-            $match->participant2_nick = 'BRAK';
+        else{
+            $nextmatch->participant2_id = $winnerid;
         }
-
-        unset($match->participant1);
-        unset($match->participant2);
-
-        return $match;
-    });
-
-        return response()->json($matchesWithNicknames, 200);
+        $nextmatch->save();
+        return response()->json($match, 200);
     }
 
-    public function getMatchesForTournament2($tournamentId)
+    public function getMatchesforUpdate($tournamentId) {
+        $matches = Matches::whereNotNull('participant1_id')
+                    ->whereNotNull('participant2_id')
+                    ->whereNull('winner_id')
+                    ->where('TournamentID', $tournamentId)
+                    ->with('participant1')
+                    ->with('participant2')
+                    ->get();
+        $matcheswithnicks = $matches->map(function ($match) {
+            $match->nick1 = $match->participant1->name;
+            $match->nick2 = $match->participant2->name;
+            return $match;
+        });
+        return response()->json($matcheswithnicks, 200);
+    }
+
+    public function getMatchesForTournament($tournamentId)
 {
     $matches = Matches::where('TournamentID', $tournamentId)
                     ->get();
@@ -59,11 +71,11 @@ class MatchesController extends Controller
         if ($match->participant1) {
             $participants[] = [
                 'id' => $match->participant1->id,
-                'resultText' => null, // Dodaj odpowiednią logikę
-                'isWinner' => $match->participant1->id == $match->winner_id ? true : false, // Dodaj odpowiednią logikę
-                'status' => null, // Dodaj odpowiednią logikę
+                'resultText' => $match->participant1_score, 
+                'isWinner' => $match->participant1->id == $match->winner_id ? true : false, 
+                'status' => null, 
                 'name' => $match->participant1->name,
-                'picture' => 'teamlogos/client_team_default_logo' // Adjust as necessary
+                'picture' => 'teamlogos/client_team_default_logo' 
             ];
         }
 
@@ -71,20 +83,20 @@ class MatchesController extends Controller
         if ($match->participant2) {
             $participants[] = [
                 'id' => $match->participant2->id,
-                'resultText' => null, // Dodaj odpowiednią logikę
-                'isWinner' => $match->participant2->id == $match->winner_id ? true : false, // Dodaj odpowiednią logikę
-                'status' => null, // Dodaj odpowiednią logikę
+                'resultText' => $match->participant2_score, 
+                'isWinner' => $match->participant2->id == $match->winner_id ? true : false, 
+                'status' => null, 
                 'name' => $match->participant2->name,
-                'picture' => 'teamlogos/client_team_default_logo' // Adjust as necessary
+                'picture' => 'teamlogos/client_team_default_logo' 
             ];
         }
 
         return [
             'id' => $match->id,
-            'nextMatchId' => $match->next_match_id, // Wyznacz lub pobierz tę wartość
-            'tournamentRoundText' => $match->round, // Wyznacz lub pobierz tę wartość
-            'startTime' => '2021-05-30', // Dostosuj zgodnie z potrzebami
-            'state' => 'WALK_OVER', // Dostosuj zgodnie z potrzebami
+            'nextMatchId' => $match->next_match_id, 
+            'tournamentRoundText' => $match->round, 
+            'startTime' => null, 
+            'state' => 'WALK_OVER', 
             'participants' => $participants,
         ];
     });
