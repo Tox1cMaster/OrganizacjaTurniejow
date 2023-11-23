@@ -45,13 +45,13 @@ const submitForm = () => {
   return (
     <div className="container">
     <div className="shadow-2xl rounded style='background-color: #394f62;'">
-    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8">
-    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zaloguj się</h2>
+    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 mt-5">
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm ">
+    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text text-white">Zaloguj się</h2>
     </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
       <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text">
+        <label htmlFor="email" className="block text-sm text-white font-medium leading-6 text">
           E-Mail
         </label>
         <div className="mt-2">
@@ -69,7 +69,7 @@ const submitForm = () => {
 
       <div>
         <div className="flex items-center justify-between">
-          <label htmlFor="password" className="block text-sm font-medium leading-6 text">
+          <label htmlFor="password" className="block text-sm font-medium leading-6 text text-white">
             Hasło
           </label>
           <div className="text-sm">
@@ -100,7 +100,7 @@ const submitForm = () => {
         </button>
       </div>
 
-      <p className="mt-10 text-center text-sm text">
+      <p className="mt-10 text-center text-sm text text-white">
         Nie masz konta? {' '}
         <Link to="/register" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
           Zarejestruj się

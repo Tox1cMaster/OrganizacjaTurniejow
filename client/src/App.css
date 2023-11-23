@@ -1,17 +1,19 @@
 .App {
   min-height: 100vh;
   /* background-color: url(../../assets/tlo.png); */
-  background-color: #52616B; 
+  background-color: #000000; 
   /* height: 100vh;
   width: 100%; */
 }
 
 .box {
+  margin-top: 20px;
   background-color: #0f0f0f;
   color:#f5f5f5;
   border-radius: 20px;
   box-shadow: 0px 0px 20px rgb(255, 153, 0);
-  padding:20px;
+  padding: 20px;
+  height: 100%;
 }
 
 .box h2 {
