@@ -25,7 +25,7 @@ const MyTournaments = () => {
   
     return (
     <div className="container">
-        <div className=" flex justify-between items-center mb-5 mt-5">
+        <div className=" flex justify-between items-center mb-5 ">
             <h1 className='text-white text-5xl'>Twoje Turnieje</h1>
             <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Stwórz turniej
@@ -51,7 +51,7 @@ const MyTournaments = () => {
 const MyTeams = () => {
     return(
         <div className="container">
-        <div className=" flex justify-between items-center mb-5 mt-5">
+        <div className=" flex justify-between items-center mb-5 ">
             <h1 className='text-white text-5xl'>Twoje Drużyny</h1>
             <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Stwórz drużyne
@@ -81,7 +81,7 @@ const EditProfile = () => {
     return(
     <div className="container">
     <div className="style='background-color: #394f62;'">
-    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 mt-5">
+    <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 ">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
     <h2 className="mt-15 text-center text-2xl font-bold leading-9 tracking-tight text text-white">Edytuj swój profil</h2>
     </div>
@@ -187,7 +187,7 @@ const EditProfile = () => {
 
 const ProfileInfo = () =>{
   return(
-    <div className="container mt-5">
+    <div className="container">
       <h1 className='text-white text-5xl text-center'>Twoje statystyki</h1>
       <div className="flex justify-center items-center mb-5 mt-5">
       <img className='h-28 w-28 rounded-full ml-10 mb-3 mr-5' src={userAvater} alt="123"/>
@@ -234,7 +234,8 @@ export const Account = () => {
         if(token != undefined){
             logout();
         }
-    }
+    };
+
   return (
     <div className="flex min-h-screen bg-gray-800">
       <div className="bg-gray-500 p-5 w-65">
@@ -291,7 +292,7 @@ export const Account = () => {
         </ul>
       </div>
 
-      <div className="flex-1 pr-10 pt-0 overflow-auto">
+      <div className="flex-1 pr-10 pt-0 overflow-auto scrollbar-hide ">
       <Routes>
           <Route path="account/profile" element={<ProfileInfo />} />
           <Route path="account/tournaments" element={<MyTournaments />} />
