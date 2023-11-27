@@ -16,9 +16,8 @@ body {
 .box {
   background-color: #0f0f0f;
   color:#f5f5f5;
-  border-radius: 20px;
+  border-radius: 0px 0px 20px 20px;
   box-shadow: 0px 0px 20px rgb(255, 153, 0);
-  padding:20px;
 }
 
 .box h2 {
@@ -80,6 +79,12 @@ body {
   margin-top: 10px;
   border-top: 1px solid #f5f5f5;
 }
+
+.navbar li {
+  margin-top: 0;
+  border-top: none;
+}
+
 .box h3 {
   display: flex;
   align-items: center;
@@ -89,6 +94,10 @@ body {
 
 .box button.organizer {
   background-color: rgb(87, 112, 255);
+}
+
+.box .navbar-shadow {
+  box-shadow: 0px 0px 7px rgb(255, 145, 0);
 }
 
 .participants {
@@ -115,10 +124,6 @@ body {
   justify-content: center;
   align-items: center;
   color: #F6F6F6;
-}
-
-.container {
-  height: 450px;
 }
 
 .container > h1 {
@@ -154,9 +159,10 @@ body {
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 50px;
   padding-bottom: 30px;
   background: transparent;
+  height: 450px;
+  margin-top: 80px;
 }
 
 .text{
