@@ -112,11 +112,11 @@ export const Register = () => {
     <div className="shadow-2xl rounded style='background-color: #394f62;'">
     <div className="flex min-h-full flex-col justify-center px-6 lg:px-8">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text">Zarejestruj się</h2>
+    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text text-white">Zarejestruj się</h2>
     </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium leading-6 text">
+        <label htmlFor="name" className="block text-sm font-medium leading-6 text text-white">
           Nazwa użytkownika
         </label>
         <div className="mt-2">
@@ -133,7 +133,7 @@ export const Register = () => {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium leading-6 text">
+        <label htmlFor="email" className="block text-sm font-medium leading-6 text text-white">
           E-Mail
         </label>
         <div className="mt-2">
@@ -150,7 +150,7 @@ export const Register = () => {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium leading-6 text">
+        <label htmlFor="password" className="block text-sm font-medium leading-6 text text-white">
           Hasło
         </label>
         <div className="mt-2">
@@ -168,7 +168,7 @@ export const Register = () => {
 
       <div>
         <div className="flex items-center justify-between">
-          <label htmlFor="passwordRep" className="block text-sm font-medium leading-6 text">
+          <label htmlFor="passwordRep" className="block text-sm font-medium leading-6 text text-white">
             Powtórz hasło
           </label>
         </div>
@@ -193,7 +193,7 @@ export const Register = () => {
           Zarejestruj się
         </button>
       </div>
-      <p className="mt-10 text-center text-sm text">
+      <p className="mt-10 text-center text-sm text text-white">
         Masz już konto ? {' '}
         <Link to="/login" className="font-semibold leading-6 text-orange-600 hover:text-orange-500">
           Zaloguj się

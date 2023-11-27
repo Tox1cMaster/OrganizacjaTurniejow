@@ -1,5 +1,5 @@
 body {
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(/src/assets/tlo.png); 
   background-size: cover; 
   background-repeat: no-repeat;
@@ -7,13 +7,15 @@ body {
 }
 
 .App {
-  height: 100vh;
-  /* background-color: #52616B; */
+  min-height: 100vh;
+  /* background-color: url(../../assets/tlo.png); */
+  /* background-color: #52616B;  */
   /* height: 100vh;
   width: 100%; */
 }
 
 .box {
+  margin-top: 20px;
   background-color: #0f0f0f;
   color:#f5f5f5;
   border-radius: 0px 0px 20px 20px;
@@ -184,4 +186,14 @@ body {
 
 .matchscore {
   padding: 0 10px;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
