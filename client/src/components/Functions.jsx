@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 export default function Functions(){
-    const [tournaments, setTournaments] = useState([]);
     const [games, setGames] = useState([]);
 
     const getGameName = (gameID) => {
@@ -15,9 +14,7 @@ export default function Functions(){
         return statusNames[status] || 'Nieznany status';
     };
 
-    useEffect(() => {
-        // Pobieranie gier
-        const fetchGames = async () => {
+    const fetchGames = async () => {
         try {
             const response = await axios.get('/api/games');
             setGames(response.data); // Ustawienie stanu games na dane otrzymane z API
@@ -26,23 +23,13 @@ export default function Functions(){
         }
         };
 
-        // Pobieranie turniejów
-        const fetchTournaments = async () => {
-        try {
-            const response = await axios.get('/api/tournaments');
-            setTournaments(response.data);
-        } catch (error) {
-            console.error('Error fetching tournaments:', error);
-        }
-        };
-
+    useEffect(() => {
         fetchGames();
-        fetchTournaments();
     }, 
     []);
 
     return {
         getStatusName,
-        getGameName
+        getGameName,
     }
 }

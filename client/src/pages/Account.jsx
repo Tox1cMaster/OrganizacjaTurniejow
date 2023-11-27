@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import AuthUser from '../components/AuthUser';
-import '../app.css';
+import '../App.css';
 import axios from 'axios';
 import Functions from '../components/Functions';
 import userAvater from '../assets/defaultavatar.png'

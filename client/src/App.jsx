@@ -14,7 +14,7 @@ import { CreateGame } from './pages/CreateGame';
 import { TournamentEdit } from './pages/TournamentEdit';
 import AuthUser from './components/AuthUser';
 import axios from 'axios';
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://' + window.location.hostname + ':8000';
 
 import { Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
