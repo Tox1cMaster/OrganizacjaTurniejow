@@ -9,6 +9,8 @@ import userAvater from '../assets/defaultavatar.png'
 const MyTournaments = () => {
     const { getGameName, getStatusName } = Functions();
     const [tournaments, setTournaments] = useState([]);
+    const { getUser } = AuthUser();
+    const user = getUser();
   
     useEffect(() => {
       const fetchTournaments = async () => {
@@ -32,15 +34,15 @@ const MyTournaments = () => {
             </Link>
         </div>
       <ul className="space-y-4">
-        {tournaments.map((tournament) => (
-          <li key={tournament.TournamentName} className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
-            <div className="flex justify-between items-center">
-            <h3 className="text-lg  font-semibold">Nazwa turnieju: {tournament.TournamentName}</h3>
-            <span className="text-sm font-medium text-gray-600">Status: {getStatusName(tournament.Status)}  </span>
-            </div>
-            <p className="text-gray-600">Gra: {getGameName(tournament.GameID)}</p>
-          </li>
-        ))}
+      {tournaments.filter(tournament => tournament.user_id === user.id).map((tournament) => (
+        <li key={tournament.TournamentName} className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Nazwa turnieju: {tournament.TournamentName}</h3>
+            <span className="text-sm font-medium text-gray-600">Status: {getStatusName(tournament.Status)}</span>
+          </div>
+          <p className="text-gray-600">Gra: {getGameName(tournament.GameID)}</p>
+        </li>
+      ))}
       </ul>
     </div>
     );

@@ -10,19 +10,25 @@ export const TournamentDetails = () => {
   const [participants, setParticipants] = useState([]);
   //const [matches, setMatches] = useState([]);
   const [matchesdata, setMatchesdata] = useState([]);
-  const [matchesdataorganizer, setMatchesdataorganizer] = useState([]); //
+  const [matchesdataorganizer, setMatchesdataorganizer] = useState([]); 
   const [tournament, setTournament] = useState(null);
   const [loadingMatches, setLoadingMatches] = useState(true);
   const { getUser } = AuthUser();
-  const { id } = useParams(); // używamy hooka useParams
-  const user = getUser();
+  const { id } = useParams();
+  const user = getUser(); //Dane zalogowanego użytkownika
   const isUserParticipant = participants.some(participant => participant.UserID === user.id);
-
-  const activeLinkClass = 'text-white border-b-4 border-orange-500';
+  //Obsługa zakładek
+  const activeLinkClass = 'text-orange-600 font-bold border-b-4 border-orange-500';
   const inactiveLinkClass = 'text-gray-300 hover:text-orange-500 hover:border-b-2 hover:border-orange-500';
+  const activeLinkClass2 = 'text-orange-600 font-bold border-l-4 border-orange-500';
+  const inactiveLinkClass2 = 'text-gray-300 hover:text-orange-500 hover:border-l-2 hover:border-orange-500';
   const [activeTab, setActiveTab] = useState("summary");
+  const [activeTab2, setActiveTab2] = useState("summary");
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+  };
+  const handleTabChange2 = (tab) => {
+    setActiveTab2(tab);
   };
 
   const addParticipant = async () => {
@@ -129,18 +135,18 @@ export const TournamentDetails = () => {
 
   const Participants = () => {
     return (
-      <div className="participants"><h2>Uczestnicy:</h2>
+      <><h2>Uczestnicy:</h2>
         <ul>
           {participants.map(participant => (
             <li key={participant.UserID}>{participant.UserID} - {participant.nickname} {isUserOrganizer ? <>- <a href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</a></> : null}</li> // Zakładam, że uczestnik ma pola id i name
           ))}
-        </ul></div>
+        </ul></>
     );
   };
 
  
   const Matches = () => {
-    return (<div className="participants">
+    return (<>
     <h2>Mecze:</h2>
       {isUserOrganizer ? <>
       <h2>Zarządzaj meczami:</h2>
@@ -159,12 +165,12 @@ export const TournamentDetails = () => {
         </div>
           ))}
     </> : null}
-    </div>);
+    </>);
   };
 
   
 const Brackett = () => {
-  return (<div className="participants">
+  return (<>
   {!loadingMatches && matchesdata.length > 0 && (
     <SingleEliminationBracket
       matches={matchesdata}
@@ -175,7 +181,69 @@ const Brackett = () => {
         </SVGViewer>
       )}
     />
-  )}</div>
+  )}</>
+  );
+};
+
+const SettingsControlpanel = () => {
+  return (<><h2>Panel kontrolny</h2></>);
+};
+const SettingsDetails = () => {
+  return (<><h2>Szczegóły</h2></>);
+};
+const SettingsJoin = () => {
+  return (<><h2>Dołączanie</h2></>);
+};
+const SettingsRewards = () => {
+  return (<><h2>Nagrody</h2></>);
+};
+const SettingsRules = () => {
+  return (<><h2>Zasady</h2></>);
+};
+const SettingsTimetable = () => {
+  return (<><h2>Harmonogram</h2></>);
+};
+const SettingsMatches = () => {
+  return (<><h2>Mecze</h2></>);
+};
+
+const Settings = () => {
+  return (<><div className="flex h-screen navsettings">
+  <div className="w-1/6 text-white border-r border-orange-800 navleft space-x-4 p-3">
+    <ul className="flex flex-col">
+      <li className={activeTab2 === "SettingsControlpanel" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsControlpanel")}>
+        <NavLink to={``}>Panel kontrolny</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsDetails" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsDetails")}>
+        <NavLink to={``}>Szczegóły</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsJoin" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsJoin")}>
+        <NavLink to={``}>Dołączanie</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsRewards" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsRewards")}>
+        <NavLink to={``}>Nagrody</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsRules" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsRules")}>
+        <NavLink to={``}>Zasady</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsTimetable" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsTimetable")}>
+        <NavLink to={``}>Harmonogram</NavLink>
+      </li>
+      <li className={activeTab2 === "SettingsMatches" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsMatches")}>
+        <NavLink to={``}>Zarządzaj meczami</NavLink>
+      </li>
+    </ul>
+  </div>
+  <div className="w-5/6 ml-auto p-8">
+    {activeTab2 === "SettingsControlpanel" && <SettingsControlpanel />}
+    {activeTab2 === "SettingsDetails" && <SettingsDetails />}
+    {activeTab2 === "SettingsJoin" && <SettingsJoin />}
+    {activeTab2 === "SettingsRewards" && <SettingsRewards />}
+    {activeTab2 === "SettingsRules" && <SettingsRules />}
+    {activeTab2 === "SettingsTimetable" && <SettingsTimetable />}
+    {activeTab2 === "SettingsMatches" && <SettingsMatches />}
+  </div>
+</div></>
   );
 };
 
@@ -188,7 +256,7 @@ const Brackett = () => {
   return (
     <div className='container'>
         <div className='box'>
-        <div className='navbar border-b border-orange-800 navbar-shadow'>
+        <div className='navbar border-b border-orange-800 navbar-shadow font-bo'>
           <ul className='flex justify-start p-3 space-x-4'>
             <li>
               <NavLink to={``} className={activeTab === "summary" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("summary")}>
@@ -232,10 +300,13 @@ const Brackett = () => {
             </li>
           </ul>
         </div>
+        {activeTab === "settings" && <Settings />}
+        <div className="participants">
         {activeTab === "summary" && <Summary />}
         {activeTab === "bracket" && <Brackett />}
         {activeTab === "participants" && <Participants />}
         {activeTab === "matches" && <Matches />}
+        </div>
         </div>
     </div>
   );
