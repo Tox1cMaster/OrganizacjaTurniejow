@@ -21,7 +21,6 @@ const MyTournaments = () => {
           console.error('Error fetching tournaments:', error);
         }
       };
-  
       fetchTournaments();
     }, []);
   
@@ -188,28 +187,45 @@ const EditProfile = () => {
 };
 
 const ProfileInfo = () =>{
+  const [stats, setStats] = useState([]); // [0] - tournaments organized, [1] - tournaments participated, [2] - tournaments won, [3] - matches played
+  const { getUser } = AuthUser();
+  const user = getUser();
+
+  useEffect(() => {
+
+    const fetchStats = async () => {
+      try {
+        const response = await axios.get(`/api/user/stats/${user.id}`);
+        setStats(response.data);
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+      }
+    };
+
+    fetchStats();
+  }, []);
   return(
     <div className="container">
       <h1 className='text-white text-5xl text-center'>Twoje statystyki</h1>
       <div className="flex justify-center items-center mb-5 mt-5">
       <img className='h-28 w-28 rounded-full ml-10 mb-3 mr-5' src={userAvater} alt="123"/>
-      <h2 className='text-white text-2xl'>Nazwa użytkownika</h2>
+      <h2 className='text-white text-2xl'>{user.name}</h2>
       </div>
       <div className='flex justify-center text-white'>
         <div className='box-content h-40 w-60 rounded-md bg-slate-700 ml-5 text-center'>
-          <p className='text-6xl mb-4 mt-4'>0</p>
+          <p className='text-6xl mb-4 mt-4'>{stats.tournaments_organized}</p>
           <p className='text-md font-bold'>Turnieje zorganizowane</p>
         </div>
         <div className='box-content h-40 w-60 rounded-md bg-slate-700 ml-5 text-center'>
-          <p className='text-6xl mb-4 mt-4'>0</p>
+          <p className='text-6xl mb-4 mt-4'>{stats.matches_played}</p>
           <p className='text-md font-bold'>Mecze zagrane</p>
         </div>
         <div className='box-content h-40 w-60 rounded-md bg-slate-700 ml-5 text-center'>
-          <p className='text-6xl mb-4 mt-4'>0</p>
+          <p className='text-6xl mb-4 mt-4'>{stats.tournaments_joined}</p>
           <p className='text-md font-bold'>Udział w turniejach</p>
         </div>
         <div className='box-content h-40 w-60 rounded-md bg-slate-700 ml-5 text-center'>
-          <p className='text-6xl mb-4 mt-4'>0</p>
+          <p className='text-6xl mb-4 mt-4'>{stats.tournaments_wins}</p>
           <p className='text-md font-bold'>Turnieje wygrane</p>
         </div>
       </div>
