@@ -86,7 +86,7 @@ export const TournamentEdit = () => {
                             <option value="Publiczny">Publiczny</option>
                             <option value="Prywatny">Prywatny</option>
                         </select>
-                    </div>w
+                    </div>
                     <div>
                         <label htmlFor="Prizepool">Prizepool:</label>
                         <input

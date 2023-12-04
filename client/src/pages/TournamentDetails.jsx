@@ -185,27 +185,66 @@ const Brackett = () => {
   );
 };
 
-const SettingsControlpanel = () => {
-  return (<><h2>Panel kontrolny</h2></>);
+const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
+  
+  const statusy = [0, 1, 2];
+
+  return (
+    <div className='container mt-0'>
+      <div className='text-center text-3xl mb-4'>
+        <label htmlFor="Status" className='mb-3'>Zmień status</label>
+        <select
+          name="Status"
+          value={turniejStatus}
+        >
+          {statusy.map((status, index) => (
+            <option key={index} value={status}>
+              {getStatusName(status)}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className='text-center text-3xl'>
+      <label htmlFor="Privacy" className='mb-3'>Zmień Prywatność:</label>
+      <select name="Privacy">
+          <option value="Publiczny">Publiczny</option>
+          <option value="Prywatny">Prywatny</option>
+      </select>
+      </div>
+      
+      <div className='flex justify-center items-center mt-3'>
+        <button>Zmień status</button>
+        <button>Zmień prywatność</button>
+      </div>
+    </div>
+  );
 };
+
 const SettingsDetails = () => {
   return (<><h2>Szczegóły</h2></>);
 };
+
 const SettingsJoin = () => {
   return (<><h2>Dołączanie</h2></>);
 };
+
 const SettingsRewards = () => {
   return (<><h2>Nagrody</h2></>);
 };
+
 const SettingsRules = () => {
   return (<><h2>Zasady</h2></>);
 };
+
 const SettingsTimetable = () => {
   return (<><h2>Harmonogram</h2></>);
 };
+
 const SettingsMatches = () => {
   return (<><h2>Mecze</h2></>);
 };
+
 
 const Settings = () => {
   return (<><div className="flex h-screen navsettings">
