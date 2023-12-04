@@ -52,6 +52,7 @@ Route::group(['middleware'=>'api'],function(){
     Route::get('games', [GamesController::class, 'games']);
     //Użytkownicy
     Route::get('users', [AuthController::class, 'users']);
+    Route::get('user/stats/{id}', [AuthController::class, 'userstats']); //Statystyki użytkownika
     Route::post('logout', [AuthController::class,'logout']);
     Route::post('refresh', [AuthController::class,'refresh']);
     Route::post('me', [AuthController::class,'me']);

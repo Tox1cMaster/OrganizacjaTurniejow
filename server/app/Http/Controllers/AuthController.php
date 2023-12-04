@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Matches;
+use App\Models\Tournament;
+use App\Models\Participant;
+
 
 class AuthController extends Controller
 {
@@ -16,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register', 'checkUsername']]);
+        $this->middleware('auth:api', ['except' => ['login','register', 'checkUsername', 'userstats']]);
     }
 
     public function users()
@@ -124,5 +128,15 @@ class AuthController extends Controller
         }
 
         return response()->json(['exists' => false], 200);
+    }
+
+    public function userstats($id)
+    {
+        $user = User::findOrFail($id);
+        $user->tournaments_wins = 0; //TODO
+        $user->tournaments_organized = Tournament::where('user_id', $id)->count();
+        $user->tournaments_joined = Participant::where('UserID', $id)->count();
+        $user->matches_played = Matches::where('participant1_id', $id)->orWhere('participant2_id', $id)->count();
+        return json_encode($user, 200);
     }
 }

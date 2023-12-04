@@ -31,7 +31,7 @@ class TournamentsController extends Controller
         // $userId = auth('api')->id();
         // $tournaments = Tournament::where('user_id', $userId)->get();
         
-        return response()->json($tournaments);
+        return json_encode($tournaments);
     }
 
     public function store(Request $request)
