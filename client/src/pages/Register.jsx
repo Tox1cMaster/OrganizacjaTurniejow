@@ -90,10 +90,11 @@ export const Register = () => {
         toast.error("Nazwa użytkownika jest zajęta");
         return;
       }
-  
       const registerResponse = await http.post('/register', form);
       toast.success("Pomyślnie zarejestrowano");
+      setTimeout(() => {
       navigate('/login');
+      }, 3000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {
         setError(error.response.data.email[0]);
@@ -205,7 +206,7 @@ export const Register = () => {
     </div>
     <ToastContainer
       position="bottom-right"
-      autoClose={5000}
+      autoClose={2800}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
