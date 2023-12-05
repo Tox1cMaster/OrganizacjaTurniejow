@@ -222,7 +222,7 @@ const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
 };
 
 const SettingsDetails = () => {
-  return (<><h2>Szczegóły Bartek</h2></>);
+  return (<><h2>Szczegóły Bartek2</h2></>);
 };
 
 const SettingsJoin = () => {
