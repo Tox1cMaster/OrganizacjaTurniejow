@@ -206,7 +206,7 @@ export const Register = () => {
     </div>
     <ToastContainer
       position="bottom-right"
-      autoClose={2800}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick

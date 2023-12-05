@@ -13,24 +13,26 @@ const [password,setPassword] = useState();
 const navigate = useNavigate();
 
 const notifyloginok = () => {
-  toast.success('Zalogowano pomyślnie!', { autoClose: 5000 });
+  toast.success('Zalogowano pomyślnie!');
 };
 
 const notifyloginerror = () => {
-  toast.error('Niepoprawne dane logowania!', { autoClose: 5000 });
+  toast.error('Niepoprawne dane logowania!');
 };
 
 useEffect(()=> {
   if (getToken()) {
     navigate('/');
-  }
+  };
 })
 
 const submitForm = () => {
   http.post('/login', { email: email, password: password })
     .then((res) => {
-      setToken(res.data.user, res.data.access_token);
       notifyloginok();
+      setTimeout(() => {
+      setToken(res.data.user, res.data.access_token);
+      },3000);
     })
     .catch(() => {
       notifyloginerror();
@@ -112,7 +114,7 @@ const submitForm = () => {
     </div>
       <ToastContainer
       position="bottom-right"
-      autoClose={5000}
+      autoClose={2000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
