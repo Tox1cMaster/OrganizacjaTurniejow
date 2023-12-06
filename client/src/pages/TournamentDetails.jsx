@@ -188,6 +188,12 @@ const Brackett = () => {
 const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
   
   const statusy = [0, 1, 2];
+  const [rules, setRules] = useState([]);
+
+  const addRule = (newRule) => {
+    // Implement the logic to handle the new rule, for example:
+    console.log("New rule added:", newRule);
+  };
 
   return (
     <div className='container mt-0'>
@@ -233,8 +239,61 @@ const SettingsRewards = () => {
   return (<><h2>Nagrody</h2></>);
 };
 
-const SettingsRules = () => {
-  return (<><h2>Zasady</h2></>);
+const SettingsRules = ({ addRule }) => {
+  const [rules, setRules] = useState([]);
+  const [newRule, setNewRule] = useState('');
+  const [allRules, setAllRules] = useState([]);
+
+  const handleAddRule = () => {
+    if (newRule.trim() !== '') {
+      setRules([...rules, newRule]);
+      addRule(newRule);
+      setNewRule('');
+    }
+    
+  };
+
+  return (
+    <>
+      <h2 className="text-2xl font-bold mb-4">Zasady</h2>
+      <div className="text-center text-lg mt-4">
+        {/* Display rules in a table */}
+        <table className="w-full border border-collapse">
+          <thead>
+            <tr className="bg-black-400">
+              <th className="border p-0">#</th>
+              <th className="border p-3">Zasada</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rules.map((rule, index) => (
+              <tr key={index} className={index % 2 === 0 ? 'bg-gray-800' : ''}>
+                <td className="border p-2">{index + 1}</td>
+                <td className="border p-2">{rule}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* Input field to manually enter rules */}
+        <div className="mt-4">
+          <input
+            type="text"
+            placeholder="Wprowadź nową zasadę..."
+            value={newRule}
+            onChange={(e) => setNewRule(e.target.value)}
+            className="border p-2 w-2/3"
+          />
+          {/* Button to add a new rule */}
+          <button
+            onClick={handleAddRule}
+            className="ml-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+          >
+            Dodaj nową zasadę
+          </button>
+        </div>
+      </div>
+    </>
+  );
 };
 
 const SettingsTimetable = () => {
