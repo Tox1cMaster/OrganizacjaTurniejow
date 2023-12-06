@@ -32,7 +32,7 @@ const submitForm = () => {
       notifyloginok();
       setTimeout(() => {
       setToken(res.data.user, res.data.access_token);
-      },3000);
+      },1500);
     })
     .catch(() => {
       notifyloginerror();
@@ -114,7 +114,7 @@ const submitForm = () => {
     </div>
       <ToastContainer
       position="bottom-right"
-      autoClose={2000}
+      autoClose={500}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick
