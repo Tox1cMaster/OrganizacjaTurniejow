@@ -250,7 +250,7 @@ const SettingsRules = ({ addRule }) => {
       addRule(newRule);
       setNewRule('');
     }
-    
+
   };
 
   return (
