@@ -3,6 +3,9 @@ import axios from 'axios';
 import Functions from '../components/Functions';
 import { useParams, Link, NavLink, Routes, Route } from 'react-router-dom';
 import AuthUser from '../components/AuthUser';
+import firstPlace from '../assets/firstPlace.png';
+import secondPlace from '../assets/secondPlace.png';
+import thirdPlace from '../assets/thirdPlace.png';
 import { SingleEliminationBracket, DoubleEliminationBracket, Match, MATCH_STATES, SVGViewer, createTheme, Bracket } from '@g-loot/react-tournament-brackets';
 
 export const TournamentDetails = () => {
@@ -188,12 +191,6 @@ const Brackett = () => {
 const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
   
   const statusy = [0, 1, 2];
-  const [rules, setRules] = useState([]);
-
-  const addRule = (newRule) => {
-    // Implement the logic to handle the new rule, for example:
-    console.log("New rule added:", newRule);
-  };
 
   return (
     <div className='container mt-0'>
@@ -236,7 +233,30 @@ const SettingsJoin = () => {
 };
 
 const SettingsRewards = () => {
-  return (<><h2>Nagrody</h2></>);
+
+  
+  return (
+  <>
+    <h2>Nagrody</h2>
+    <div className='flex-1'>
+      <div className="flex flex-nowrap items-center justify-center">
+        <img className='w-32 h-32 mr-2' src={firstPlace} alt="first place icon" />
+        <input className='rewardsInput'  type="text" />
+      </div>
+      <div className="flex flex-nowrap items-center justify-center">
+        <img className='w-32 h-32 mr-2' src={secondPlace} alt="second place icon" />
+        <input className='rewardsInput' type="text" />
+      </div>
+      <div className="flex flex-nowrap items-center justify-center">
+        <img className='w-32 h-32 mr-2' src={thirdPlace} alt="third place icon" />
+        <input className='rewardsInput' type="text" />
+      </div>
+      <div className='flex justify-center items-center mt-3 '>
+        <button>Zaktualizuj nagrody</button>
+      </div>
+    </div>
+  </>
+  );
 };
 
 const SettingsRules = ({ addRule }) => {
@@ -406,6 +426,6 @@ const Settings = () => {
         {activeTab === "matches" && <Matches />}
         </div>
         </div>
-    </div>
+    </div>  
   );
 };

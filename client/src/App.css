@@ -203,3 +203,7 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.box .rewardsInput {
+  width: 25%;
+}
