@@ -24,23 +24,26 @@ export const Tournaments = () => {
 
   return (
     <div className='container'>
-      <div className='box'>
-      <h2>Lista turniejów</h2>
-      <ul>
-        {tournaments.map(tournament => (
-          <li key={tournament.TournamentID}>
-            <h3>{tournament.TournamentName}</h3>
-            <p>Organizator: {tournament.organizer}</p>
-            <p>Gra: {getGameName(tournament.GameID)}</p>
-            <p>Format: {tournament.TournamentFormat}</p>
-            <p>Prywatność: {tournament.Privacy}</p>
-            <p>Status: {getStatusName(tournament.Status)}</p>
-            <p>Pula nagród: {tournament.Prizepool}zł</p>
-            <Link to={`/tournament/${tournament.TournamentID}`}><button>Szczegóły</button></Link>
-            {/* Tutaj można dodać więcej informacji o turnieju lub akcje, np. edycja czy usunięcie */}
-          </li>
-        ))}
-      </ul>
+      <div className='box text-center'>
+        <h2>Lista turniejów</h2>
+        {tournaments.length === 0 ? (
+          <p className="text-2xl text-gray-500">Brak dostępnych turniejów</p>
+        ) : (
+          <ul>
+            {tournaments.map(tournament => (
+              <li key={tournament.TournamentID}>
+                <h3>{tournament.TournamentName}</h3>
+                <p>Organizator: {tournament.organizer}</p>
+                <p>Gra: {getGameName(tournament.GameID)}</p>
+                <p>Format: {tournament.TournamentFormat}</p>
+                <p>Prywatność: {tournament.Privacy}</p>
+                <p>Status: {getStatusName(tournament.Status)}</p>
+                <p>Pula nagród: {tournament.Prizepool}zł</p>
+                <Link to={`/tournament/${tournament.TournamentID}`}><button>Szczegóły</button></Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
