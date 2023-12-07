@@ -189,6 +189,7 @@ body {
   justify-content: center;
   align-content: stretch;
   flex-direction: column;
+  width: auto;
 }
 
 .matchscore {

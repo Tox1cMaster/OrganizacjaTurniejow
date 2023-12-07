@@ -148,28 +148,45 @@ export const TournamentDetails = () => {
   };
 
  
-  const Matches = () => {
-    return (<>
-    <h2>Mecze:</h2>
-      {isUserOrganizer ? <>
-      <h2>Zarządzaj meczami:</h2>
-        {matchesdataorganizer.map(match => (
-          <div key={match.id} className='matchlist'>
-          <p>{match.id} - {match.nick1} vs {match.nick2} - {match.winner_id}</p>
-          <div className='matchscore'>
-            <label>{match.nick1}</label>
-            <input type="number" placeholder="0" id={`score1-${match.id}`} />
-          </div>
-          <div className='matchscore'>
-            <label>{match.nick2}</label>
-            <input type="number" placeholder="0" id={`score2-${match.id}`} />
-          </div>
-          <button onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
-        </div>
+  
+const Matches = ({fetchMatches}) => {
+  // Grupowanie meczów według rundy
+  const matchesByRound = matchesdataorganizer.reduce((acc, match) => {
+    if (!acc[match.round]) {
+      acc[match.round] = [];
+    }
+    acc[match.round].push(match);
+    return acc;
+  }, {});
+
+  return (
+    <>
+      {isUserOrganizer && (
+        <>
+          {Object.keys(matchesByRound).map((round) => (
+            <div key={round}>
+              <p className='text-center mt-3 mb-3 text-3xl'>Runda {round}</p>
+              {matchesByRound[round].map((match) => (
+                <div key={match.id} className='matchlist justify-center items-center mb-3'>
+                  <div className='matchscore w-64'>
+                    <label>{match.nick1}</label>
+                    <input type="number" placeholder="0" id={`score1-${match.id}`} />
+                  </div>
+                  <p className='mt-6 mx-2'>VS</p>
+                  <div className='matchscore w-64'>
+                    <label>{match.nick2}</label>
+                    <input type="number" placeholder="0" id={`score2-${match.id}`} />
+                  </div>
+                  <button className='h-11 mt-4 ' onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
+                </div>
+              ))}
+            </div>
           ))}
-    </> : null}
-    </>);
-  };
+        </>
+      )}
+    </>
+  );
+};
 
   
 const Brackett = () => {
@@ -229,7 +246,7 @@ const SettingsDetails = () => {
     <div className='container mt-0'>
       <div className='text-center text-3xl mb-4'>
         <label htmlFor="title" className='mb-3'>Zmień Tytuł Turnieju</label>
-        <input type='text' />
+        <input id='title' type='text' placeholder='Ustaw tytuł turnieju'/>
       </div>
 
       <div className='text-center text-3xl'>
@@ -239,6 +256,7 @@ const SettingsDetails = () => {
             name="description"
             rows="4"
             autoComplete="description"
+            placeholder='Ustaw opis turnieju'
             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
           />
       </div>
@@ -437,7 +455,7 @@ const Settings = () => {
         {activeTab === "summary" && <Summary />}
         {activeTab === "bracket" && <Brackett />}
         {activeTab === "participants" && <Participants />}
-        {activeTab === "matches" && <Matches />}
+        {activeTab === "matches" && <Matches fetchMatches={fetchMatches} />}
         </div>
         </div>
     </div>  
