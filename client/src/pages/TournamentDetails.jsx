@@ -217,19 +217,36 @@ const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
       </div>
       
       <div className='flex justify-center items-center mt-3'>
-        <button>Zmień status</button>
-        <button>Zmień prywatność</button>
+        <button>Wprowadź zmiany</button>
       </div>
     </div>
   );
 };
 
 const SettingsDetails = () => {
-  return (<><h2>Szczegóły Bartek2</h2></>);
-};
+  return (
+  <>
+    <div className='container mt-0'>
+      <div className='text-center text-3xl mb-4'>
+        <label htmlFor="title" className='mb-3'>Zmień Tytuł Turnieju</label>
+        <input type='text' />
+      </div>
 
-const SettingsJoin = () => {
-  return (<><h2>Dołączanie</h2></>);
+      <div className='text-center text-3xl'>
+      <label htmlFor="description" className='mb-3'>Zmień Opis Turnieju:</label>
+      <textarea
+            id="description"
+            name="description"
+            rows="4"
+            autoComplete="description"
+            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          />
+      </div>
+      <div className='flex justify-center items-center mt-3'>
+        <button>Wprowadź zmiany</button>
+      </div>
+    </div>
+  </>);
 };
 
 const SettingsRewards = () => {
@@ -237,19 +254,20 @@ const SettingsRewards = () => {
   
   return (
   <>
-    <h2>Nagrody</h2>
+    
     <div className='flex-1'>
+    <h2>Nagrody</h2>
       <div className="flex flex-nowrap items-center justify-center">
         <img className='w-32 h-32 mr-2' src={firstPlace} alt="first place icon" />
-        <input className='rewardsInput'  type="text" />
+        <input className='rewardsInput'  type="number" placeholder='Wprowadź nagrodę dla 1 miejsca' />
       </div>
       <div className="flex flex-nowrap items-center justify-center">
         <img className='w-32 h-32 mr-2' src={secondPlace} alt="second place icon" />
-        <input className='rewardsInput' type="text" />
+        <input className='rewardsInput' type="number" placeholder='Wprowadź nagrodę dla 2 miejsca' />
       </div>
       <div className="flex flex-nowrap items-center justify-center">
         <img className='w-32 h-32 mr-2' src={thirdPlace} alt="third place icon" />
-        <input className='rewardsInput' type="text" />
+        <input className='rewardsInput' type="number" placeholder='Wprowadź nagrodę dla 3 miejsca' />
       </div>
       <div className='flex justify-center items-center mt-3 '>
         <button>Zaktualizuj nagrody</button>
@@ -335,9 +353,6 @@ const Settings = () => {
       <li className={activeTab2 === "SettingsDetails" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsDetails")}>
         <NavLink to={``}>Szczegóły</NavLink>
       </li>
-      <li className={activeTab2 === "SettingsJoin" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsJoin")}>
-        <NavLink to={``}>Dołączanie</NavLink>
-      </li>
       <li className={activeTab2 === "SettingsRewards" ? activeLinkClass2 : inactiveLinkClass2} onClick={() => handleTabChange2("SettingsRewards")}>
         <NavLink to={``}>Nagrody</NavLink>
       </li>
@@ -355,7 +370,6 @@ const Settings = () => {
   <div className="w-5/6 ml-auto p-8">
     {activeTab2 === "SettingsControlpanel" && <SettingsControlpanel />}
     {activeTab2 === "SettingsDetails" && <SettingsDetails />}
-    {activeTab2 === "SettingsJoin" && <SettingsJoin />}
     {activeTab2 === "SettingsRewards" && <SettingsRewards />}
     {activeTab2 === "SettingsRules" && <SettingsRules />}
     {activeTab2 === "SettingsTimetable" && <SettingsTimetable />}
