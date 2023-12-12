@@ -6,6 +6,7 @@ import AuthUser from '../components/AuthUser';
 import firstPlace from '../assets/firstPlace.png';
 import secondPlace from '../assets/secondPlace.png';
 import thirdPlace from '../assets/thirdPlace.png';
+import userAvatar from '../assets/defaultavatar.png';
 import { SingleEliminationBracket, DoubleEliminationBracket, Match, MATCH_STATES, SVGViewer, createTheme, Bracket } from '@g-loot/react-tournament-brackets';
 
 export const TournamentDetails = () => {
@@ -139,11 +140,20 @@ export const TournamentDetails = () => {
   const Participants = () => {
     return (
       <><h2>Uczestnicy:</h2>
-        <ul>
-          {participants.map(participant => (
-            <li key={participant.UserID}>{participant.UserID} - {participant.nickname} {isUserOrganizer ? <>- <a href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</a></> : null}</li> // Zakładam, że uczestnik ma pola id i name
-          ))}
-        </ul></>
+          <ul className="divide-y ">
+          {participants.map((participant, index) => (
+              <li className="flex items-center py-4 px-6 text-white">
+                 <span class="text-white text-2xl font-medium mr-4">{index + 1}.</span>
+                 <img class="w-12 h-12 rounded-full object-cover mr-4" src={userAvatar}
+                alt="User avatar" />
+                <div class="flex-1 ">
+                <h3 class="text-lg font-medium text-white">{participant.nickname}</h3> {isUserOrganizer ? <>
+                <button className="deleteButton " href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</button></> : null}
+                </div>
+                </li> // Zakładam, że uczestnik ma pola id i name
+            ))}
+          </ul>
+      </>
     );
   };
 

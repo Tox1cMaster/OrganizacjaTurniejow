@@ -258,7 +258,7 @@ export const Account = () => {
     <div className="flex min-h-screen bg-gray-800">
       <div className="bg-gray-500 p-5 w-65">
       
-        <h2 className="text-2xl text-white font-semibold mb-4">Panel Użytkownika</h2>
+        <h2 className="text-2xl text-white font-semibold mb-4 mt-5">Panel Użytkownika</h2>
         <ul >
         <li className="mb-4">
             <Link

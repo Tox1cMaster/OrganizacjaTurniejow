@@ -209,3 +209,12 @@ body {
 .box .rewardsInput {
   width: 25%;
 }
+
+.box .deleteButton {
+  background-color: red;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 30px;
+}
