@@ -14,7 +14,7 @@
 
 .image-slider {
   display: flex;
-  animation: slideAnimation 55s linear infinite;
+  animation: slideAnimation 40s linear infinite;
   user-select: none;
   pointer-events: none;
   height: 20vh;
@@ -26,7 +26,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-370%);
+    transform: translateX(-210%);
   }
 }
 
