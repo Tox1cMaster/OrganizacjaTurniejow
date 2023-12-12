@@ -1,6 +1,6 @@
 import '/src/components/css/react-spring.css';
 import React, { useState } from 'react';
-import { useSpring, animated, config } from 'react-spring';
+import { useSpring, animated } from 'react-spring';
 import { Link } from 'react-router-dom';
 
 const images = [
@@ -24,7 +24,6 @@ export const Home = () => {
     to: { transform: 'translateX(100%)' },
     reset: true,
     reverse: isAnimating,
-    config: { duration: 20000 },
     onRest: () => {
       setIsAnimating(true);
     },
@@ -36,12 +35,12 @@ export const Home = () => {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <section className='top-section'>
         <div className="container">
-          <h1>Esports Challenger</h1>
-          <p>Dołącz do milionów graczy na całym świecie</p>
-          <p>Już dzisiaj stwórz własny turniej o którym marzysz</p>
+          <h1 className="text-xl md:text-4xl lg:text-5xl mb-2">Esports Challenger</h1>
+          <p className="text-sm md:text-base lg:text-lg mb-2">Dołącz do milionów graczy na całym świecie</p>
+          <p className="text-sm md:text-base lg:text-lg">Już dzisiaj stwórz własny turniej o którym marzysz</p>
         </div>
       </section>
 
@@ -49,11 +48,11 @@ export const Home = () => {
         <animated.div
           style={props}
           className="image-slider"
-          onPointerEnter={restartAnimation}
-          onPointerLeave={() => setIsAnimating(true)}
+          onMouseEnter={restartAnimation}
+          onMouseLeave={() => setIsAnimating(true)}
         >
           {images.map((image, index) => (
-            <img key={index} src={image} alt={`Gra ${index + 1}`} />
+            <img key={index} src={image} alt={`Gra ${index + 1}`} className="w-full h-full object-cover" />
           ))}
         </animated.div>
       </div>

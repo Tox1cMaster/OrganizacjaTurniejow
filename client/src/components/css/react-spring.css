@@ -6,16 +6,19 @@
   max-width: 80%;
   border: 1px solid #ddd;
   border-radius: 8px;
-  height: 16vh;
+  width: 80vw;
+  height: 20vh;
   margin: 0 auto;
   background-color: black;
 }
 
 .image-slider {
   display: flex;
-  animation: slideAnimation 20s linear infinite;
+  animation: slideAnimation 55s linear infinite;
   user-select: none;
   pointer-events: none;
+  height: 20vh;
+  width: 100%;
 }
 
 @keyframes slideAnimation {
@@ -23,14 +26,14 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-370%);
   }
 }
 
 .image-slider img {
-  width: 20%;
   height: auto;
   object-fit: cover;
+  width: 50%;
 }
 
 .image-slider img:first-child {
@@ -39,4 +42,97 @@
 
 .image-slider img:last-child {
   margin-right: 0;
+}
+
+/* Dla smartfonów w orientacji pionowej (np. iPhone SE, Galaxy S8) */
+@media (max-width: 575px) {
+  .image-container {
+    width: 90vw;
+    height: 20vh;
+  }
+
+  .image-slider img {
+    height: 100%;
+    object-fit: cover;
+    width: auto;
+    max-width: 60%;
+  }
+  
+  .image-slider {
+    display: flex;
+    animation: slideAnimation 20s linear infinite;
+    user-select: none;
+    pointer-events: none;
+    width: 100%;
+  }
+}
+
+
+/* Dla smartfonów w orientacji poziomej (szerokie smartfony) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .image-container {
+    width: 90vw;
+    height: 20vh;
+  }
+
+  .image-slider img {
+    height: 100%;
+    object-fit: cover;
+    width: auto;
+    max-width: 60%;
+  }
+  
+  .image-slider {
+    display: flex;
+    animation: slideAnimation 20s linear infinite;
+    user-select: none;
+    pointer-events: none;
+    width: 100%;
+  }
+}
+
+/* Dla małych i średnich tabletów */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .image-container {
+    width: 70vw;
+    height: 20vh;
+  }
+
+  .image-slider img {
+    height: 100%;
+    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .image-slider {
+    display: flex;
+    animation: slideAnimation 20s linear infinite;
+    user-select: none;
+    pointer-events: none;
+    width: 100%;
+  }
+}
+
+/* Dla dużych tabletów w orientacji poziomej */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .image-container {
+    width: 80vw;
+    height: 20vh;
+  }
+
+  .image-slider img {
+    height: 100%;
+    object-fit: cover;
+    width: auto;
+    max-width: 100%;
+  }
+  
+  .image-slider {
+    display: flex;
+    animation: slideAnimation 20s linear infinite;
+    user-select: none;
+    pointer-events: none;
+    width: 100%;
+  }
 }
