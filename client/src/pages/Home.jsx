@@ -36,14 +36,19 @@ export const Home = () => {
 
   return (
     <div className="p-4">
-      <section className='top-section'>
+      <section className="top-section">
         <div className="container">
-          <h1 className="text-xl md:text-4xl lg:text-5xl mb-2">Esports Challenger</h1>
-          <p className="text-sm md:text-base lg:text-lg mb-2">Dołącz do milionów graczy na całym świecie</p>
-          <p className="text-sm md:text-base lg:text-lg">Już dzisiaj stwórz własny turniej o którym marzysz</p>
+          <h1 className="text-xl md:text-4xl lg:text-5xl mb-2 mt-0 leading-tight">
+            Esports Challenger
+          </h1>
+          <p className="text-sm md:text-base lg:text-lg mb-6 mt-6 leading-tight">
+            Dołącz do milionów graczy na całym świecie
+          </p>
+          <p className="text-sm md:text-base lg:text-lg mb-6 mt-2 leading-tight">
+            Już dzisiaj stwórz własny turniej o którym marzysz
+          </p>
         </div>
       </section>
-
       <div className="image-container">
         <animated.div
           style={props}
@@ -52,10 +57,16 @@ export const Home = () => {
           onMouseLeave={() => setIsAnimating(true)}
         >
           {images.map((image, index) => (
-            <img key={index} src={image} alt={`Gra ${index + 1}`} className="w-full h-full object-cover" />
+            <img
+              key={index}
+              src={image}
+              alt={`Gra ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
           ))}
         </animated.div>
       </div>
     </div>
   );
+  
 };
