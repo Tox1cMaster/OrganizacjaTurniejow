@@ -13,7 +13,8 @@
 
 .image-slider {
   display: flex;
-  animation: slideAnimation 20s linear infinite; /* Adjust the duration as needed */
+  animation: slideAnimation 20s linear infinite;
+  user-select: none;
 }
 
 @keyframes slideAnimation {
