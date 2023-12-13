@@ -42,6 +42,7 @@ Route::group(['middleware'=>'api'],function(){
     Route::put('tournaments/{id}', [TournamentsController::class, 'update']);
     Route::delete('tournaments/{id}', [TournamentsController::class, 'destroy']);
     Route::patch('tournaments/{id}/status', [TournamentsController::class, 'changeStatus']);
+    Route::patch('tournaments/{id}/privacy', [TournamentsController::class, 'changePrivacy']);
     //Mecze
     Route::post('/tournaments/{id}/generate', [TournamentsController::class, 'generateMatches']);
     Route::get('/tournaments/{id}/matches', [MatchesController::class, 'getMatchesForTournament']);

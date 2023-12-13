@@ -215,38 +215,59 @@ const Brackett = () => {
   );
 };
 
-const SettingsControlpanel = ({ turniejStatus, setTurniejStatus }) => {
-  
-  const statusy = [0, 1, 2];
+const SettingsControlpanel = ({ tournamentId, currentStatus, currentPrivacy, fetchTournament }) => {
+  const [turniejStatus, setTurniejStatus] = useState(currentStatus);
+  const [turniejPrivacy, setTurniejPrivacy] = useState(currentPrivacy);
+  const statusOptions = [0, 1, 2];
+
+  useEffect(() => {
+      setTurniejStatus(currentStatus);
+      setTurniejPrivacy(currentPrivacy);
+  }, [currentStatus, currentPrivacy]);
+
+  const handleSubmit = async () => {
+      try {
+          await axios.patch(`/api/tournaments/${tournamentId}/status`, { Status: turniejStatus });
+          await axios.patch(`/api/tournaments/${tournamentId}/privacy`, { Privacy: turniejPrivacy });
+          fetchTournament(); // Odśwież informacje o turnieju
+          alert('Zmiany zostały zapisane');
+      } catch (error) {
+          console.error('Error updating tournament:', error);
+          alert('Błąd podczas aktualizacji danych');
+      }
+  };
 
   return (
-    <div className='container mt-0'>
-      <div className='text-center text-3xl mb-4'>
+      <div className='container mt-0'>
+        <div className='text-center text-3xl mb-4'>
         <label htmlFor="Status" className='mb-3'>Zmień status</label>
-        <select
-          name="Status"
-          value={turniejStatus}
-        >
-          {statusy.map((status, index) => (
-            <option key={index} value={status}>
-              {getStatusName(status)}
-            </option>
-          ))}
-        </select>
-      </div>
+          <select
+              name="Status"
+              value={turniejStatus}
+              onChange={e => setTurniejStatus(e.target.value)}
+          >
+              {statusOptions.map(status => (
+                  <option key={status} value={status}>
+                      {getStatusName(status)}
+                  </option>
+              ))}
+          </select>
+          </div>
 
-      <div className='text-center text-3xl'>
-      <label htmlFor="Privacy" className='mb-3'>Zmień Prywatność:</label>
-      <select name="Privacy">
-          <option value="Publiczny">Publiczny</option>
-          <option value="Prywatny">Prywatny</option>
-      </select>
+          <div className='text-center text-3xl'>
+          <label htmlFor="Privacy" className='mb-3'>Zmień Prywatność:</label>
+          <select
+              name="Privacy"
+              value={turniejPrivacy}
+              onChange={e => setTurniejPrivacy(e.target.value)}
+          >
+              <option value="Publiczny">Publiczny</option>
+              <option value="Prywatny">Prywatny</option>
+          </select>
+
+          <button onClick={handleSubmit}>Wprowadź zmiany</button>
+        </div>
       </div>
-      
-      <div className='flex justify-center items-center mt-3'>
-        <button>Wprowadź zmiany</button>
-      </div>
-    </div>
   );
 };
 
@@ -396,7 +417,12 @@ const Settings = () => {
     </ul>
   </div>
   <div className="w-5/6 ml-auto p-8">
-    {activeTab2 === "SettingsControlpanel" && <SettingsControlpanel />}
+    {activeTab2 === "SettingsControlpanel" && <SettingsControlpanel
+        tournamentId={id}
+        currentStatus={tournament.Status}
+        currentPrivacy={tournament.Privacy}
+        fetchTournament={fetchTournament}
+    />}
     {activeTab2 === "SettingsDetails" && <SettingsDetails />}
     {activeTab2 === "SettingsRewards" && <SettingsRewards />}
     {activeTab2 === "SettingsRules" && <SettingsRules />}
