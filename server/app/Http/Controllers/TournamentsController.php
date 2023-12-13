@@ -79,11 +79,15 @@ class TournamentsController extends Controller
     public function changeStatus(Request $request, $id)
     {
         $tournament = Tournament::findOrFail($id);
-        if ($tournament->user_id !== auth('api')->id()) {
-            return response()->json(['error' => 'Brak autoryzacji'], 403);
-        }
-        // Zmiana statusu - zależnie od implementacji może to być int lub string
         $tournament->Status = $request->input('Status');
+        $tournament->save();
+        return response()->json($tournament, 200);
+    }
+
+    public function changePrivacy(Request $request, $id)
+    {
+        $tournament = Tournament::findOrFail($id);
+        $tournament->Privacy = $request->input('Privacy');
         $tournament->save();
         return response()->json($tournament, 200);
     }
