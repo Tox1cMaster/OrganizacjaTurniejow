@@ -6,7 +6,7 @@ import axios from 'axios';
 import Functions from '../components/Functions';
 import userAvater from '../assets/defaultavatar.png'
 
-const MyTournaments = () => {
+const MyTournaments = ({tournament}) => {
     const { getGameName, getStatusName } = Functions();
     const [tournaments, setTournaments] = useState([]);
     const { getUser } = AuthUser();
@@ -26,7 +26,7 @@ const MyTournaments = () => {
   
     return (
     <div className="container xs:mt-12 xs:text-center sm:text-left">
-        <div className=" flex md:justify-between items-center xs:justify-center xs:flex-wrap mb-5 xs:flex-col md:flex-row ">
+        <div className=" flex md:justify-between items-center xs:justify-center xs:flex-wrap md:mb-3 xs:mb-5 xs:flex-col md:flex-row ">
             <h1 className='text-white text-5xl xs:mb-10'>Twoje Turnieje</h1>
             <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Stwórz turniej
@@ -34,19 +34,21 @@ const MyTournaments = () => {
         </div>
       <ul className="space-y-4">
       {tournaments.filter(tournament => tournament.user_id === user.id).map((tournament) => (
-        <li key={tournament.TournamentName} className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
-          <div className="flex sm:justify-between xs:justify-center xs:flex-col xs:flex-wrap md:flex-row items-center sm:text-center md:text-left">
-            <h3 className="text-lg font-semibold">Nazwa turnieju: 
-            <p className='font-bold text-2xl xs:mb-3'>{tournament.TournamentName}</p>
-            </h3>
-            <span className="text-sm font-medium text-gray-600">Status: 
-            <p className='font-bold text-sm xs:mb-3'>{getStatusName(tournament.Status)}</p>
-            </span>
-          </div>
-          <p className="text-gray-600 sm:text-center md:text-left">Gra: 
-          <p className='font-bold text-base'>{getGameName(tournament.GameID)}</p>
-          </p>
-        </li>
+        <Link to={`/tournament/${tournament.TournamentID}`}>
+          <li key={tournament.TournamentName} className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm mb-2">
+            <div className="flex sm:justify-between xs:justify-center xs:flex-col xs:flex-wrap md:flex-row items-center sm:text-center md:text-left">
+              <h3 className="text-lg font-semibold">Nazwa turnieju: 
+              <p className='font-bold text-2xl xs:mb-3'>{tournament.TournamentName}</p>
+              </h3>
+              <span className="text-sm font-medium text-gray-600">Status: 
+              <p className='font-bold text-sm xs:mb-3'>{getStatusName(tournament.Status)}</p>
+              </span>
+            </div>
+            <p className="text-gray-600 sm:text-center md:text-left">Gra: 
+            <p className='font-bold text-base'>{getGameName(tournament.GameID)}</p>
+            </p>
+          </li>
+        </Link>
       ))}
       </ul>
     </div>

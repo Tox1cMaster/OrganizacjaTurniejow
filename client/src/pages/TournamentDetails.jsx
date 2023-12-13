@@ -264,8 +264,9 @@ const SettingsControlpanel = ({ tournamentId, currentStatus, currentPrivacy, fet
               <option value="Publiczny">Publiczny</option>
               <option value="Prywatny">Prywatny</option>
           </select>
-
-          <button onClick={handleSubmit}>Wprowadź zmiany</button>
+          <div className='flex justify-center items-center mt-3'>
+            <button onClick={handleSubmit}>Wprowadź zmiany</button>
+          </div>
         </div>
       </div>
   );
