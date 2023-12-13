@@ -12,21 +12,23 @@ nav{
     background: #0F0F0F;
     padding: 10px 20px;
     box-shadow: 0px 0px 10px;
-    position: fixed;
+    position: relative;
     width: 100%;
     top: 0;
   }
   
-  .left{
+  .left, .right{
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
   .right{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    top: 100%; /* Start the menu right below the nav bar */
+    left: 0;
+    right: 0;
+    z-index: 200; /* Higher z-index to overlay on content */
+    background-color: #0F0F0F; /* Background color for the dropdown */
   }
   
   li {
@@ -56,7 +58,6 @@ nav{
   }
 
   .right li ul{
-    display: none;
     position: absolute;
     background-color: #0F0F0F;
     z-index: 1;
@@ -67,8 +68,70 @@ nav{
     display: block;
   }
 
+
   .dropdown li{
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
+  }
+
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #F5F5F5;
+  }
+
+  .nav_bar .right li ul.dropdown {
+    display: none; /* Ukryj listę rozwijaną domyślnie */
+    position: absolute;
+    background-color: #0F0F0F;
+    z-index: 300; /* Zwiększ z-index, aby lista była nad innymi elementami */
+    padding-top: 10px;
+    width: auto; /* Możesz ustawić konkretną szerokość, np. 200px */
+}
+
+
+.nav_bar .right li:hover ul.dropdown {
+  display: block; /* Pokaż listę rozwijaną po najechaniu */
+}
+  
+  /* Responsive styles */
+  @media screen and (min-width: 360px) and (max-width: 1080px) {
+    .nav_bar .right {
+      display: none; /* Hide by default on smaller screens */
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      flex-direction: column;
+      background-color: #0F0F0F;
+  }
+  
+    .nav_bar .right.open {
+      display: flex;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+
+    .nav_bar .left {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  
+    .nav_bar .right li {
+      padding: 10px 20px;
+    }
+  
+    .nav_bar .right li:hover {
+      background-color: #1a1a1a;
+    }
+  
+    .nav_bar {
+      justify-content: space-between;
+    }
   }

@@ -205,29 +205,30 @@ const ProfileInfo = () =>{
     fetchStats();
   }, []);
   return(
-<div className="container mt-32 mb-5 mx-auto">
-  <div className="flex flex-col items-center">
-    <img className='h-28 w-28 rounded-full mb-3' src={userAvater} alt="123"/>
-    <h2 className='text-white text-2xl text-center'>{user.name}</h2>
-  </div>
-  <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-5 text-white'>
-    <div className='box-content h-40 rounded-md bg-slate-700 text-center flex flex-col justify-center items-center'>
-      <p className='text-6xl mb-2'>{stats.tournaments_organized}</p>
-      <p className='text-md font-bold'>Turnieje zorganizowane</p>
-    </div>
-    <div className='box-content h-40 rounded-md bg-slate-700 text-center flex flex-col justify-center items-center'>
-      <p className='text-6xl mb-2'>{stats.matches_played}</p>
-      <p className='text-md font-bold'>Mecze zagrane</p>
-    </div>
-    <div className='box-content h-40 rounded-md bg-slate-700 text-center flex flex-col justify-center items-center'>
-      <p className='text-6xl mb-2'>{stats.tournaments_joined}</p>
-      <p className='text-md font-bold'>Udział w turniejach</p>
-    </div>
-    <div className='box-content h-40 rounded-md mb-5 bg-slate-700 text-center flex flex-col justify-center items-center'>
-      <p className='text-6xl mb-2'>{stats.tournaments_wins}</p>
-      <p className='text-md font-bold'>Turnieje wygrane</p>
-    </div>
-  </div>
+<div className="container">
+      <h1 className='text-white text-5xl text-center'>Moje statystyki</h1>
+      <div className="flex justify-center items-center mb-5 mt-5 xs:flex-wrap">
+      <img className='h-28 w-28 rounded-full ml-10 mb-3 mr-5' src={userAvater} alt="123"/>
+      <h2 className='text-white text-2xl'>{user.name}</h2>
+      </div>
+      <div className='flex justify-center text-white xs:flex-wrap'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+          <p className='xs:text-4xl sm:text-6xl mb-4 mt-4 '>{stats.tournaments_organized}</p>
+          <p className='xs:text-sm  sm:text-md font-bold '>Turnieje zorganizowane</p>
+        </div>
+        <div className='box-content sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+          <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.matches_played}</p>
+          <p className='xs:text-sm xs:px-2 font-bold'>Mecze zagrane</p>
+        </div>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+          <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_joined}</p>
+          <p className='xs:text-sm xs:px-2 font-bold'>Udział w turniejach</p>
+        </div>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+          <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_wins}</p>
+          <p className='xs:text-sm xs:px-2 font-bold'>Turnieje wygrane</p>
+        </div>
+      </div>
 </div>
   )
 }
@@ -255,7 +256,7 @@ export const Account = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-800">
-<div className="bg-gray-500 mt-5 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
+      <div className="bg-gray-500 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
 
         <h2 className="text-2xl text-white font-semibold mb-4 mt-5">Panel Użytkownika</h2>
         <ul >
