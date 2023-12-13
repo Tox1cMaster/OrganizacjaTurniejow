@@ -137,11 +137,6 @@ body {
   color: #F6F6F6;
 }
 
-.container > h1 {
-  font-size: 5rem;
-  margin-bottom: 30px;
-}
-
 .container > p {
   font-size: 2rem;
 }

@@ -205,10 +205,10 @@ const ProfileInfo = () =>{
     fetchStats();
   }, []);
   return(
-<div className="container">
-      <h1 className='text-white text-5xl text-center'>Moje statystyki</h1>
+<div className="container xs:mt-12 xs:text-center">
+      <h1 className='text-white font-bold xs:mt-0 xs:text-xl md:text-5xl text-center'>Moje statystyki</h1>
       <div className="flex justify-center items-center mb-5 mt-5 xs:flex-wrap">
-      <img className='h-28 w-28 rounded-full ml-10 mb-3 mr-5' src={userAvater} alt="123"/>
+      <img className='xs:w-16 xs:h-16 sm:h-28 sm:w-28 rounded-full xs:mt-0 ml-10 mb-3 mr-5' src={userAvater} alt="123"/>
       <h2 className='text-white text-2xl'>{user.name}</h2>
       </div>
       <div className='flex justify-center text-white xs:flex-wrap'>
@@ -216,7 +216,7 @@ const ProfileInfo = () =>{
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4 '>{stats.tournaments_organized}</p>
           <p className='xs:text-sm  sm:text-md font-bold '>Turnieje zorganizowane</p>
         </div>
-        <div className='box-content sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.matches_played}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Mecze zagrane</p>
         </div>
@@ -243,7 +243,7 @@ export const Account = () => {
       };
 
       const linkClass = (linkName) => {
-        return `text-gray-950 font-medium hover:bg-gray-200  rounded-full px-12 py-2 ${
+        return `break-normal text-gray-950 xs:px-2 xs:py-1 font-medium hover:bg-gray-200  rounded-full md:px-12 md:py-2 ${
           activeLink === linkName ? 'bg-gray-200' : ''
         }`;
       };
@@ -256,11 +256,10 @@ export const Account = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-800">
-      <div className="bg-gray-500 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
-
-        <h2 className="text-2xl text-white font-semibold mb-4 mt-5">Panel Użytkownika</h2>
-        <ul >
-        <li className="mb-4">
+      <div className="bg-gray-500 xs:w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
+        <h2 className="xs:text-md md:text-2xl text-white font-semibold mb-4 mt-5">Panel Użytkownika</h2>
+        <ul className='xs:text-center'>
+        <li className="xs:text-sm xs:text-center break-words mb-4">
             <Link
               to="account/profile"
               className={linkClass('profile')}
@@ -269,7 +268,7 @@ export const Account = () => {
               Moje statystyki
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="xs:text-sm mb-4">
             <Link
               to="account/tournaments"
               className={linkClass('tournaments')}
@@ -278,7 +277,7 @@ export const Account = () => {
               Moje turnieje
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="xs:text-sm mb-4">
             <Link
               to="account/teams"
               className={linkClass('teams')}
@@ -287,7 +286,7 @@ export const Account = () => {
               Moje drużyny
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="xs:text-sm mb-4">
             <Link
               to="account/edit"
               className={linkClass('edit')}
@@ -296,7 +295,7 @@ export const Account = () => {
               Edycja profilu
             </Link>
           </li>
-          <li className="mb-4">
+          <li className="xs:text-sm mb-4">
             <Link
               onClick={() => {
                 handleLinkClick('logout');
@@ -310,7 +309,7 @@ export const Account = () => {
         </ul>
       </div>
 
-      <div className="flex-1 pr-10 pt-0 overflow-auto scrollbar-hide ">
+      <div className="flex-1 xs:pr-4 pr-10 pt-0 overflow-auto scrollbar-hide ">
       <Routes>
           <Route path="account/profile" element={<ProfileInfo />} />
           <Route path="account/tournaments" element={<MyTournaments />} />
