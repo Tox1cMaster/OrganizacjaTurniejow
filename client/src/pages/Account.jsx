@@ -25,9 +25,9 @@ const MyTournaments = () => {
     }, []);
   
     return (
-    <div className="container">
-        <div className=" flex justify-between items-center mb-5 ">
-            <h1 className='text-white text-5xl'>Twoje Turnieje</h1>
+    <div className="container xs:mt-12 xs:text-center sm:text-left">
+        <div className=" flex md:justify-between items-center xs:justify-center xs:flex-wrap mb-5 xs:flex-col md:flex-row ">
+            <h1 className='text-white text-5xl xs:mb-10'>Twoje Turnieje</h1>
             <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
                 Stwórz turniej
             </Link>
@@ -35,11 +35,17 @@ const MyTournaments = () => {
       <ul className="space-y-4">
       {tournaments.filter(tournament => tournament.user_id === user.id).map((tournament) => (
         <li key={tournament.TournamentName} className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Nazwa turnieju: {tournament.TournamentName}</h3>
-            <span className="text-sm font-medium text-gray-600">Status: {getStatusName(tournament.Status)}</span>
+          <div className="flex sm:justify-between xs:justify-center xs:flex-col xs:flex-wrap md:flex-row items-center sm:text-center md:text-left">
+            <h3 className="text-lg font-semibold">Nazwa turnieju: 
+            <p className='font-bold text-2xl xs:mb-3'>{tournament.TournamentName}</p>
+            </h3>
+            <span className="text-sm font-medium text-gray-600">Status: 
+            <p className='font-bold text-sm xs:mb-3'>{getStatusName(tournament.Status)}</p>
+            </span>
           </div>
-          <p className="text-gray-600">Gra: {getGameName(tournament.GameID)}</p>
+          <p className="text-gray-600 sm:text-center md:text-left">Gra: 
+          <p className='font-bold text-base'>{getGameName(tournament.GameID)}</p>
+          </p>
         </li>
       ))}
       </ul>
@@ -51,7 +57,7 @@ const MyTournaments = () => {
 
 const MyTeams = () => {
     return(
-        <div className="container">
+        <div className="container xs:mt-12 xs:text-center">
         <div className=" flex justify-between items-center mb-5 ">
             <h1 className='text-white text-5xl'>Twoje Drużyny</h1>
             <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
@@ -80,7 +86,7 @@ const MyTeams = () => {
 
 const EditProfile = () => {
     return(
-    <div className="container">
+    <div className="container xs:mt-12 xs:text-center">
     <div className="style='background-color: #394f62;'">
     <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 ">
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
