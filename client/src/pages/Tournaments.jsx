@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 export const Tournaments = () => {
   const {getGameName, getStatusName} = Functions();
   const [tournaments, setTournaments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     // Funkcja do pobierania listy turniejów z API
@@ -22,6 +23,15 @@ export const Tournaments = () => {
     fetchTournaments();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  }
+
+  const filteredTournaments = tournaments.filter(tournament =>
+    tournament.TournamentName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
   return (
     <div className='container'>
       <div className='box text-center'>
@@ -37,14 +47,16 @@ export const Tournaments = () => {
             className="peer h-full w-full text-sm searchInput  text-white pr-2"
             type="text"
             id="search"
-            placeholder="Wyszukaj turniej" /> 
+            placeholder="Wyszukaj turniej" 
+            value={searchTerm}
+            onChange={handleSearchChange}/> 
           </div>
         </div>
         {tournaments.length === 0 ? (
           <p className="text-2xl text-gray-500">Brak dostępnych turniejów</p>
         ) : (
             <ul className='flex flex-wrap gap-5 p-0 items-center justify-center mt-5 mb-5'>
-              {tournaments.map(tournament => (
+              {filteredTournaments.map(tournament => (
                 <li className='box tournamentList rounded-lg p-2' key={tournament.TournamentID}>
                   <p className='m-3 text-2xl'><b>{tournament.TournamentName}</b></p>
                   <p><b>Organizator:</b> {tournament.organizer}</p>
