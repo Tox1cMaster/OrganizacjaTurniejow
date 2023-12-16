@@ -1,7 +1,8 @@
 import '/src/components/css/react-spring.css';
-import React, { useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 const images = [
   '/src/assets/gra1.jpg',
@@ -17,7 +18,8 @@ const images = [
 ];
 
 export const Home = () => {
-  const [isAnimating, setIsAnimating] = useState(true);
+  const [isAnimating, setIsAnimating] = React.useState(true);
+  const topSectionRef = React.useRef(null);
 
   const props = useSpring({
     from: { transform: 'translateX(-100%)' },
@@ -34,9 +36,17 @@ export const Home = () => {
     props.reset();
   };
 
+  useEffect(() => {
+    gsap.fromTo(
+      topSectionRef.current,
+      { opacity: 0, y: -400 },
+      { opacity: 1, y: 0, duration: 2 }
+    );
+  }, []);
+
   return (
-    <div className="p-4">
-      <section className="top-section">
+    <div className="main">
+      <section className="top-section" ref={topSectionRef}>
         <div className="container-h">
           <h1 className="text-xl md:text-4xl lg:text-5xl mb-2 mt-0 leading-tight">
             Esports Challenger
@@ -68,5 +78,4 @@ export const Home = () => {
       </div>
     </div>
   );
-  
 };
