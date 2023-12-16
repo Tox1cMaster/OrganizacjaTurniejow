@@ -37,7 +37,7 @@ export const Home = () => {
   return (
     <div className="p-4">
       <section className="top-section">
-        <div className="container">
+        <div className="container-h">
           <h1 className="text-xl md:text-4xl lg:text-5xl mb-2 mt-0 leading-tight">
             Esports Challenger
           </h1>

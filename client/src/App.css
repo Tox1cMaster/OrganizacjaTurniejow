@@ -168,10 +168,20 @@ body {
   padding-bottom: 30px;
   background: transparent;
   height: 450px;
+}
+
+.container-h{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding-bottom: 30px;
+  background: transparent;
+  height: 450px; 
   text-align: center;
   justify-content: center;
   align-items: center;
 }
+
 
 .text{
   color:#C9D6DF;
