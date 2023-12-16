@@ -168,6 +168,9 @@ body {
   padding-bottom: 30px;
   background: transparent;
   height: 450px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .text{
