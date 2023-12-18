@@ -18,6 +18,7 @@ body {
 
 .box {
   background-color: #0f0f0f;
+  width: 100%;
   color:#f5f5f5;
   border-radius: 0px 0px 20px 20px;
   box-shadow: 0px 0px 20px rgb(255, 153, 0);
@@ -246,4 +247,11 @@ body {
   flex-direction: column;
   justify-content: space-between;
   outline: none;
+}
+
+@media (max-width: 1023px) {
+  .box .tournamentList {
+    width: 100%;
+    /* Inne style, które chcesz zastosować */
+  }
 }

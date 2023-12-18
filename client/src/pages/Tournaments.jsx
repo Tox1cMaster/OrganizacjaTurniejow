@@ -33,7 +33,7 @@ export const Tournaments = () => {
 
 
   return (
-    <div className='container'>
+    <div className='container '>
       <div className='box text-center'>
         <h2 className='mt-4 mb-4 text-md'>Lista turniejów</h2>
         <div className='max-w-md mx-auto '>
@@ -57,7 +57,7 @@ export const Tournaments = () => {
         ) : (
             <ul className='flex flex-wrap gap-5 p-0 items-center justify-center mt-5 mb-5'>
               {filteredTournaments.map(tournament => (
-                <li className='box tournamentList rounded-lg p-2' key={tournament.TournamentID}>
+                <li className='box tournamentList rounded-lg p-2 xs:w-full' key={tournament.TournamentID}>
                   <p className='m-3 text-2xl'><b>{tournament.TournamentName}</b></p>
                   <p><b>Organizator:</b> {tournament.organizer}</p>
                   <p><b>Gra:</b> {getGameName(tournament.GameID)}</p>
