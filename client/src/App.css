@@ -252,6 +252,5 @@ body {
 @media (max-width: 1023px) {
   .box .tournamentList {
     width: 100%;
-    /* Inne style, które chcesz zastosować */
   }
 }
