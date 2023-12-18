@@ -168,7 +168,7 @@ body {
   margin: auto;
   padding-bottom: 30px;
   background: transparent;
-  height: 450px;
+  min-height: 450px;
 }
 
 .container-h{

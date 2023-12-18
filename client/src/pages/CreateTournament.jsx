@@ -54,10 +54,10 @@ export const CreateTournament = () => {
 
     return (
         <div className='container'>
-            <div className='box'>
-                <h2>Utwórz turniej</h2>
+            <div className='box py-4'>
+                <h2 className='my-4'>Utwórz turniej</h2>
                 <form onSubmit={handleSubmit}>
-                    <div>
+                    <div className='py-2'>
                         <label htmlFor="TournamentName">Nazwa turnieju:</label>
                         <input
                             type="text"
@@ -68,7 +68,7 @@ export const CreateTournament = () => {
                             required
                         />
                     </div>
-                    <div>
+                    <div className='py-2'>
                         <label htmlFor="GameID">Game:</label>
                         <select name="GameID" onChange={handleInputChange} value={formData.GameID} required>
                             <option value="">Wybierz grę</option>
@@ -79,14 +79,14 @@ export const CreateTournament = () => {
                             ))}
                         </select>
                     </div>
-                    <div>
+                    <div className='py-2'>
                         <label htmlFor="Privacy">Prywatność:</label>
                         <select name="Privacy" onChange={handleInputChange} value={formData.Privacy} required>
                             <option value="Publiczny">Publiczny</option>
                             <option value="Prywatny">Prywatny</option>
                         </select>
                     </div>
-                    <div>
+                    <div className='py-2'>
                         <label htmlFor="TournamentFormat">Format:</label>
                         <select name="TournamentFormat" onChange={handleInputChange} value={formData.TournamentFormat} required>
                             <option value="1v1">1v1</option>
@@ -94,7 +94,7 @@ export const CreateTournament = () => {
                             <option value="5v5">5v5</option>
                         </select>
                     </div>
-                    <div>
+                    <div className='py-2'>
                         <label htmlFor="Prizepool">Prizepool:</label>
                         <input
                             type="number"
@@ -110,7 +110,7 @@ export const CreateTournament = () => {
                         name="Status"
                         value={formData.Status} // Wartość domyślna, nie wyświetlana użytkownikowi
                     />
-                    <button type="submit">Create Tournament</button>
+                    <button className='my-2' type="submit">Create Tournament</button>
                 </form>
             </div>
         </div>
