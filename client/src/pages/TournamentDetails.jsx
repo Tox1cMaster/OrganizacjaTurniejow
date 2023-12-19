@@ -132,17 +132,56 @@ export const TournamentDetails = () => {
   
   const Summary = () => {
     return (
-      <div className="participants"><h2>{tournament.TournamentName}</h2>
-        <p>Organizator: {tournament.organizer}</p>
-        <p>Format: {tournament.TournamentFormat}</p>
-        <p>Prywatność: {tournament.Privacy}</p>
-        <p>Gra: {getGameName(tournament.GameID)}</p>
-        <p>Status: {getStatusName(tournament.Status)}</p>
-        <p>Pula nagród: {tournament.Prizepool}</p>
-        {isUserParticipant ? <button onClick={deleteParticipant(user.id)}>Zrezygnuj z udziału</button> : <button onClick={addParticipant}>Dołącz jako uczestnik</button>}
-        {isUserOrganizer && !isBracketGenerated ? <button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button> : null}
-        {isUserOrganizer ? <><button className='organizer'>Usuń</button><Link to='/tournamentEdit' ><button className='organizer'>Edytuj</button></Link></> : null}
+      <div className="container">
+        <h2 >{tournament.TournamentName}</h2>
+          <div className="flex flex-nowrap">
+            <div className="flex flex-wrap flex-col w-9/12">
+              <p className='text-3xl mb-3'>Informacje o turnieju</p>
+              <p className='py-1 text-xl font-bold'>Organizator: <span className='text-lg font-normal'>{tournament.organizer}</span></p>
+              <p className='py-1 text-xl font-bold'>Format: <span className='text-lg font-normal'>{tournament.TournamentFormat}</span></p>
+              <p className='py-1 text-xl font-bold'>Prywatność: <span className='text-lg font-normal'>{tournament.Privacy}</span></p>
+              <p className='py-1 text-xl font-bold'>Gra: <span className='text-lg font-normal'>{getGameName(tournament.GameID)}</span></p>
+              <p className='py-1 text-xl font-bold'>Status: <span className='text-lg font-normal'>{getStatusName(tournament.Status)}</span></p>
+              <p className='py-1 text-xl font-bold'>Pula nagród: <span className='text-lg font-normal'>{tournament.Prizepool}</span></p>
+              <p className='py-1 text-xl font-bold'>Liczba graczy: <span className='text-lg font-normal'>24</span></p>
+              <p className='py-1 text-xl font-bold w-6/12'>Opis: <span className='text-lg font-normal'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum orci mattis, congue lorem eu, accumsan ex. Nam imperdiet pulvinar tortor vel vulputate. Phasellus gravida dignissim diam eu placerat. Integer molestie finibus odio et semper. Proin eros est, rutrum eu libero vitae, posuere euismod nunc. Phasellus leo ante, auctor et enim et, hendrerit vulputate nunc. Suspendisse dapibus orci lorem, nec interdum orci fringilla sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet vulputate tortor, at varius lacus. Fusce arcu odio, dictum dapibus nibh ut, tristique eleifend ligula. Vestibulum tincidunt sagittis tortor, vel ultrices lorem rhoncus quis. Nam eget justo neque. Phasellus sagittis lorem sed dignissim scelerisque. Praesent at bibendum dui, dignissim lobortis nisi.</span></p>
+
+            </div>
+            <div className="flex flex-wrap flex-col w-3/12">
+              <p className='text-center text-3xl'>Nagrody</p>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={firstPlace} alt="first place photo" />
+              <p className='ml-6 text-2xl font-bold'>255 <span className='font-normal'>zł</span></p>
+              </div>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={secondPlace} alt="second place photo" />
+              <p className='ml-6 text-2xl font-bold'>255 <span className='font-normal'>zł</span></p>
+              </div>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={thirdPlace} alt="third place photo" />
+              <p className='ml-6 text-2xl font-bold'>255 <span className='font-normal'>zł</span></p>
+              </div>
+              <p className='text-center text-3xl mt-3'>Najlepsi gracze</p>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={firstPlace} alt="first place photo" />
+              <p className='ml-6 text-2xl font-bold'>Tomasz Kot </p>
+              </div>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={secondPlace} alt="second place photo" />
+              <p className='ml-6 text-2xl font-bold'>Tomasz Kot</p>
+              </div>
+              <div className="flex items-center justify-left">
+              <img className='w-24 h-24' src={thirdPlace} alt="third place photo" />
+              <p className='ml-6 text-2xl font-bold'>Tomasz Kot / Tomasz Kot</p>
+              </div>
+            </div>
+          </div>
+        <div className="flex flex-nowrap items-center justify-center">
+          {isUserParticipant ? <button className='deleteTournamentButton' onClick={deleteParticipant(user.id)}>Zrezygnuj z udziału</button> : <button className='joinTournamentButton' onClick={addParticipant}>Dołącz jako uczestnik</button>}
+          {isUserOrganizer && !isBracketGenerated ? <button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button> : null}
+          {isUserOrganizer ? <><button className='deleteTournamentButton'>Usuń</button><Link to='/tournamentEdit' ><button className='organizer'>Edytuj</button></Link></> : null}
         </div>
+      </div>
     );
   };
 
@@ -157,7 +196,7 @@ export const TournamentDetails = () => {
                 alt="User avatar" />
                 <div class="flex-1 ">
                 <h3 class="text-lg font-medium text-white">{participant.nickname}</h3> {isUserOrganizer ? <>
-                <button className="deleteButton " href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</button></> : null}
+                <button className="deleteUserButton " href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</button></> : null}
                 </div>
                 </li> // Zakładam, że uczestnik ma pola id i name
             ))}
@@ -212,19 +251,19 @@ const Scores = () => {
     <>
       <div className="container">
         <h2 className='mb-4 mt-2 text-xl'>Wyniki</h2>
-        {matchesdataorganizer.map((match, index) => (
+        {matchesdata.map((match, index) => (
           <div key={index} className='flex items-center justify-between w-9/12 mx-auto my-1'>
             <div className='flex-1 max-w-[40%] text-left pr-2'>
-              <p className='text-xl font-bold border-l-4 border-green-600 pl-3'>{match.nick1}</p>
+            <p className={`text-xl font-bold border-l-4 pl-3 ${match.participants[0].isWinner ? 'border-green-600 ' : 'border-red-600'}`}>{match.participants[0]?.name}</p>
             </div>
             <div className='flex-none'>
-              <span className='text-lg font-semibold'>1 - 0</span>
+              <span className='text-lg font-semibold'>{match.participants[0]?.resultText || 0} - {match.participants[1]?.resultText || 0}</span>
             </div>
             <div className='flex-1 max-w-[40%] text-right pl-2'>
-              <p className='text-xl font-bold border-r-4 border-red-600 pr-3'>{match.nick2}</p>
+              <p className={`text-xl font-bold border-r-4 pr-3 ${match.participants[1].isWinner ? 'border-green-600 ' : 'border-red-600'}`}>{match.participants[1]?.name}</p>
             </div>
           </div>
-        ))}
+          ))}
       </div>
     </>
   );
