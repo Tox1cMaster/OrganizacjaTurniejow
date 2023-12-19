@@ -20,6 +20,7 @@ export const TournamentDetails = () => {
   const { getUser } = AuthUser();
   const { id } = useParams();
   const user = getUser(); //Dane zalogowanego użytkownika
+  const [isBracketGenerated, setIsBracketGenerated] = useState(false);
   const isUserParticipant = participants.some(participant => participant.UserID === user.id);
   //Obsługa zakładek
   const activeLinkClass = 'text-orange-600 font-bold border-b-4 border-orange-500';
@@ -62,6 +63,7 @@ export const TournamentDetails = () => {
       fetchParticipants();
       fetchTournament();
       fetchMatches();
+      setIsBracketGenerated(true);
     } catch (error) {
       console.error('Error deleting participant:', error);
     } 
@@ -121,6 +123,12 @@ export const TournamentDetails = () => {
     fetchMatches();
   }, [id]); // aktualizujemy tablicę zależności, aby używała id
 
+  useEffect(() => {
+    if (matchesdata && matchesdata.length > 0){
+      setIsBracketGenerated(true);
+    }
+  }, [matchesdata]);
+
   
   const Summary = () => {
     return (
@@ -132,7 +140,8 @@ export const TournamentDetails = () => {
         <p>Status: {getStatusName(tournament.Status)}</p>
         <p>Pula nagród: {tournament.Prizepool}</p>
         {isUserParticipant ? <button onClick={deleteParticipant(user.id)}>Zrezygnuj z udziału</button> : <button onClick={addParticipant}>Dołącz jako uczestnik</button>}
-        {isUserOrganizer ? <><button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button><button className='organizer'>Usuń</button><Link to='/tournamentEdit' ><button className='organizer'>Edytuj</button></Link></> : null}
+        {isUserOrganizer && !isBracketGenerated ? <button className='organizer' onClick={generateMatches(tournament.TournamentID)}>Generuj</button> : null}
+        {isUserOrganizer ? <><button className='organizer'>Usuń</button><Link to='/tournamentEdit' ><button className='organizer'>Edytuj</button></Link></> : null}
         </div>
     );
   };
