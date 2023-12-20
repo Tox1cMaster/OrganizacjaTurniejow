@@ -228,19 +228,19 @@ const ProfileInfo = () => {
         <h2 className='text-white text-2xl'>{user.name}</h2>
       </div>
       <div className='flex justify-center text-white xs:flex-wrap'>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5 hover:bg-orange-500'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4 '>{stats.tournaments_organized}</p>
           <p className='xs:text-sm  sm:text-md font-bold '>Turnieje zorganizowane</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5 hover:bg-orange-500'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.matches_played}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Mecze zagrane</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5 hover:bg-orange-500'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_joined}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Udział w turniejach</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5 hover:bg-orange-500'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_wins}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Turnieje wygrane</p>
         </div>
@@ -259,7 +259,7 @@ export const Account = () => {
   };
 
   const linkClass = (linkName) => {
-    return `break-normal text-gray-950 xs:px-2 xs:py-1 font-medium hover:bg-gray-200  rounded-full md:px-12 md:py-2 ${activeLink === linkName ? 'bg-gray-200' : ''
+    return `break-normal text-gray-950 xs:px-2 xs:py-1 font-medium hover:bg-orange-500  rounded-full md:px-12 md:py-2 ${activeLink === linkName ? 'bg-gray-200' : ''
       }`;
   };
 
