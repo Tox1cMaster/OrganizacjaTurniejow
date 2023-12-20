@@ -228,19 +228,19 @@ const ProfileInfo = () => {
         <h2 className='text-white text-2xl'>{user.name}</h2>
       </div>
       <div className='flex justify-center text-white xs:flex-wrap'>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4 '>{stats.tournaments_organized}</p>
           <p className='xs:text-sm  sm:text-md font-bold '>Turnieje zorganizowane</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.matches_played}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Mecze zagrane</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_joined}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Udział w turniejach</p>
         </div>
-        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-slate-700 ml-5 text-center xs:mb-5'>
+        <div className='box-content xs:h-32 xs:w-32 sm:h-40 sm:w-60 rounded-md bg-indigo-500 ml-5 text-center xs:mb-5'>
           <p className='xs:text-4xl sm:text-6xl mb-4 mt-4'>{stats.tournaments_wins}</p>
           <p className='xs:text-sm xs:px-2 font-bold'>Turnieje wygrane</p>
         </div>
@@ -270,8 +270,8 @@ export const Account = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-800">
-      <div className="bg-gray-500 xs:w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
+    <div className="flex min-h-screen bg-indigo-950">
+      <div className="bg-indigo-500 xs:w-1/3 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/6 text-center">
         <h2 className="xs:text-md md:text-2xl text-white font-semibold mb-4 mt-5">Panel Użytkownika</h2>
         <ul className='xs:text-center'>
           <li className="xs:text-sm xs:text-center break-words mb-4">
