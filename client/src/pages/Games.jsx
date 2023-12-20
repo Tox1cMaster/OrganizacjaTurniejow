@@ -69,7 +69,7 @@ export const Games = () => {
     </div>
       <div className="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto max-w-6xl mb-5 px-3">
         {filteredGames.map((game, index) => (
-          <div key={index} className="box rounded-lg mb-3">
+          <div key={index} className="box rounded-lg mb-3 hover:bg-amber-700">
             <img className="w-full h-44 object-cover rounded-lg block m-0 p-0" src={game.image} alt="Game" />
             <div className="px-6 py-4">
               <div className="font-bold text-2xl mb-2">{game.title}</div>
