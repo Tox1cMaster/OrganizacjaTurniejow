@@ -131,6 +131,7 @@ export const TournamentDetails = () => {
 
   
   const Summary = () => {
+    
     return (
       <div className="container">
         <h2 >{tournament.TournamentName}</h2>
@@ -251,19 +252,25 @@ const Scores = () => {
     <>
       <div className="container">
         <h2 className='mb-4 mt-2 text-xl'>Wyniki</h2>
-        {matchesdata.map((match, index) => (
+        {matchesdata.filter(match => match.participants.length === 2).map((match, index) => (
           <div key={index} className='flex items-center justify-between w-9/12 mx-auto my-1'>
             <div className='flex-1 max-w-[40%] text-left pr-2'>
-            <p className={`text-xl font-bold border-l-4 pl-3 ${match.participants[0].isWinner ? 'border-green-600 ' : 'border-red-600'}`}>{match.participants[0]?.name}</p>
+              <p className={`text-xl font-bold border-l-4 pl-3 ${match.participants[0].isWinner ? 'border-green-600' : 'border-red-600'}`}>
+                {match.participants[0].name}
+              </p>
             </div>
             <div className='flex-none'>
-              <span className='text-lg font-semibold'>{match.participants[0]?.resultText || 0} - {match.participants[1]?.resultText || 0}</span>
+              <span className='text-lg font-semibold'>
+                {match.participants[0].resultText} - {match.participants[1].resultText}
+              </span>
             </div>
             <div className='flex-1 max-w-[40%] text-right pl-2'>
-              <p className={`text-xl font-bold border-r-4 pr-3 ${match.participants[1].isWinner ? 'border-green-600 ' : 'border-red-600'}`}>{match.participants[1]?.name}</p>
+              <p className={`text-xl font-bold border-r-4 pr-3 ${match.participants[1].isWinner ? 'border-green-600' : 'border-red-600'}`}>
+                {match.participants[1].name}
+              </p>
             </div>
           </div>
-          ))}
+        ))}
       </div>
     </>
   );
