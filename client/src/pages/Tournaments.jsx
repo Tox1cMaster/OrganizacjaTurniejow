@@ -57,7 +57,7 @@ export const Tournaments = () => {
         ) : (
             <ul className='flex flex-wrap gap-5 p-0 items-center justify-center mt-5 mb-5'>
               {filteredTournaments.map(tournament => (
-                <li className='box tournamentList rounded-lg p-2 xs:w-full' key={tournament.TournamentID}>
+                <li className='box tournamentList rounded-lg p-2 xs:w-full hover:bg-amber-700' key={tournament.TournamentID}>
                   <p className='m-3 text-2xl'><b>{tournament.TournamentName}</b></p>
                   <p><b>Organizator:</b> {tournament.organizer}</p>
                   <p><b>Gra:</b> {getGameName(tournament.GameID)}</p>
