@@ -131,6 +131,34 @@ export const TournamentDetails = () => {
 
   
   const Summary = () => {
+
+    const [topPlayers, setTopPlayers] = useState ({firstPlace: null, secondPlace: null, thirdPlace: null, fourthPlace: null })
+    
+    const getPlayerNameById = (id) => {
+      const participant = participants.find(p => p.UserID === id);
+      return participant ? participant.nickname : 'Unknown Player';
+    };
+
+    useEffect (() => {
+      if (matchesdata.length > 0) {
+        const finalRoundNumber = Math.max(...matchesdata.map(match => parseInt(match.tournamentRoundText, 10)));
+        const finalMatch = matchesdata.find(match => parseInt(match.tournamentRoundText, 10) === finalRoundNumber);
+        
+
+        if (finalMatch && finalMatch.participants.some(participant => participant.isWinner)){
+          const firstPlace = finalMatch.participants.find(p => p.isWinner).id;
+          const secondPlace = finalMatch.participants.find(p => !p.isWinner).id;
+          const semifinalMatches = matchesdata.filter(match => match.nextMatchId === finalMatch.id);
+          const thirdPlace = semifinalMatches.map(match => match.participants.find(p => !p.isWinner && p.id !== firstPlace && p.id !== secondPlace)?.id).filter(Boolean);
+          setTopPlayers({ 
+            firstPlace: getPlayerNameById(firstPlace), 
+            secondPlace: getPlayerNameById(secondPlace), 
+            thirdPlace: getPlayerNameById(thirdPlace[0]), 
+            fourthPlace: getPlayerNameById(thirdPlace[1]) 
+          });
+        }
+      }
+    }, [matchesdata]);
     
     return (
       <div className="container">
@@ -164,16 +192,16 @@ export const TournamentDetails = () => {
               </div>
               <p className='text-center text-3xl mt-3'>Najlepsi gracze</p>
               <div className="flex items-center justify-left">
-              <img className='w-24 h-24' src={firstPlace} alt="first place photo" />
-              <p className='ml-6 text-2xl font-bold'>Tomasz Kot </p>
+                <img className='w-24 h-24' src={firstPlace} alt="first place" />
+                <p className='ml-6 text-2xl font-bold'>{topPlayers.firstPlace || 'Nie wyłoniono'}</p>
               </div>
               <div className="flex items-center justify-left">
-              <img className='w-24 h-24' src={secondPlace} alt="second place photo" />
-              <p className='ml-6 text-2xl font-bold'>Tomasz Kot</p>
+                <img className='w-24 h-24' src={secondPlace} alt="second place" />
+                <p className='ml-6 text-2xl font-bold'>{topPlayers.secondPlace || 'Nie wyłoniono'}</p>
               </div>
               <div className="flex items-center justify-left">
-              <img className='w-24 h-24' src={thirdPlace} alt="third place photo" />
-              <p className='ml-6 text-2xl font-bold'>Tomasz Kot / Tomasz Kot</p>
+                <img className='w-24 h-24' src={thirdPlace} alt="third place" />
+                <p className='ml-6 text-2xl font-bold'>{topPlayers.thirdPlace || 'Nie wyłoniono'} / {topPlayers.fourthPlace || 'Nie wyłoniono'}</p>
               </div>
             </div>
           </div>
