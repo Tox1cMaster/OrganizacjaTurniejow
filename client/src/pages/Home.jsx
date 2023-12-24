@@ -42,7 +42,7 @@ export const Home = () => {
   });
 
   // Animacja - blok center
-  const centerSectionAnimation = useSpring({
+  const gameslogosAnimation = useSpring({
     from: { opacity: 0, transform: 'translateY(100%)' },
     to: { opacity: 1, transform: 'translateY(0%)' },
   });
@@ -73,7 +73,7 @@ export const Home = () => {
         </div>
       </animated.section>
 
-      <div className="image-container">
+      <div className="image-container mb-40">
         <animated.div
           className="image-slider"
           ref={imageSliderRef}
@@ -87,33 +87,39 @@ export const Home = () => {
         </animated.div>
       </div>
 
-      <div className="bg-gray-900 h-screen grid grid-cols-2 mt-10">
-        <div className="flex items-center justify-center overflow-hidden">
-          <animated.div ref={centerSectionRef} className="flex justify-center items-center">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <animated.img
-                key={index + 1}
-                src={`/src/assets/logo-${index + 1}.png`}
-                alt={`Game Logo ${index + 1}`}
-                className="w-12 h-auto m-2 object-contain" // Adjusted the height property
-                style={{
-                  ...centerSectionAnimation,
-                  height: '20vh', // Adjusted the height value
-                  transform: centerSectionAnimation.transform.interpolate((value) => {
-                    const translateY = `translateY(calc(${value * 2}vh))`; // Adjusted the translateY value
-                    return index === 0 ? `${translateY} scale(${1 - Math.abs(value * 0.3)})` : translateY;
-                  }),
-                  opacity: centerSectionAnimation.opacity.interpolate((value) => value * 1.2),
-                }}
-              />
-            ))}
-          </animated.div>
-        </div>
-        <div className="p-8 text-white">
-          <h1 className="text-4xl mb-4">Right Column Content</h1>
-          <p>Your additional content goes here.</p>
-        </div>
-      </div>
+      <div className="central panel bg-gray-900 h-screen flex mt-20">
+  <div className="left panel" style={{ flex: '1' }}>
+    <animated.div ref={centerSectionRef} className="flex flex-col justify-center items-center">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <animated.img
+          key={index + 1}
+          src={`/src/assets/logo-${index + 1}.png`}
+          alt={`Game Logo ${index + 1}`}
+          className="w-24 h-auto m-2 mb-4 object-contain" // Adjusted margin
+          style={{
+            ...gameslogosAnimation,
+            height: '30vh',
+            transform: gameslogosAnimation.transform.interpolate((value) => {
+              const translateY = `translateY(calc(${value * 2}vh))`;
+              const scale = index === 0 ? 1 - Math.abs(value * 0.3) : 1;
+              return `${translateY} scale(${scale})`;
+            }),
+            opacity: gameslogosAnimation.opacity.interpolate((value) => value * 1.2),
+          }}
+        />
+      ))}
+    </animated.div>
+  </div>
+  <div className="right panel" style={{ flex: '2' }}>
+    <div className="p-8 text-white">
+      <h1 className="text-4xl mb-4">Nie masz pomysłu na grę?</h1>
+      <h2>My na to zaradzimy!</h2>
+    </div>
+  </div>
+</div>
+
+
+
     </div>
   );
 };
