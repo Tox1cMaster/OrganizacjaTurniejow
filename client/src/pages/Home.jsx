@@ -73,7 +73,7 @@ export const Home = () => {
         </div>
       </animated.section>
 
-      <div className="image-container mb-40">
+      <div className="image-container mb-20">
         <animated.div
           className="image-slider"
           ref={imageSliderRef}
