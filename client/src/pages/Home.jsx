@@ -73,7 +73,7 @@ export const Home = () => {
         </div>
       </animated.section>
 
-      <div className="image-container">
+      <div className="image-container mb-20">
         <animated.div
           className="image-slider"
           ref={imageSliderRef}
@@ -87,29 +87,25 @@ export const Home = () => {
         </animated.div>
       </div>
 
-      <div className="bg-gray-900 h-screen grid grid-cols-2 mt-10">
-        <div className="flex items-center justify-center overflow-hidden">
-          <animated.div ref={centerSectionRef} className="flex justify-center items-center">
+      <div className="center panel bg-gray-900 h-screen grid grid-cols-2">
+        <div className="left column flex items-center justify-center overflow-hidden">
+          <animated.div ref={centerSectionRef} className="flex justify-center items-center" style={centerSectionAnimation}>
             {Array.from({ length: 5 }).map((_, index) => (
               <animated.img
                 key={index + 1}
                 src={`/src/assets/logo-${index + 1}.png`}
                 alt={`Game Logo ${index + 1}`}
-                className="w-12 h-auto m-2 object-contain" // Adjusted the height property
+                className="w-12 h-auto m-2 object-contain"
                 style={{
-                  ...centerSectionAnimation,
-                  height: '20vh', // Adjusted the height value
-                  transform: centerSectionAnimation.transform.interpolate((value) => {
-                    const translateY = `translateY(calc(${value * 2}vh))`; // Adjusted the translateY value
-                    return index === 0 ? `${translateY} scale(${1 - Math.abs(value * 0.3)})` : translateY;
-                  }),
+                  height: '20vh',
+                  transform: centerSectionAnimation.transform.interpolate((value) => `translateX(${value * 100}%) translateY(calc(${value * 2}vh)) scale(${1 - Math.abs(value * 0.3)})`),
                   opacity: centerSectionAnimation.opacity.interpolate((value) => value * 1.2),
                 }}
               />
             ))}
           </animated.div>
         </div>
-        <div className="p-8 text-white">
+        <div className="right column p-8 text-white">
           <h1 className="text-4xl mb-4">Right Column Content</h1>
           <p>Your additional content goes here.</p>
         </div>
