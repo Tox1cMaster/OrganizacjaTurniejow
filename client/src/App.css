@@ -262,3 +262,23 @@ body {
     width: 100%;
   }
 }
+
+.cookie-consent {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000; /* Set a z-index value to ensure it's above other elements */
+}
+
+.cookie-consent button {
+  background-color: #b89114;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
