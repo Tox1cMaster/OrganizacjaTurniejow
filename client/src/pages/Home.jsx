@@ -113,7 +113,12 @@ export const Home = () => {
   <div className="right panel" style={{ flex: '2' }}>
     <div className="p-8 text-white">
       <h1 className="text-4xl mb-4">Nie masz pomysłu na grę?</h1>
-      <h2>My na to zaradzimy!</h2>
+      <h2>My na to zaradzimy!
+      Twórz swoje epickie e-sportowe historie.
+      Dołącz do naszej społeczności, gdzie rywalizacja staje się sztuką, a każdy turniej to nowa przygoda.
+      Sprawdź, czy masz to, co potrzebne, by zdominować świat e-sportu - tworzymy arenę dla prawdziwych mistrzów!  
+        
+      </h2>
     </div>
   </div>
 </div>
