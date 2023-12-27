@@ -12,6 +12,7 @@ import { Register } from "./pages/Register";
 import { CreateTournament } from './pages/CreateTournament';
 import { CreateGame } from './pages/CreateGame';
 import { TournamentEdit } from './pages/TournamentEdit';
+import { UserAccount } from './pages/UserAccount';
 import AuthUser from './components/AuthUser';
 import axios from 'axios';
 import CookieConsent from './components/CookieConsent';
@@ -35,6 +36,7 @@ function App() {
         <Route path="/tournament/:id" element={<TournamentDetails/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/useraccount" element={<UserAccount />} />
         <Route element={<ProtectedRoutes/>}>
           <Route path="/createTournament" element={<CreateTournament />} />
           <Route path="/createGame" element={<CreateGame />} />
