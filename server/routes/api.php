@@ -7,6 +7,7 @@ use App\Http\Controllers\GamesController;
 use App\Http\Controllers\ParticipantsController;
 use App\Http\Controllers\TournamentsController;
 use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\RulesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +34,14 @@ Route::get('tournaments/{id}', [TournamentsController::class, 'show']);
 Route::get('tournaments/{id}/participants', [ParticipantsController::class, 'getParticipantsByTournament']);
 
 //Tylko zalogowani użytkownicy
-Route::group(['middleware'=>'api'],function(){
+Route::group(['middleware'=> 'api'],function(){
     //Uczestnicy
     Route::post('participants', [ParticipantsController::class,'store']);
     Route::delete('participants/{userID}', [ParticipantsController::class,'destroyByUser']);
     //Turnieje
     Route::post('tournaments', [TournamentsController::class,'store']);
-    Route::put('tournaments/{id}', [TournamentsController::class, 'update']);
+    Route::patch('tournaments/{id}', [TournamentsController::class, 'update']);
+    Route::patch('tournaments/{id}/updateDescName', [TournamentsController::class, 'updateDescName']);
     Route::delete('tournaments/{id}', [TournamentsController::class, 'destroy']);
     Route::patch('tournaments/{id}/status', [TournamentsController::class, 'changeStatus']);
     Route::patch('tournaments/{id}/privacy', [TournamentsController::class, 'changePrivacy']);
@@ -51,6 +53,11 @@ Route::group(['middleware'=>'api'],function(){
     //Gry
     Route::post('games', [GamesController::class, 'store']);
     Route::get('games', [GamesController::class, 'games']);
+    //Zasady
+    Route::get('/tournaments/{tournamentId}/rules', [RulesController::class, 'getTournamentRules']);
+    Route::post('/tournaments/{tournamentId}/rules/add', [RulesController::class, 'addRuleToTournament']);
+    Route::patch('/tournaments/{tournamentId}/rules/update', [RulesController::class, 'updateTournamentRule']);
+    Route::delete('/tournaments/{tournamentId}/rules/{ruleOrder}', [RulesController::class, 'deleteRule']);
     //Użytkownicy
     Route::get('users', [AuthController::class, 'users']);
     Route::get('user/stats/{id}', [AuthController::class, 'userstats']); //Statystyki użytkownika

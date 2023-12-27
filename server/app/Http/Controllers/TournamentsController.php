@@ -56,22 +56,52 @@ class TournamentsController extends Controller
         $tournament->TournamentFormat = $request->input('TournamentFormat');
         $tournament->Status = $request->input('Status');
         $tournament->Prizepool = $request->input('Prizepool');
+        $tournament->Description = $request->input('Description');
         $tournament->save();
         return response()->json($tournament, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $tournament = Tournament::findOrFail($id);
-        if ($tournament->user_id !== auth('api')->id()) {
-            return response()->json(['error' => 'Brak autoryzacji'], 403);
+        try {
+            // Uzyskaj użytkownika na podstawie przesłanego tokenu JWT
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            // Obsługa błędów związanych z JWT, np. token nieprawidłowy, token wygasł itp.
+            return response()->json(['error' => 'could_not_authenticate'], 401);
         }
+        // Sprawdź, czy użytkownik został prawidłowo zautoryzowany i pobierz jego ID
+        if (!$user) {
+            return response()->json(['error' => 'user_not_found'], 404);
+        }
+        // Sprawdź, czy użytkownik został prawidłowo zautoryzowany i pobierz jego ID
+        $tournament = Tournament::findOrFail($id);
         $tournament->GameID = $request->input('GameID');
         $tournament->TournamentName = $request->input('TournamentName');
         $tournament->Privacy = $request->input('Privacy');
         $tournament->TournamentFormat = $request->input('TournamentFormat');
         $tournament->Status = $request->input('Status');
         $tournament->Prizepool = $request->input('Prizepool');
+        $tournament->Description = $request->input('Description');
+        $tournament->save();
+        return response()->json($tournament, 200);
+    }
+
+    public function updateDescName(Request $request, $id) {
+        try {
+            // Uzyskaj użytkownika na podstawie przesłanego tokenu JWT
+            $user = JWTAuth::parseToken()->authenticate();
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            // Obsługa błędów związanych z JWT, np. token nieprawidłowy, token wygasł itp.
+            return response()->json(['error' => 'could_not_authenticate'], 401);
+        }
+        // Sprawdź, czy użytkownik został prawidłowo zautoryzowany i pobierz jego ID
+        if (!$user) {
+            return response()->json(['error' => 'user_not_found'], 404);
+        }
+        $tournament = Tournament::findOrFail($id);
+        $tournament->TournamentName = $request->input('TournamentName');
+        $tournament->Description = $request->input('Description');
         $tournament->save();
         return response()->json($tournament, 200);
     }

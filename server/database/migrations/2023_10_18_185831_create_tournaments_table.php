@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('TournamentFormat', 20);
             $table->integer('Status');
             $table->integer('Prizepool');
+            $table->text('Description')->nullable();
             $table->timestamps();
         });
     }

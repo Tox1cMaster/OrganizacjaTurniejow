@@ -110,6 +110,7 @@ body {
 
 .box .navbar-shadow {
   box-shadow: 0px 0px 7px rgb(255, 145, 0);
+  background-color: #0f0f0f;
 }
 
 .participants {

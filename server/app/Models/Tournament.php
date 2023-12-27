@@ -14,8 +14,7 @@ class Tournament extends Model
     protected $fillable = ['user_id', 'TournamentName', 'GameID', 'Privacy', 'TournamentFormat', 'Status', 'Prizepool'];
 
     // Definicja relacji z modelem User
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function game() {
@@ -23,5 +22,8 @@ class Tournament extends Model
     }
     public function participants() {
         return $this->hasMany(Participant::class, 'TournamentID');
+    }
+    public function rules(){
+        return $this->hasMany(Rule::class, 'tournament_id', 'TournamentID');
     }
 }

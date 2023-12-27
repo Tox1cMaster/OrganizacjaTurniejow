@@ -17,7 +17,7 @@ export const TournamentDetails = () => {
   const [matchesdataorganizer, setMatchesdataorganizer] = useState([]); 
   const [tournament, setTournament] = useState(null);
   const [loadingMatches, setLoadingMatches] = useState(true);
-  const { getUser } = AuthUser();
+  const { getUser, http } = AuthUser();
   const { id } = useParams();
   const user = getUser(); //Dane zalogowanego użytkownika
   const [isBracketGenerated, setIsBracketGenerated] = useState(false);
@@ -379,30 +379,66 @@ const SettingsControlpanel = ({ tournamentId, currentStatus, currentPrivacy, fet
 };
 
 const SettingsDetails = () => {
+  const [tournamentTitle, setTournamentTitle] = useState('');
+  const [tournamentDescription, setTournamentDescription] = useState('');
+
+  useEffect(() => {
+    const fetchTournament = async () => {
+      try {
+        const response = await axios.get(`/api/tournaments/${id}`);
+        setTournamentTitle(response.data.TournamentName);
+        setTournamentDescription(response.data.Description); 
+      } catch (error) {
+        console.error('Error fetching tournament:', error);
+      }
+    };
+
+    fetchTournament();
+  }, [id]);
+
+  const handleSubmit = async () => {
+    try {
+      await http.patch(`/tournaments/${id}/updateDescName`, {
+        TournamentName: tournamentTitle,
+        Description: tournamentDescription
+      });
+      alert('Zmiany zostały zapisane');
+    } catch (error) {
+      console.error('Error updating tournament:', error);
+      alert('Błąd podczas aktualizacji danych');
+    }
+  };
+
   return (
-  <>
     <div className='container mt-0'>
       <div className='text-center text-3xl mb-4'>
         <label htmlFor="title" className='mb-3'>Zmień Tytuł Turnieju</label>
-        <input id='title' type='text' placeholder='Ustaw tytuł turnieju'/>
+        <input 
+          id='title' 
+          type='text' 
+          placeholder='Ustaw tytuł turnieju'
+          value={tournamentTitle}
+          onChange={(e) => setTournamentTitle(e.target.value)}
+        />
       </div>
-
       <div className='text-center text-3xl'>
-      <label htmlFor="description" className='mb-3'>Zmień Opis Turnieju:</label>
-      <textarea
-            id="description"
-            name="description"
-            rows="4"
-            autoComplete="description"
-            placeholder='Ustaw opis turnieju'
-            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
-          />
+        <label htmlFor="description" className='mb-3'>Zmień Opis Turnieju:</label>
+        <textarea
+          id="description"
+          name="description"
+          rows="4"
+          autoComplete="description"
+          placeholder='Ustaw opis turnieju'
+          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
+          value={tournamentDescription}
+          onChange={(e) => setTournamentDescription(e.target.value)}
+        />
       </div>
       <div className='flex justify-center items-center mt-3'>
-        <button>Wprowadź zmiany</button>
+        <button onClick={handleSubmit}>Wprowadź zmiany</button>
       </div>
     </div>
-  </>);
+  );
 };
 
 const SettingsRewards = () => {
@@ -433,42 +469,76 @@ const SettingsRewards = () => {
   );
 };
 
-const SettingsRules = ({ addRule }) => {
+const SettingsRules = () => {
   const [rules, setRules] = useState([]);
   const [newRule, setNewRule] = useState('');
-  const [allRules, setAllRules] = useState([]);
 
-  const handleAddRule = () => {
-    if (newRule.trim() !== '') {
-      setRules([...rules, newRule]);
-      addRule(newRule);
-      setNewRule('');
+  useEffect(() => {
+    fetchRules();
+  }, []);
+
+  const fetchRules = async () => {
+    try {
+      const response = await axios.get(`/api/tournaments/${id}/rules`);
+      setRules(response.data.rules); // Zakładam, że backend zwraca zasady jako 'rules'
+    } catch (error) {
+      console.error('Error fetching rules:', error);
     }
+  };
 
+  const handleAddRule = async () => {
+    if (newRule.trim() !== '') {
+      try {
+        await axios.post(`/api/tournaments/${id}/rules/add`, {
+          rule_order: rules.length + 1, 
+          rule_text: newRule
+        });
+        setNewRule('');
+        fetchRules(); // Odświeża listę zasad
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
+
+  const handleDeleteRule = async (ruleOrder) => {
+    try {
+      await axios.delete(`/api/tournaments/${id}/rules/${ruleOrder}`);
+      fetchRules(); // Odświeża listę zasad
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <>
       <h2 className="text-2xl font-bold mb-4">Zasady</h2>
       <div className="text-center text-lg mt-4">
-        {/* Display rules in a table */}
         <table className="w-full border border-collapse">
           <thead>
             <tr className="bg-black-400">
-              <th className="border p-0">#</th>
-              <th className="border p-3">Zasada</th>
+              <th className="border p-2">#</th>
+              <th className="border p-2">Zasada</th>
+              <th className="border p-2">Akcje</th>
             </tr>
           </thead>
           <tbody>
             {rules.map((rule, index) => (
               <tr key={index} className={index % 2 === 0 ? 'bg-gray-800' : ''}>
-                <td className="border p-2">{index + 1}</td>
-                <td className="border p-2">{rule}</td>
+                <td className="border p-2">{rule.rule_order}</td>
+                <td className="border p-2">{rule.rule_text}</td>
+                <td className="border p-2">
+                  <button
+                    onClick={() => handleDeleteRule(rule.rule_order)}
+                    className="bg-red-500 text-white p-1 rounded hover:bg-red-700"
+                  >
+                    Usuń
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {/* Input field to manually enter rules */}
         <div className="mt-4">
           <input
             type="text"
@@ -477,7 +547,6 @@ const SettingsRules = ({ addRule }) => {
             onChange={(e) => setNewRule(e.target.value)}
             className="border p-2 w-2/3"
           />
-          {/* Button to add a new rule */}
           <button
             onClick={handleAddRule}
             className="ml-2 bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
@@ -498,6 +567,34 @@ const SettingsMatches = () => {
   return (<><h2>Mecze</h2></>);
 };
 
+const Rules = () => {
+  const [rules, setRules] = useState([]);
+
+  useEffect(() => {
+    const fetchRules = async () => {
+      try {
+        const response = await axios.get(`/api/tournaments/${id}/rules`);
+        setRules(response.data.rules);
+      } catch (error) {
+        console.error('Error fetching rules:', error);
+      }
+    };
+
+    fetchRules();
+  }, [id]);
+
+  if (rules.length === 0) {
+    return <p>Brak zasad.</p>;
+  }
+
+  return (
+    <div>
+      {rules.map((rule, index) => (
+        <p key={index}>{index + 1}. {rule.rule_text}<br /></p>
+      ))}
+    </div>
+  );
+};
 
 const Settings = () => {
   return (<><div className="flex h-screen navsettings">
@@ -600,6 +697,7 @@ const Settings = () => {
         {activeTab === "participants" && <Participants />}
         {activeTab === "matches" && <Matches fetchMatches={fetchMatches} />}
         {activeTab === "scores" && <Scores />}
+        {activeTab === "rules" && <Rules />}
         </div>
         </div>
     </div>  
