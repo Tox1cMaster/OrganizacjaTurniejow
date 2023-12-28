@@ -80,35 +80,40 @@ export const CreateTournament = () => {
                                 ))}
                             </select>
                         </div>
-                        </div>
-                        <div className="flex md:flex-row justify-center items-center xs:flex-col xs:w-full md:w-6/12">
-                        <div className='md:mr-5 xs:mr-0 md:w-6/12 xs:w-full'>
-                            <label htmlFor="Privacy">Prywatność:</label>
-                            <select name="Privacy" onChange={handleInputChange} value={formData.Privacy} required>
-                                <option value="Publiczny">Publiczny</option>
-                                <option value="Prywatny">Prywatny</option>
-                            </select>
-                        </div>
-                        <div className='py-2 md:w-6/12 xs:w-full'>
-                            <label htmlFor="TournamentFormat">Format:</label>
-                            <select name="TournamentFormat" onChange={handleInputChange} value={formData.TournamentFormat} required>
-                                <option value="1v1">1v1</option>
-                                <option value="2v2">2v2</option>
-                                <option value="5v5">5v5</option>
-                            </select>
-                        </div>
                     </div>
-                        <div className='py-2 md:w-6/12 xs:w-full'>
+                    <div className="flex md:flex-row justify-center items-center xs:flex-col xs:w-full md:w-6/12">
+                            <div className='md:mr-5 xs:mr-0 md:w-6/12 xs:w-full'>
+                                <label htmlFor="Privacy">Prywatność:</label>
+                                <select name="Privacy" onChange={handleInputChange} value={formData.Privacy} required>
+                                    <option value="Publiczny">Publiczny</option>
+                                    <option value="Prywatny">Prywatny</option>
+                                </select>
+                            </div>
+                            <div className='py-2 md:w-6/12 xs:w-full'>
+                                <label htmlFor="TournamentFormat">Format:</label>
+                                <select name="TournamentFormat" onChange={handleInputChange} value={formData.TournamentFormat} required>
+                                    <option value="1v1">1v1</option>
+                                    <option value="2v2">2v2</option>
+                                    <option value="5v5">5v5</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div className="flex md:flex-row justify-center items-center xs:flex-col xs:w-full md:w-6/12">
+                        <div className='md:mr-5 xs:mr-0 md:w-6/12 xs:w-full'>
                             <label htmlFor="Prizepool">Prizepool:</label>
                             <input
-                                type="number"
-                                name="Prizepool"
-                                value={formData.Prizepool}
-                                onChange={handleInputChange}
-                                placeholder="Prizepool"
-                                required
+                                    type="number"
+                                    name="Prizepool"
+                                    value={formData.Prizepool}
+                                    onChange={handleInputChange}
+                                    placeholder="Prizepool"
+                                    required
                             />
                         </div>
+                        <div className='py-2 md:w-6/12 xs:w-full'>
+
+                        </div>
+                    </div>
                     
                     <input
                         type="hidden"
