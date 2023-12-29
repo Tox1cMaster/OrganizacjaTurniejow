@@ -143,7 +143,11 @@ export const TournamentDetails = () => {
     
     const getPlayerNameById = (id) => {
       const participant = participants.find(p => p.UserID === id);
-      return participant ? participant.nickname : 'Unknown Player';
+      return participant ? (
+        <Link to={`/profile/${participant.UserID}`}>{participant.nickname}</Link>
+      ) : (
+        'Unknown Player'
+      );
     };
 
     useEffect (() => {
@@ -231,7 +235,9 @@ export const TournamentDetails = () => {
                  <img class="w-12 h-12 rounded-full object-cover mr-4" src={userAvatar}
                 alt="User avatar" />
                 <div class="flex-1 ">
-                <h3 class="text-lg font-medium text-white">{participant.nickname}</h3> {isUserOrganizer ? <>
+                <Link to={`/profile/${participant.UserID}`} className="no-underline hover:underline">
+                  <h3 className="text-lg font-medium text-white">{participant.nickname}</h3>
+                </Link> {isUserOrganizer ? <>
                 <button className="deleteUserButton " href="#" onClick={deleteParticipant(participant.UserID)}>Usuń</button></> : null}
                 </div>
                 </li> // Zakładam, że uczestnik ma pola id i name
@@ -665,63 +671,59 @@ const Settings = () => {
   }
 
   const isUserOrganizer = tournament.user_id == user.id;
+  const isActiveTournament = tournament && tournament.Status !== 0;
+  const renderTabs = () => {
+    //Taby do wszystkich turniejow
+    let tabs = [
+      { name: "summary", label: "Podsumowanie" },
+      { name: "participants", label: "Uczestnicy" },
+      { name: "rules", label: "Zasady" }
+    ];
+
+    //Taby do aktywnych turniejow
+    if (isActiveTournament) {
+      tabs = [
+        ...tabs,
+        { name: "bracket", label: "Drabinka" },
+        { name: "matches", label: "Mecze" },
+        { name: "scores", label: "Wyniki" },
+      ];
+    }
+    //Tylko dla organizatora
+    if (isUserOrganizer) {
+      tabs.push({ name: "settings", label: "Ustawienia" });
+    }
+
+    return tabs.map((tab) => (
+      <li key={tab.name}>
+        <NavLink
+          to={``}
+          className={activeTab === tab.name ? activeLinkClass : inactiveLinkClass}
+          onClick={() => handleTabChange(tab.name)}
+        >
+          {tab.label}
+        </NavLink>
+      </li>
+    ));
+  };
 
   return (
     <div className='container'>
         <div className='box'>
         <div className='navbar border-b border-orange-800 navbar-shadow font-bo'>
           <ul className='flex justify-start p-3 space-x-4'>
-            <li>
-              <NavLink to={``} className={activeTab === "summary" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("summary")}>
-                Podsumowanie
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "bracket" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("bracket")}>
-                Drabinka
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "participants" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("participants")} >
-                Uczestnicy
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "matches" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("matches")} >
-                Mecze
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "classification" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("classification")}>
-                Klasyfikacja
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "rules" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("rules")}>
-                Zasady
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to={``} className={activeTab === "scores" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("scores")}>
-                Wyniki
-              </NavLink>
-            </li>
-            <li>
-            {isUserOrganizer ?<NavLink to={``} className={activeTab === "settings" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("settings")} >
-                Ustawienia
-              </NavLink> : null}
-            </li> 
+            {renderTabs()}
           </ul>
         </div>
-        {activeTab === "settings" && <Settings />}
         <div className="participants">
         {activeTab === "summary" && <Summary />}
-        {activeTab === "bracket" && <Brackett />}
         {activeTab === "participants" && <Participants />}
-        {activeTab === "matches" && <Matches fetchMatches={fetchMatches} />}
-        {activeTab === "scores" && <Scores />}
         {activeTab === "rules" && <Rules />}
+        {isActiveTournament && activeTab === "bracket" && <Brackett />}
+        {isActiveTournament && activeTab === "matches" && <Matches fetchMatches={fetchMatches} />}
+        {isActiveTournament && activeTab === "scores" && <Scores />}
         </div>
+        {isUserOrganizer && activeTab === "settings" && <Settings />}
         </div>
     </div>  
   );

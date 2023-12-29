@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Functions from '../components/Functions';
 import axios from 'axios';
-import {Link} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export const Tournaments = () => {
-  const {getGameName, getStatusName} = Functions();
+  const { getGameName, getStatusName } = Functions();
   const [tournaments, setTournaments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const { gameId } = useParams(); // Capture the `gameId` from the URL
   const [participantCounts, setParticipantCounts] = useState({});
 
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
         const response = await axios.get('/api/tournaments');
-        setTournaments(response.data);
+        let filteredData = response.data;
+
+        // If gameId is present in the URL, filter tournaments by that gameId
+        if (gameId) {
+          filteredData = filteredData.filter(tournament => tournament.GameID === parseInt(gameId));
+        }
+
+        setTournaments(filteredData);
         response.data.forEach(tournament => {
           fetchParticipantCount(tournament.TournamentID);
         });
@@ -23,7 +31,7 @@ export const Tournaments = () => {
     };
 
     fetchTournaments();
-  }, []);
+  }, [gameId]); 
 
   const fetchParticipantCount = async (tournamentId) => {
     try {
@@ -49,7 +57,7 @@ export const Tournaments = () => {
   return (
     <div className='container '>
       <div className='box text-center'>
-        <h2 className='my-4 text-md'>Lista turniejów</h2>
+      <h2 className='my-4 text-md'>Lista turniejów {gameId && `- ${getGameName(parseInt(gameId))}`}</h2>
         <div className='max-w-md mx-auto '>
           <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg searchInput overflow-hidden">
             <div className="grid place-items-center h-full w-12 text-gray-300 ">
