@@ -34,6 +34,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/games" element={<Games />} />
         <Route path="/tournaments" element={<Tournaments />} />
+        <Route path="/tournaments/:gameId" element={<Tournaments />} />
         <Route path="/tournament/:id" element={<TournamentDetails/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -42,7 +43,7 @@ function App() {
           <Route path="/createTournament" element={<CreateTournament />} />
           <Route path="/createGame" element={<CreateGame />} />
           <Route path="/account/*" element={<Account />} />
-          <Route path="/account" element={<Navigate replace to="account/profile" />} />
+          <Route path="/profile/:id" element={<UserAccount />} />
           <Route path="/tournamentEdit" element={<TournamentEdit />} />
         </Route>
       </Routes>
