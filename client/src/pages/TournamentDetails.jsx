@@ -115,6 +115,13 @@ export const TournamentDetails = () => {
       console.error('Error updating match score:', error);
     }
   };
+  const matchesByRound = matchesdataorganizer.reduce((acc, match) => {
+    if (!acc[match.round]) {
+      acc[match.round] = [];
+    }
+    acc[match.round].push(match);
+    return acc;
+  }, {});
 
   useEffect(() => {
     fetchTournament();
@@ -172,8 +179,8 @@ export const TournamentDetails = () => {
               <p className='py-1 text-xl font-bold'>Gra: <span className='text-lg font-normal'>{getGameName(tournament.GameID)}</span></p>
               <p className='py-1 text-xl font-bold'>Status: <span className='text-lg font-normal'>{getStatusName(tournament.Status)}</span></p>
               <p className='py-1 text-xl font-bold'>Pula nagród: <span className='text-lg font-normal'>{tournament.Prizepool}</span></p>
-              <p className='py-1 text-xl font-bold'>Liczba graczy: <span className='text-lg font-normal'>24</span></p>
-              <p className='py-1 text-xl font-bold w-6/12'>Opis: <span className='text-lg font-normal'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum orci mattis, congue lorem eu, accumsan ex. Nam imperdiet pulvinar tortor vel vulputate. Phasellus gravida dignissim diam eu placerat. Integer molestie finibus odio et semper. Proin eros est, rutrum eu libero vitae, posuere euismod nunc. Phasellus leo ante, auctor et enim et, hendrerit vulputate nunc. Suspendisse dapibus orci lorem, nec interdum orci fringilla sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet vulputate tortor, at varius lacus. Fusce arcu odio, dictum dapibus nibh ut, tristique eleifend ligula. Vestibulum tincidunt sagittis tortor, vel ultrices lorem rhoncus quis. Nam eget justo neque. Phasellus sagittis lorem sed dignissim scelerisque. Praesent at bibendum dui, dignissim lobortis nisi.</span></p>
+              <p className='py-1 text-xl font-bold'>Liczba graczy: <span className='text-lg font-normal'>{participants.length}</span></p>
+              <p className='py-1 text-xl font-bold w-6/12'>Opis: <span className='text-lg font-normal'>{tournament.Description}</span></p>
 
             </div>
             <div className="flex flex-wrap flex-col w-3/12">
@@ -238,39 +245,36 @@ export const TournamentDetails = () => {
   
 const Matches = ({fetchMatches}) => {
   // Grupowanie meczów według rundy
-  const matchesByRound = matchesdataorganizer.reduce((acc, match) => {
-    if (!acc[match.round]) {
-      acc[match.round] = [];
-    }
-    acc[match.round].push(match);
-    return acc;
-  }, {});
+  
+
+  const isUserInMatch = (match) => {
+    return match.participant1_id === user.id || match.participant2_id === user.id;
+  };
+  
 
   return (
     <>
-      {isUserOrganizer && (
-        <>
-          {Object.keys(matchesByRound).map((round) => (
-            <div key={round}>
-              <p className='text-center mt-3 mb-3 text-3xl'>Runda {round}</p>
-              {matchesByRound[round].map((match) => (
-                <div key={match.id} className='matchlist justify-center items-center mb-3'>
-                  <div className='matchscore w-64'>
-                    <label>{match.nick1}</label>
-                    <input type="number" placeholder="0" id={`score1-${match.id}`} />
-                  </div>
-                  <p className='mt-6 mx-2'>VS</p>
-                  <div className='matchscore w-64'>
-                    <label>{match.nick2}</label>
-                    <input type="number" placeholder="0" id={`score2-${match.id}`} />
-                  </div>
-                  <button className='h-11 mt-4 ' onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
-                </div>
-              ))}
+      {Object.keys(matchesByRound).map((round) => (
+        <div key={round}>
+          <p className='text-center mt-3 mb-3 text-3xl'>Runda {round}</p>
+          {matchesByRound[round].map((match) => (
+            <div key={match.id} className='matchlist justify-center items-center mb-3'>
+              <div className='matchscore w-64'>
+                <label>{match.nick1}</label>
+                {isUserInMatch(match) && <input type="number" placeholder="0" id={`score1-${match.id}`} />}
+              </div>
+              <p className='mt-6 mx-2'>VS</p>
+              <div className='matchscore w-64'>
+                <label>{match.nick2}</label>
+                {isUserInMatch(match) && <input type="number" placeholder="0" id={`score2-${match.id}`} />}
+              </div>
+              {isUserInMatch(match) && (
+                <button className='h-11 mt-4 ' onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
+              )}
             </div>
           ))}
-        </>
-      )}
+        </div>
+      ))}
     </>
   );
 };
@@ -564,7 +568,26 @@ const SettingsTimetable = () => {
 };
 
 const SettingsMatches = () => {
-  return (<><h2>Mecze</h2></>);
+  return (<><h2>Mecze</h2>
+  {Object.keys(matchesByRound).map((round) => (
+            <div key={round}>
+              <p className='text-center mt-3 mb-3 text-3xl'>Runda {round}</p>
+              {matchesByRound[round].map((match) => (
+                <div key={match.id} className='matchlist justify-center items-center mb-3'>
+                  <div className='matchscore w-64'>
+                    <label>{match.nick1}</label>
+                    <input type="number" placeholder="0" id={`score1-${match.id}`} />
+                  </div>
+                  <p className='mt-6 mx-2'>VS</p>
+                  <div className='matchscore w-64'>
+                    <label>{match.nick2}</label>
+                    <input type="number" placeholder="0" id={`score2-${match.id}`} />
+                  </div>
+                  <button className='h-11 mt-4 ' onClick={() => updateMatchScore(match.id, document.getElementById(`score1-${match.id}`).value, document.getElementById(`score2-${match.id}`).value)}>Aktualizuj</button>
+                </div>
+              ))}
+            </div>
+          ))}</>);
 };
 
 const Rules = () => {
@@ -684,10 +707,10 @@ const Settings = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={``} className={activeTab === "settings" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("settings")} >
+            {isUserOrganizer ?<NavLink to={``} className={activeTab === "settings" ? activeLinkClass : inactiveLinkClass} onClick={() => handleTabChange("settings")} >
                 Ustawienia
-              </NavLink>
-            </li>
+              </NavLink> : null}
+            </li> 
           </ul>
         </div>
         {activeTab === "settings" && <Settings />}

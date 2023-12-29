@@ -7,21 +7,35 @@ export const Tournaments = () => {
   const {getGameName, getStatusName} = Functions();
   const [tournaments, setTournaments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [participantCounts, setParticipantCounts] = useState({});
 
   useEffect(() => {
-    // Funkcja do pobierania listy turniejów z API
     const fetchTournaments = async () => {
       try {
-        const response = await axios.get('/api/tournaments'); // Załóżmy, że twój endpoint to '/api/tournaments'
-        setTournaments(response.data); // Ustawienie stanu tournaments na dane otrzymane z API
+        const response = await axios.get('/api/tournaments');
+        setTournaments(response.data);
+        response.data.forEach(tournament => {
+          fetchParticipantCount(tournament.TournamentID);
+        });
       } catch (error) {
         console.error('Error fetching tournaments:', error);
-        // Można tutaj dodać obsługę błędów, np. wyświetlenie komunikatu użytkownikowi
       }
     };
 
     fetchTournaments();
   }, []);
+
+  const fetchParticipantCount = async (tournamentId) => {
+    try {
+      const response = await axios.get(`/api/tournaments/${tournamentId}/participants`);
+      setParticipantCounts(prevCounts => ({
+        ...prevCounts,
+        [tournamentId]: response.data.length
+      }));
+    } catch (error) {
+      console.error(`Error fetching participants for tournament ${tournamentId}:`, error);
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -61,7 +75,7 @@ export const Tournaments = () => {
                   <p className='m-3 text-2xl'><b>{tournament.TournamentName}</b></p>
                   <p><b>Organizator:</b> {tournament.organizer}</p>
                   <p><b>Gra:</b> {getGameName(tournament.GameID)}</p>
-                  <p><b>Liczba użytkowników:</b> 3</p>
+                  <p><b>Liczba graczy:</b> {participantCounts[tournament.TournamentID] || 'Loading...'}</p>
                   <p><b>Status: </b>{getStatusName(tournament.Status)}</p>
                   <p><b>Pula nagród: </b>{tournament.Prizepool}zł</p>
                   <Link to={`/tournament/${tournament.TournamentID}`}><button>Szczegóły</button></Link>

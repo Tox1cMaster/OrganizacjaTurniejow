@@ -6,13 +6,14 @@ import { NavbarAuth } from "./components/NavbarAuth";
 import { Home } from "./pages/Home";
 import { Games } from "./pages/Games";
 import { Tournaments } from "./pages/Tournaments";
-import { TournamentDetails } from './pages/TournamentDetails';
+import { TournamentDetails} from './pages/TournamentDetails';
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { CreateTournament } from './pages/CreateTournament';
 import { CreateGame } from './pages/CreateGame';
 import { TournamentEdit } from './pages/TournamentEdit';
 import { UserAccount } from './pages/UserAccount';
+
 import AuthUser from './components/AuthUser';
 import axios from 'axios';
 import CookieConsent from './components/CookieConsent';

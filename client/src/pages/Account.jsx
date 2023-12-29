@@ -55,37 +55,6 @@ const MyTournaments = ({ tournament }) => {
   );
 };
 
-
-
-const MyTeams = () => {
-  return (
-    <div className="container xs:mt-12 xs:text-center sm:text-left">
-      <div className=" flex justify-between items-center mb-5 xs:justify-center xs:flex-wrap md:mb-3 xs:mb-5 xs:flex-col md:flex-row">
-        <h1 className='text-white text-5xl xs:mb-10'>Twoje Drużyny</h1>
-        <Link to="/createTournament" className="rounded-md bg-orange-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600">
-          Stwórz drużyne
-        </Link>
-      </div>
-      <ul className="grid grid-cols-2 gap-4 xs:grid-cols-1">
-        <li className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
-          <div className=" items-center">
-            <h3 className="text-lg  font-semibold xs:mb-3">Nazwa Drużyny: Torpedy</h3>
-            <p className=" font-medium text-gray-600 xs:mb-3">Opis: Nasza druzyna jest fajna </p>
-          </div>
-          <p className="text-gray-600">Liczba członków: 25</p>
-        </li>
-        <li className="border bg-white border-gray-300 rounded-lg p-4 shadow-sm">
-          <div className=" items-center">
-            <h3 className="text-lg  font-semibold">Nazwa Drużyny: Torpedy</h3>
-            <p className=" font-medium text-gray-600">Opis: Nasza druzyna jest fajna </p>
-          </div>
-          <p className="text-gray-600">Liczba członków: 25</p>
-        </li>
-      </ul>
-    </div>
-  );
-};
-
 const EditProfile = () => {
   return (
     <div className="container xs:mt-12 xs:text-center">
@@ -294,15 +263,6 @@ export const Account = () => {
           </li>
           <li className="xs:text-sm mb-4">
             <Link
-              to="account/teams"
-              className={linkClass('teams')}
-              onClick={() => handleLinkClick('teams')}
-            >
-              Moje drużyny
-            </Link>
-          </li>
-          <li className="xs:text-sm mb-4">
-            <Link
               to="account/edit"
               className={linkClass('edit')}
               onClick={() => handleLinkClick('edit')}
@@ -328,7 +288,6 @@ export const Account = () => {
         <Routes>
           <Route path="account/profile" element={<ProfileInfo />} />
           <Route path="account/tournaments" element={<MyTournaments />} />
-          <Route path="account/teams" element={<MyTeams />} />
           <Route path="account/edit" element={<EditProfile />} />
         </Routes>
       </div>
