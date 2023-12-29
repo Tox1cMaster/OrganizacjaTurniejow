@@ -1,48 +1,37 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import csgo from '../assets/csgo.png';
-import gra1 from '../assets/gra1.jpg';
-import gra2 from '../assets/gra2.jpg';
-import gra3 from '../assets/gra3.jpg';
-
-
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export const Games = () => {
   const [searchGame, setSearchGame] = useState('');
-  const gamesData = [
-    {
-      title: "CS GO",
-      description: "Some quick example text for CS GO.",
-      buttonText: "Play CS GO",
-      image: csgo,
-    },
-    {
-      title: "League of Legends",
-      description: "Some quick.",
-      buttonText: "Play League of Legends",
-      image: gra1,
-    },
-    {
-      title: "EA FC 24",
-      description: "Some quick example text for EA FC 24.",
-      buttonText: "Play EA FC 24",
-      image: gra2,
-    },
-    {
-      title: "EA FC 24",
-      description: "Some quick example text for EA FC 24.",
-      buttonText: "Play EA FC 24",
-      image: gra3,
-    },
-  ];
+  const [games, setGames] = useState([]);
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get('/api/games');
+        const gamesData = response.data.map(game => ({
+          id: game.GameID,
+          title: game.GameName,
+          description: game.GameDescription,
+          buttonText: `Play ${game.GameName}`,
+          image: `../src/assets/${game.GameImage}`,
+        }));
+        setGames(gamesData);
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      }
+    };
+    fetchGames();
+  }, []);
   const handleSearchGame = (e) => {
     setSearchGame(e.target.value);
   }
 
-  const filteredGames = gamesData.filter(game =>
+  const filteredGames = games.filter(game =>
     game.title.toLowerCase().includes(searchGame.toLowerCase())
     );
 
@@ -70,15 +59,17 @@ export const Games = () => {
       <div className="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-4 mx-auto max-w-6xl mb-5 px-3">
         {filteredGames.map((game, index) => (
           <div key={index} className="box rounded-lg mb-3 hover:bg-amber-700">
-            <img className="w-full h-44 object-cover rounded-lg block m-0 p-0" src={game.image} alt="Game" />
+            <img className="w-full h-44 object-cover rounded-lg block m-0 p-0" src={game.image}  alt="Game" />
             <div className="px-6 py-4">
               <div className="font-bold text-2xl mb-2">{game.title}</div>
               <p className="text-white text-sm">{game.description}</p>
             </div>
             <div className="px-6 pt-2 pb-2">
+              <Link to={`/tournaments/${game.id}`}>
               <button className="bg-amber-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                 {game.buttonText}
               </button>
+              </Link>
             </div>
           </div>
         ))}

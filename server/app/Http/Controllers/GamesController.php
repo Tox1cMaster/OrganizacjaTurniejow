@@ -23,6 +23,8 @@ class GamesController extends Controller
     {
         $game = new Game();
         $game->GameName = $request->input('GameName');
+        $game->GameImage = $request->input('GameImage');
+        $game->GameDescription = $request->input('GameDescription');
         $game->save();
         return response()->json($game, 201);
     }

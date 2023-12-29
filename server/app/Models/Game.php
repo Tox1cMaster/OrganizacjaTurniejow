@@ -11,7 +11,7 @@ class Game extends Model
     protected $primaryKey = 'GameID'; // Ustawienie klucza głównego
 
     // Ustawienie fillable dla kolumn, które można uzupełnić masowo
-    protected $fillable = ['GameName'];
+    protected $fillable = ['GameName', 'GameImage'];
 
     // Definicja relacji z modelem User
     public function tournament()
