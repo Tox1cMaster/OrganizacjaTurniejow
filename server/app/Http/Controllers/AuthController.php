@@ -139,4 +139,48 @@ class AuthController extends Controller
         $user->matches_played = Matches::where('participant1_id', $id)->orWhere('participant2_id', $id)->count();
         return json_encode($user, 200);
     }
+
+    public function update(Request $request, $id)
+{
+    // Walidacja danych wejściowych
+    $request->validate([
+        'name' => 'required|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'required|min:6',
+        'pictureprofile' => 'nullable|image|max:1999' // przykład walidacji dla obrazu
+    ]);
+
+    try {
+        // Znajdź użytkownika po ID
+        $user = User::findOrFail($id);
+
+        // Aktualizuj dane
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password); // Haszowanie hasła przed zapisem
+
+        // Sprawdź, czy obraz profilowy został przesłany
+        if ($request->hasFile('pictureprofile')) {
+            $filenameWithExt = $request->file('pictureprofile')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('pictureprofile')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('pictureprofile')->storeAs('public/profile_pictures', $fileNameToStore);
+            
+            // Jeśli użytkownik miał wcześniej obrazek profilowy, możesz go usunąć
+            // Storage::delete('public/profile_pictures/'.$user->pictureprofile);
+
+            $user->pictureprofile = $fileNameToStore;
+        }
+
+        $user->save();
+
+        // Zwróć odpowiedź, że aktualizacja się powiodła
+        return back()->with('success', 'User updated successfully.');
+    } catch (\Exception $e) {
+        // W przypadku błędu, zwróć odpowiedź z błędem
+        return back()->with('error', 'Error updating user: ' . $e->getMessage());
+    }
+}
+
 }
